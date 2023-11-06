@@ -12,6 +12,10 @@ export const SidePanel = ({ showSidePanel }: SidePanelProps) => (
       showSidePanel ? "w-60 translate-x-0" : "w-0 -translate-x-60"
     }`}
   >
+    <h1 className="ml-4 mt-4 scroll-m-20 text-xl font-extrabold tracking-tight lg:text-xl">
+      Nibble
+    </h1>
+
     <SidePanelItem href="/" icon={<Home />} label="Home" />
     <SidePanelItem href="/exercises" icon={<Braces />} label="Exercises" />
   </div>
