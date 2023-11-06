@@ -10,6 +10,8 @@
 
 ## How to run
 
+- `cp env.example .env`
+- Add valid environment variables to `.env`
 - `pnpm install`
 - `pnpm db:push`
 - `pnpm run dev`
