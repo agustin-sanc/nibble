@@ -11,7 +11,7 @@
 ## How to run
 
 - `cp env.example .env`
-- Add valid environment variables to `.env`
+- Add valid environment variables to `.env` (ask Agustín for Clerk environment variables)
 - `pnpm install`
 - `pnpm db:push`
 - `pnpm run dev`
