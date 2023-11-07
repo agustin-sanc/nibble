@@ -26,7 +26,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <Button className="flex items-center gap-2">
+          <Button className="flex items-center gap-2" variant="outline">
             Ir a todos los trabajos <ArrowRight />
           </Button>
         </div>
@@ -81,7 +81,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <Button className="flex items-center gap-2">
+          <Button className="flex items-center gap-2" variant="outline">
             Ir a todas las unidades <ArrowRight />
           </Button>
         </div>
