@@ -20,7 +20,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       <SidePanel showSidePanel={showSidePanel} />
 
       <div className="flex flex-1 flex-col">
-        <div className="flex justify-between bg-gray-50 p-4 pl-8 pr-8 dark:bg-background">
+        <div className="flex justify-between p-4 pl-8 pr-8 dark:bg-background">
           <AlignLeft
             onClick={toggleSidePanel}
             className="cursor-pointer"
