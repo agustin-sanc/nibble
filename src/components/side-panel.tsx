@@ -8,7 +8,7 @@ type SidePanelProps = {
 
 export const SidePanel = ({ showSidePanel }: SidePanelProps) => (
   <div
-    className={`bg-highlights flex h-full flex-col border-r-2 bg-gray-50 text-gray-400 transition-all duration-100 ease-in-out ${
+    className={`bg-highlights flex h-full flex-col border-r-2 bg-gray-50 text-gray-400 transition-all duration-100 ease-in-out dark:bg-background ${
       showSidePanel ? "w-60 translate-x-0" : "w-0 -translate-x-60"
     }`}
   >

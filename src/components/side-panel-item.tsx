@@ -14,8 +14,8 @@ const SidePanelItem = ({ href, icon, label }: SidePanelItemProps) => {
   return (
     <Link href={href}>
       <div
-        className={`m-3 mb-0 flex items-center justify-between gap-2 rounded p-2 font-medium hover:bg-white ${
-          pathname === href && "bg-white text-black"
+        className={`m-3 mb-0 flex items-center justify-between gap-2 rounded p-2 font-medium hover:bg-white dark:hover:bg-gray-900 ${
+          pathname === href && "bg-white text-black dark:hover:bg-gray-200"
         }`}
       >
         <div className="flex items-center gap-2">

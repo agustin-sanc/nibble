@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { AlignLeft } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/mode-toggle";
+import { dark } from "@clerk/themes";
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   const [showSidePanel, setShowSidePanel] = useState(true);
@@ -19,7 +20,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       <SidePanel showSidePanel={showSidePanel} />
 
       <div className="flex flex-1 flex-col">
-        <div className="flex justify-between bg-gray-50 p-4 pl-8 pr-8">
+        <div className="flex justify-between bg-gray-50 p-4 pl-8 pr-8 dark:bg-background">
           <AlignLeft
             onClick={toggleSidePanel}
             className="cursor-pointer"
@@ -28,7 +29,13 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
 
           <div className="flex items-center gap-4">
             <ModeToggle />
-            <UserButton afterSignOutUrl="/" />
+
+            <UserButton
+              afterSignOutUrl="/"
+              appearance={{
+                baseTheme: dark,
+              }}
+            />
           </div>
         </div>
 
