@@ -5,6 +5,7 @@ import { SidePanel } from "@/components/side-panel";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { AlignLeft } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   const [showSidePanel, setShowSidePanel] = useState(true);
@@ -25,7 +26,10 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
             color="#374151"
           />
 
-          <UserButton afterSignOutUrl="/" />
+          <div className="flex items-center gap-4">
+            <ModeToggle />
+            <UserButton afterSignOutUrl="/" />
+          </div>
         </div>
 
         <ScrollArea>
