@@ -15,13 +15,14 @@ const SidePanelItem = ({ href, icon, label }: SidePanelItemProps) => {
     <Link href={href}>
       <div
         className={`m-3 mb-0 flex items-center justify-between gap-2 rounded p-2 font-medium hover:bg-white dark:hover:bg-gray-900 ${
-          pathname === href && "bg-white text-black dark:hover:bg-gray-200"
+          pathname === href &&
+          "bg-gray-200 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-700"
         }`}
       >
         <div className="flex items-center gap-2">
           {icon &&
             cloneElement(icon, {
-              color: pathname === href ? "#000000" : "#9CA3AF",
+              color: "#9CA3AF",
               size: 20,
             })}
 
