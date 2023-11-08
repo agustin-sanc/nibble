@@ -12,6 +12,8 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { db } from "@/server/db";
+import { clerkClient } from "@clerk/nextjs";
+import { getAuth, type User } from "@clerk/nextjs/server";
 
 /**
  * 1. CONTEXT
@@ -23,6 +25,7 @@ import { db } from "@/server/db";
 
 interface CreateContextOptions {
   headers: Headers;
+  user?: User;
 }
 
 /**
@@ -48,11 +51,13 @@ export const createInnerTRPCContext = (opts: CreateContextOptions) => {
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = (opts: { req: NextRequest }) => {
-  // Fetch stuff that depends on the request
+export const createTRPCContext = async (opts: { req: NextRequest }) => {
+  const { userId } = getAuth(opts.req);
+  const user = userId ? await clerkClient.users.getUser(userId) : undefined;
 
   return createInnerTRPCContext({
     headers: opts.req.headers,
+    user,
   });
 };
 
