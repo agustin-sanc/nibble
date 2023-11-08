@@ -31,9 +31,11 @@
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "shuffle-array": "^1.0.1",
     "superjson": "^1.13.1",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
+    "typewriter-effect": "^2.21.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -41,6 +43,7 @@
     "@types/node": "^18.16.0",
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
+    "@types/shuffle-array": "^1.0.4",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
     "autoprefixer": "^10.4.14",

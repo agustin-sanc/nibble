@@ -9,6 +9,7 @@ import {
   Layers2,
   Library,
 } from "lucide-react";
+import { MotivationalQuotes } from "@/components/motivational-quotes";
 
 export default function Home() {
   return (
@@ -16,6 +17,8 @@ export default function Home() {
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         Bienvenido a Nibble!
       </h1>
+
+      <MotivationalQuotes className="mt-3" />
 
       <div className="mt-7">
         <div className="mb-6 flex justify-between">
