@@ -7,6 +7,7 @@
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
 - [Clerk](https://clerk.com/)
+- [Jest](https://jestjs.io)
 
 ## How to run
 
