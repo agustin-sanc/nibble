@@ -13,9 +13,7 @@ export const practicesRouter = createTRPCRouter({
       }),
     ),
 
-  getAll: publicProcedure
-    .input(z.object({}))
-    .query(({ ctx }) =>
-      ctx.db.practice.findMany({ orderBy: { createdAt: "desc" } }),
-    ),
+  getAll: publicProcedure.query(({ ctx }) =>
+    ctx.db.practice.findMany({ orderBy: { createdAt: "desc" } }),
+  ),
 });

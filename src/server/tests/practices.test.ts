@@ -1,15 +1,32 @@
 import { appRouter } from "../api/root";
 import { createInnerTRPCContext } from "../api/trpc";
+import { db } from "@/server/db";
 
 describe("practices", () => {
-  test("should pass", () => {
-    const caller = appRouter.createCaller(createInnerTRPCContext());
+  beforeEach(async () => {
+    await db.practice.deleteMany({});
+  });
 
-    const practice = caller.practices.create({
-      name: "test",
-      description: "test",
+  describe("practices.create", () => {
+    it("should save practice in database", async () => {
+      const caller = appRouter.createCaller(createInnerTRPCContext());
+
+      expect(await db.practice.count()).toBe(0);
+
+      await caller.practices.create({
+        name: "test",
+        description: "test",
+      });
+
+      expect(await db.practice.count()).toBe(1);
     });
+  });
 
-    expect(practice).toBeDefined();
+  describe("practices.getAll", () => {
+    it("should return all practices", async () => {
+      const caller = appRouter.createCaller(createInnerTRPCContext());
+      const practices = await caller.practices.getAll();
+      expect(practices).toBeDefined();
+    });
   });
 });
