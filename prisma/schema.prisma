@@ -20,6 +20,16 @@ model Practice {
   @@index([name])
 }
 
+model Exercise {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([name])
+}
+
 model Post {
   id        Int      @id @default(autoincrement())
   name      String
