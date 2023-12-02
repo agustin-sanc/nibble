@@ -29,4 +29,23 @@ describe("practices", () => {
       expect(practices).toBeDefined();
     });
   });
+
+  describe("practices.delete", () => {
+    it("should delete practice in database", async () => {
+      const caller = appRouter.createCaller(createInnerTRPCContext());
+
+      const { id } = await db.practice.create({
+        data: {
+          name: "test",
+          description: "test",
+        },
+      });
+
+      expect(await db.practice.count()).toBe(1);
+
+      await caller.practices.delete(id);
+
+      expect(await db.practice.count()).toBe(0);
+    });
+  });
 });
