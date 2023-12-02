@@ -8,7 +8,7 @@ describe("posts", () => {
   });
 
   describe("posts.create", () => {
-    it("should save practice in database", async () => {
+    it("should save post in database", async () => {
       const caller = appRouter.createCaller(createInnerTRPCContext());
 
       expect(await db.post.count()).toBe(0);
@@ -22,7 +22,7 @@ describe("posts", () => {
   });
 
   describe("posts.getAll", () => {
-    it("should return all practices", async () => {
+    it("should return all posts", async () => {
       const caller = appRouter.createCaller(createInnerTRPCContext());
       const posts = await caller.posts.getAll();
       expect(posts).toBeDefined();
@@ -30,7 +30,7 @@ describe("posts", () => {
   });
 
   describe("posts.delete", () => {
-    it("should delete practice in database", async () => {
+    it("should delete post in database", async () => {
       const caller = appRouter.createCaller(createInnerTRPCContext());
 
       const { id } = await db.post.create({
