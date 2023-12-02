@@ -38,9 +38,9 @@ interface CreateContextOptions {
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
-export const createInnerTRPCContext = (opts: CreateContextOptions) => {
+export const createInnerTRPCContext = (opts?: CreateContextOptions) => {
   return {
-    headers: opts.headers,
+    headers: opts?.headers,
     db,
   };
 };

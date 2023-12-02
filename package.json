@@ -13,6 +13,9 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.23.5",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
     "@clerk/nextjs": "^4.26.2",
     "@clerk/themes": "^1.7.9",
     "@prisma/client": "^5.1.1",
