@@ -4,6 +4,7 @@ import { db } from "@/server/db";
 
 describe("practices", () => {
   beforeEach(async () => {
+    await db.exercise.deleteMany({});
     await db.practice.deleteMany({});
   });
 

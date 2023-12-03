@@ -5,7 +5,11 @@ import { createTRPCRouter, publicProcedure } from "../../api/trpc";
 export const exercisesRouter = createTRPCRouter({
   create: publicProcedure
     .input(
-      z.object({ name: z.string().min(1), description: z.string().min(1) }),
+      z.object({
+        name: z.string().min(1),
+        description: z.string().min(1),
+        practiceId: z.number(),
+      }),
     )
     .mutation(({ ctx, input }) =>
       ctx.db.exercise.create({

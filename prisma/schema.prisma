@@ -11,11 +11,12 @@ datasource db {
 }
 
 model Practice {
-  id          Int      @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   name        String
   description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  exercises   Exercise[]
 
   @@index([name])
 }
@@ -26,6 +27,9 @@ model Exercise {
   description String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  practice   Practice? @relation(fields: [practiceId], references: [id])
+  practiceId Int?
 
   @@index([name])
 }
