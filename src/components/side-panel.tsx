@@ -25,7 +25,7 @@ export const SidePanel = ({ showSidePanel }: SidePanelProps) => (
     />
 
     <SidePanelItem
-      href="/practices"
+      href="/theories"
       icon={<Library />}
       label="Unidades teóricas"
     />
