@@ -15,4 +15,5 @@
 - Add valid environment variables to `.env` (ask Agustín for Clerk environment variables)
 - `pnpm install`
 - `pnpm db:push`
-- `pnpm run dev`
+- `pnpm run dev` to start app
+- `pnpm run test` to run tests
