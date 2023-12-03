@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -44,10 +44,15 @@ model Tag {
   @@index([name])
 }
 
+enum TestType {
+  BLACK
+  GREY
+}
+
 model Test {
-  id     Int    @id @default(autoincrement())
-  input  String
-  output String
+  id   Int      @id @default(autoincrement())
+  type TestType
+  data Json
 
   exercise   Exercise? @relation(fields: [exerciseId], references: [id])
   exerciseId Int?
