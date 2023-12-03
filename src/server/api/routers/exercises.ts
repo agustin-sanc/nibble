@@ -13,6 +13,7 @@ export const exercisesRouter = createTRPCRouter({
         tests: z
           .array(
             z.object({
+              // TODO: Add validation for data based on type.
               type: z.enum(["BLACK_BOX", "GRAY_BOX"]),
               data: z.object({
                 batchInput: z.array(z.any()),
