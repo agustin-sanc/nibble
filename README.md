@@ -17,3 +17,7 @@
 - `pnpm db:push`
 - `pnpm run dev` to start app
 - `pnpm run test` to run tests
+
+## Another notes
+
+- If you change the database schema, run the command `pnpm db:push` to update the database from root folder
