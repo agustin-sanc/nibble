@@ -146,6 +146,64 @@ describe("exercises", () => {
       expect(exercise.tests.length).toBe(2);
     });
 
+    it("should save complete json test data in database", async () => {
+      const caller = appRouter.createCaller(createInnerTRPCContext());
+
+      const practice = await db.practice.create({
+        data: {
+          name: "test",
+          description: "test",
+        },
+      });
+
+      const { id } = await caller.exercises.create({
+        name: "test",
+        description: "test",
+        practiceId: practice.id,
+        tests: [
+          {
+            type: "BLACK_BOX",
+            data: {
+              batchInput: ["test"],
+              batchOutput: ["test"],
+            },
+          },
+          {
+            type: "GRAY_BOX",
+            data: {
+              batchInput: ["test"],
+              batchOutput: ["test"],
+              functionArgs: ["test"],
+              functionName: "test",
+              functionResponse: "test",
+            },
+          },
+        ],
+      });
+
+      const exercise = await db.exercise.findUniqueOrThrow({
+        where: {
+          id,
+        },
+        include: {
+          tests: true,
+        },
+      });
+
+      expect(exercise.tests[0].data).toEqual({
+        batchInput: ["test"],
+        batchOutput: ["test"],
+      });
+
+      expect(exercise.tests[1].data).toEqual({
+        batchInput: ["test"],
+        batchOutput: ["test"],
+        functionArgs: ["test"],
+        functionName: "test",
+        functionResponse: "test",
+      });
+    });
+
     it("should save empty tags array if no tags are provided", async () => {
       const caller = appRouter.createCaller(createInnerTRPCContext());
 
