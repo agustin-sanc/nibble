@@ -4,7 +4,9 @@ import { db } from "@/server/db";
 
 describe("exercises", () => {
   beforeEach(async () => {
+    await db.tag.deleteMany({});
     await db.exercise.deleteMany({});
+    await db.practice.deleteMany({});
   });
 
   describe("exercises.create", () => {
@@ -67,6 +69,85 @@ describe("exercises", () => {
           practiceId: 123,
         }),
       ).rejects.toThrow();
+    });
+
+    it("should add tags to exercise", async () => {
+      const caller = appRouter.createCaller(createInnerTRPCContext());
+
+      const practice = await db.practice.create({
+        data: {
+          name: "test",
+          description: "test",
+        },
+      });
+
+      const { id } = await caller.exercises.create({
+        name: "test",
+        description: "test",
+        practiceId: practice.id,
+        tags: ["functions"],
+      });
+
+      const exercise = await db.exercise.findUniqueOrThrow({
+        where: {
+          id,
+        },
+        include: {
+          tags: true,
+        },
+      });
+
+      expect(exercise.tags.length).toBe(1);
+    });
+
+    it("should create tags if they don't exist", async () => {
+      const caller = appRouter.createCaller(createInnerTRPCContext());
+
+      const practice = await db.practice.create({
+        data: {
+          name: "test",
+          description: "test",
+        },
+      });
+
+      expect(await db.tag.count()).toBe(0);
+
+      await caller.exercises.create({
+        name: "test",
+        description: "test",
+        practiceId: practice.id,
+        tags: ["functions"],
+      });
+
+      expect(await db.tag.count()).toBe(1);
+    });
+
+    it("should not create tags if they exist", async () => {
+      const caller = appRouter.createCaller(createInnerTRPCContext());
+
+      const practice = await db.practice.create({
+        data: {
+          name: "test",
+          description: "test",
+        },
+      });
+
+      await db.tag.create({
+        data: {
+          name: "functions",
+        },
+      });
+
+      expect(await db.tag.count()).toBe(1);
+
+      await caller.exercises.create({
+        name: "test",
+        description: "test",
+        practiceId: practice.id,
+        tags: ["functions"],
+      });
+
+      expect(await db.tag.count()).toBe(1);
     });
   });
 

@@ -9,11 +9,20 @@ export const exercisesRouter = createTRPCRouter({
         name: z.string().min(1),
         description: z.string().min(1),
         practiceId: z.number(),
+        tags: z.array(z.string().min(1)).optional(),
       }),
     )
     .mutation(({ ctx, input }) =>
       ctx.db.exercise.create({
-        data: input,
+        data: {
+          ...input,
+          tags: {
+            connectOrCreate: input.tags?.map((name) => ({
+              where: { name },
+              create: { name },
+            })),
+          },
+        },
       }),
     ),
 

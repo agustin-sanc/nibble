@@ -30,6 +30,15 @@ model Exercise {
 
   practice   Practice? @relation(fields: [practiceId], references: [id])
   practiceId Int?
+  tags       Tag[]     @relation("ExerciseToTag")
+
+  @@index([name])
+}
+
+model Tag {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  exercises Exercise[] @relation("ExerciseToTag")
 
   @@index([name])
 }
