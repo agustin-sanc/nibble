@@ -71,6 +71,100 @@ describe("exercises", () => {
       ).rejects.toThrow();
     });
 
+    it("should save empty tests array if no tests are provided", async () => {
+      const caller = appRouter.createCaller(createInnerTRPCContext());
+
+      const practice = await db.practice.create({
+        data: {
+          name: "test",
+          description: "test",
+        },
+      });
+
+      const { id } = await caller.exercises.create({
+        name: "test",
+        description: "test",
+        practiceId: practice.id,
+      });
+
+      const exercise = await db.exercise.findUniqueOrThrow({
+        where: {
+          id,
+        },
+        include: {
+          tests: true,
+        },
+      });
+
+      expect(exercise.tests.length).toBe(0);
+    });
+
+    it("should save tests in database", async () => {
+      const caller = appRouter.createCaller(createInnerTRPCContext());
+
+      const practice = await db.practice.create({
+        data: {
+          name: "test",
+          description: "test",
+        },
+      });
+
+      const { id } = await caller.exercises.create({
+        name: "test",
+        description: "test",
+        practiceId: practice.id,
+        tests: [
+          {
+            input: "test",
+            output: "test",
+          },
+          {
+            input: "test",
+            output: "test",
+          },
+        ],
+      });
+
+      const exercise = await db.exercise.findUniqueOrThrow({
+        where: {
+          id,
+        },
+        include: {
+          tests: true,
+        },
+      });
+
+      expect(exercise.tests.length).toBe(2);
+    });
+
+    it("should save empty tags array if no tags are provided", async () => {
+      const caller = appRouter.createCaller(createInnerTRPCContext());
+
+      const practice = await db.practice.create({
+        data: {
+          name: "test",
+          description: "test",
+        },
+      });
+
+      const { id } = await caller.exercises.create({
+        name: "test",
+        description: "test",
+        practiceId: practice.id,
+      });
+
+      const exercise = await db.exercise.findUniqueOrThrow({
+        where: {
+          id,
+        },
+        include: {
+          tags: true,
+        },
+      });
+
+      expect(exercise.tags.length).toBe(0);
+    });
+
     it("should add tags to exercise", async () => {
       const caller = appRouter.createCaller(createInnerTRPCContext());
 

@@ -10,6 +10,14 @@ export const exercisesRouter = createTRPCRouter({
         description: z.string().min(1),
         practiceId: z.number(),
         tags: z.array(z.string().min(1)).optional(),
+        tests: z
+          .array(
+            z.object({
+              input: z.string().min(1),
+              output: z.string().min(1),
+            }),
+          )
+          .optional(),
       }),
     )
     .mutation(({ ctx, input }) =>
@@ -22,6 +30,7 @@ export const exercisesRouter = createTRPCRouter({
               create: { name },
             })),
           },
+          tests: { create: input.tests },
         },
       }),
     ),
