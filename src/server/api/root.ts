@@ -1,5 +1,5 @@
 import { practicesRouter } from "@/server/api/routers/practices";
-import { postsRouter } from "@/server/api/routers/posts";
+import { theoriesRouter } from "@/server/api/routers/theories";
 import { createTRPCRouter } from "@/server/api/trpc";
 import { exercisesRouter } from "@/server/api/routers/exercises";
 
@@ -10,7 +10,7 @@ import { exercisesRouter } from "@/server/api/routers/exercises";
  */
 export const appRouter = createTRPCRouter({
   practices: practicesRouter,
-  posts: postsRouter,
+  theories: theoriesRouter,
   exercises: exercisesRouter,
 });
 
