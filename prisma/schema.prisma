@@ -45,8 +45,8 @@ model Tag {
 }
 
 enum TestType {
-  BLACK
-  GREY
+  BLACK_BOX
+  GRAY_BOX
 }
 
 model Test {

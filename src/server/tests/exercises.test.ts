@@ -115,12 +115,21 @@ describe("exercises", () => {
         practiceId: practice.id,
         tests: [
           {
-            input: "test",
-            output: "test",
+            type: "BLACK_BOX",
+            data: {
+              batchInput: ["test"],
+              batchOutput: ["test"],
+            },
           },
           {
-            input: "test",
-            output: "test",
+            type: "GRAY_BOX",
+            data: {
+              batchInput: ["test"],
+              batchOutput: ["test"],
+              functionArgs: ["test"],
+              functionName: "test",
+              functionResponse: "test",
+            },
           },
         ],
       });

@@ -13,8 +13,14 @@ export const exercisesRouter = createTRPCRouter({
         tests: z
           .array(
             z.object({
-              input: z.string().min(1),
-              output: z.string().min(1),
+              type: z.enum(["BLACK_BOX", "GRAY_BOX"]),
+              data: z.object({
+                batchInput: z.array(z.any()),
+                batchOutput: z.array(z.any()),
+                functionArgs: z.array(z.any()).optional(),
+                functionResponse: z.any().optional(),
+                functionName: z.string().optional(),
+              }),
             }),
           )
           .optional(),
