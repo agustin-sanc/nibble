@@ -9,6 +9,7 @@
 - [tRPC](https://trpc.io)
 - [Clerk](https://clerk.com/)
 - [Jest](https://jestjs.io)
+- [Shadcn](https://ui.shadcn.com/)
 
 ## How to run
 
