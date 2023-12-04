@@ -10,6 +10,24 @@ import {
   Library,
 } from "lucide-react";
 import { MotivationalQuotes } from "@/components/motivational-quotes";
+import { PracticeCard } from "@/components/practice-card";
+
+const practices = [
+  {
+    id: 1,
+    name: "Arrays",
+    description:
+      "Los arrays son variables estructuradas, donde cada elemento se almacena de forma consecutiva en memoria. Las cadenas de caracteres son declaradas en C como arrays de caracteres y permiten la utilización de un cierto número de notaciones y de funciones especiales.",
+    exercises: [],
+  },
+  {
+    id: 2,
+    name: "Funciones",
+    description:
+      "Las funciones son un conjunto de instrucciones que realizan una tarea específica. Se utilizan para dividir un programa en módulos más pequeños y organizados. Además, las funciones hacen que el código sea más fácil de probar, depurar y mantener.",
+    exercises: [],
+  },
+];
 
 export default function Home() {
   return (
@@ -25,7 +43,7 @@ export default function Home() {
           <div className="flex items-center">
             <Layers2 size={30} />
             <h2 className="ml-3 text-3xl font-semibold">
-              Nuevos trabajos prácticos
+              Últimos trabajos prácticos
             </h2>
           </div>
 
@@ -35,43 +53,9 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <div className="rounded border p-4">
-            <div className="mb-4 flex items-center">
-              <Binary />
-              <h2 className="ml-2 text-xl font-bold">Arrays</h2>
-            </div>
-
-            <p className="pb-5 text-sm">
-              Los arrays son variables estructuradas, donde cada elemento se
-              almacena de forma consecutiva en memoria. Las cadenas de
-              caracteres son declaradas en C como arrays de caracteres y
-              permiten la utilización de un cierto número de notaciones y de
-              funciones especiales.
-            </p>
-
-            <Button className="flex items-center gap-2">
-              Resolver <Laptop />
-            </Button>
-          </div>
-
-          <div className="rounded border p-4">
-            <div className="mb-4 flex items-center">
-              <Binary />
-              <h2 className="ml-2 text-xl font-bold">Funciones</h2>
-            </div>
-
-            <p className="pb-5 text-sm">
-              Los arrays son variables estructuradas, donde cada elemento se
-              almacena de forma consecutiva en memoria. Las cadenas de
-              caracteres son declaradas en C como arrays de caracteres y
-              permiten la utilización de un cierto número de notaciones y de
-              funciones especiales.
-            </p>
-
-            <Button className="flex items-center gap-2">
-              Resolver <Laptop />
-            </Button>
-          </div>
+          {practices.map((practice) => (
+            <PracticeCard practice={practice} />
+          ))}
         </div>
       </div>
 
@@ -80,7 +64,7 @@ export default function Home() {
           <div className="flex items-center">
             <Library size={30} />
             <h2 className="ml-3 text-3xl font-semibold">
-              Nuevas unidades teóricas
+              Últimas unidades teóricas
             </h2>
           </div>
 
