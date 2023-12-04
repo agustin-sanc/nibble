@@ -1,33 +1,8 @@
-import MainLayout from "@/components/main-layout";
+import MainLayout from "@/components/ui/main-layout";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowRight,
-  Binary,
-  BookText,
-  Eye,
-  Laptop,
-  Layers2,
-  Library,
-} from "lucide-react";
-import { MotivationalQuotes } from "@/components/motivational-quotes";
-import { PracticeCard } from "@/components/practice-card";
-
-const practices = [
-  {
-    id: 1,
-    name: "Arrays",
-    description:
-      "Los arrays son variables estructuradas, donde cada elemento se almacena de forma consecutiva en memoria. Las cadenas de caracteres son declaradas en C como arrays de caracteres y permiten la utilización de un cierto número de notaciones y de funciones especiales.",
-    exercises: [],
-  },
-  {
-    id: 2,
-    name: "Funciones",
-    description:
-      "Las funciones son un conjunto de instrucciones que realizan una tarea específica. Se utilizan para dividir un programa en módulos más pequeños y organizados. Además, las funciones hacen que el código sea más fácil de probar, depurar y mantener.",
-    exercises: [],
-  },
-];
+import { ArrowRight, BookText, Eye, Library } from "lucide-react";
+import { MotivationalQuotes } from "@/components/ui/motivational-quotes";
+import { NewestPractices } from "@/components/practices/newest-practices";
 
 export default function Home() {
   return (
@@ -37,27 +12,7 @@ export default function Home() {
       </h1>
 
       <MotivationalQuotes className="mt-3" />
-
-      <div className="mt-7">
-        <div className="mb-6 flex justify-between">
-          <div className="flex items-center">
-            <Layers2 size={30} />
-            <h2 className="ml-3 text-3xl font-semibold">
-              Últimos trabajos prácticos
-            </h2>
-          </div>
-
-          <Button className="flex items-center gap-2" variant="outline">
-            Ir a todos los trabajos <ArrowRight />
-          </Button>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          {practices.map((practice) => (
-            <PracticeCard practice={practice} />
-          ))}
-        </div>
-      </div>
+      <NewestPractices className="mt-7" />
 
       <div className="mb-5 mt-7">
         <div className="mb-6 flex justify-between">

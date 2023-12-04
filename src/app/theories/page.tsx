@@ -1,4 +1,4 @@
-import MainLayout from "@/components/main-layout";
+import MainLayout from "@/components/ui/main-layout";
 import { BookText, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 

@@ -3,11 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { Practice, Exercise } from "@prisma/client";
 
-export const PracticeCard = ({
-  practice,
-}: {
-  practice: Practice & { exercises: Exercise[] };
-}) => (
+type CompletePractice = Practice & { exercises: Exercise[] };
+
+export const PracticeCard = ({ practice }: { practice: CompletePractice }) => (
   <div className="rounded border p-4">
     <div className="mb-4 flex items-center justify-between">
       <div className="flex items-center">

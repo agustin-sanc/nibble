@@ -1,5 +1,5 @@
 import React from "react";
-import SidePanelItem from "@/components/side-panel-item";
+import SidePanelItem from "@/components/ui/side-panel-item";
 import { Home, Layers2, Library, LineChart } from "lucide-react";
 
 type SidePanelProps = {

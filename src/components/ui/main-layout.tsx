@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, type ReactNode } from "react";
-import { SidePanel } from "@/components/side-panel";
+import { SidePanel } from "@/components/ui/side-panel";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { AlignLeft } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
-import { ModeToggle } from "@/components/mode-toggle";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 import { dark } from "@clerk/themes";
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
