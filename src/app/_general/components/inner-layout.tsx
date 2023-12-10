@@ -65,9 +65,9 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
 
         <UserButton
           afterSignOutUrl="/"
-          // appearance={{
-          //   baseTheme: dark,
-          // }}
+          appearance={{
+            baseTheme: dark,
+          }}
         />
       </div>
     </div>
