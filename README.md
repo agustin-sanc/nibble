@@ -47,8 +47,10 @@ docker run --name nibble -e POSTGRES_PASSWORD=1234 -e POSTGRES_DB=nibble -d -p 5
 
 - If you want to reset the database, run the command `pnpm db:reset`, and then run `pnpm db:push`. Optionally, you can run `pnpm db:seed` to generate data.
 
-- In order to assign professor permissions to a user, you have to search the user in Clerk dashboard, and add the following property to the user public metadata. 
+- In order to assign professor permissions to a user, you have to search the user in Clerk dashboard, and assign the following public metadata. 
 
 ```json
-isProfessor: true
+{
+  "isProfessor": true
+}
 ```
