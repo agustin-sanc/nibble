@@ -2,11 +2,27 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.practice.create({
+  const practice = await prisma.practice.create({
     data: {
-      name: "Practice 1",
-      description: "Practice 1 description",
+      name: "Programación dinámica",
+      description:
+        "La programación dinámica es un método para reducir el tiempo de ejecución de un algoritmo mediante el almacenamiento de resultados de subproblemas calculados previamente.",
     },
+  });
+
+  await prisma.exercise.createMany({
+    data: [
+      {
+        name: "Exercise 1",
+        description: "Exercise 1 description",
+        practiceId: practice.id,
+      },
+      {
+        name: "Exercise 2",
+        description: "Exercise 2 description",
+        practiceId: practice.id,
+      },
+    ],
   });
 }
 
