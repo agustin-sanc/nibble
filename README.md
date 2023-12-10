@@ -1,5 +1,17 @@
 # Nibble
 
+Nibble is a platform for programming courses that allows students to learn by doing, help teachers to automate the evaluation process and provide a better learning experience for students because they don't have to wait for the teacher to evaluate their work. Nibble also generates reports so teachers can have a better understanding of their students' progress and necessities.
+
+## System architecture
+
+Nibble is divided in two subsystems: the evaluator and the web platform that students and teachers use.
+
+- The evaluator is a Python application that runs in a server and evaluates the students' code.
+
+- The web platform is a Next.js application that runs in a server and allows students and teachers to interact with the system.
+
+This is the repository for the web platform.
+
 ## Tech stack
 - [Next.js](https://nextjs.org)
 - [Prisma](https://prisma.io)
