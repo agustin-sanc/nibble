@@ -16,39 +16,47 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
 
   const LeftSection = () => (
     <SidePanel showSidePanel={showSidePanel}>
-      <SidePanelItem
-        href={user?.publicMetadata.isProfessor ? "/professors" : "/students"}
-        icon={<Home />}
-        label="Inicio"
-      />
+      <div className="flex h-full flex-col justify-between">
+        <div>
+          <SidePanelItem
+            href={
+              user?.publicMetadata.isProfessor ? "/professors" : "/students"
+            }
+            icon={<Home />}
+            label="Inicio"
+          />
 
-      <SidePanelItem
-        href={
-          user?.publicMetadata.isProfessor
-            ? "/professors/practices"
-            : "/students/practices"
-        }
-        icon={<Layers2 />}
-        label="Trabajos prácticos"
-      />
+          <SidePanelItem
+            href={
+              user?.publicMetadata.isProfessor
+                ? "/professors/practices"
+                : "/students/practices"
+            }
+            icon={<Layers2 />}
+            label="Trabajos prácticos"
+          />
 
-      <SidePanelItem
-        href={
-          user?.publicMetadata.isProfessor
-            ? "/professors/theories"
-            : "/students/theories"
-        }
-        icon={<Library />}
-        label="Unidades teóricas"
-      />
+          <SidePanelItem
+            href={
+              user?.publicMetadata.isProfessor
+                ? "/professors/theories"
+                : "/students/theories"
+            }
+            icon={<Library />}
+            label="Unidades teóricas"
+          />
 
-      {user?.publicMetadata.isProfessor === true && (
-        <SidePanelItem
-          href="/professors/reports"
-          icon={<LineChart />}
-          label="Reportes"
-        />
-      )}
+          {user?.publicMetadata.isProfessor === true && (
+            <SidePanelItem
+              href="/professors/reports"
+              icon={<LineChart />}
+              label="Reportes"
+            />
+          )}
+        </div>
+
+        <ModeToggle />
+      </div>
     </SidePanel>
   );
 
@@ -81,7 +89,7 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
 
   const RightSection = () => (
     <div className="flex flex-1 flex-col">
-      <TopSection />
+      {/*<TopSection />*/}
       <MainSection />
     </div>
   );
