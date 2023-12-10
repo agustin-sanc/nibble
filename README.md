@@ -1,14 +1,11 @@
 # Nibble
 
 ## Tech stack
-- [T3 Stack](https://create.t3.gg/)
 - [Next.js](https://nextjs.org)
 - [Prisma](https://prisma.io)
 - [PostgreSQL](https://postgresql.org)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
 - [Clerk](https://clerk.com/)
-- [Jest](https://jestjs.io)
+- [Tailwind CSS](https://tailwindcss.com)
 - [Shadcn](https://ui.shadcn.com/)
 
 ## How to run
