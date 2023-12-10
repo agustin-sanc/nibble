@@ -10,7 +10,7 @@ import { dark } from "@clerk/themes";
 import SidePanelItem from "@/app/_general/components/side-panel-item";
 import { Home, Layers2, Library, LineChart } from "lucide-react";
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const InnerLayout = ({ children }: { children: ReactNode }) => {
   const { user } = useUser();
   const [showSidePanel, setShowSidePanel] = useState(true);
 
@@ -80,4 +80,4 @@ const Layout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default Layout;
+export default InnerLayout;
