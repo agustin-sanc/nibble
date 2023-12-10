@@ -24,7 +24,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider appearance={{ baseTheme: dark }} localization={esES}>
+    <ClerkProvider
+      // appearance={{ baseTheme: dark }}
+      localization={esES}
+    >
       <html lang="es">
         <body className={`font-sans ${inter.variable}`}>
           <ThemeProvider
