@@ -23,7 +23,7 @@ This is the repository for the web platform.
 ## How to run the project
 
 ### 1. Setup database
-Run the following command to create the PostgreSQL database:
+Run the following command to create the PostgreSQL database using Docker.
 
 ```
 docker run --name nibble -e POSTGRES_PASSWORD=1234 -e POSTGRES_DB=nibble -d -p 5432:5432 postgres
@@ -34,6 +34,8 @@ docker run --name nibble -e POSTGRES_PASSWORD=1234 -e POSTGRES_DB=nibble -d -p 5
 - Go to the root folder in your terminal
 - Generate the `.env` file running the following command `cp .env.example .env`
 - Add valid environment variables to `.env` (ask Agustín for Clerk environment variables or generate your own Clerk project)
+- Use Node.js version `18.16.0`. If you use nvm, run `nvm use` to use the correct version. Later, maybe we create a Docker container to run this web application
+- Install [pnpm](https://pnpm.io/) globally, if you don't have it already
 - Run `pnpm install` to install dependencies
 - Run `pnpm db:push` to push database schema
 - Run `pnpm db:seed` to seed database 
