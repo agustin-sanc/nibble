@@ -25,7 +25,9 @@ This is the repository for the web platform.
 ### 1. Setup database
 Run the following command to create the PostgreSQL database:
 
-```docker run --name nibble -e POSTGRES_PASSWORD=1234 -e POSTGRES_DB=nibble -d -p 5432:5432 postgres```
+```
+docker run --name nibble -e POSTGRES_PASSWORD=1234 -e POSTGRES_DB=nibble -d -p 5432:5432 postgres
+```
 
 ### 2. Setup code project
 - Clone this repo into your local machine
