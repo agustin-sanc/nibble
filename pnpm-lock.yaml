@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@babel/preset-env':
     specifier: ^7.23.5
@@ -10,6 +14,9 @@ dependencies:
   '@babel/preset-typescript':
     specifier: ^7.23.3
     version: 7.23.3(@babel/core@7.23.5)
+  '@clerk/localizations':
+    specifier: ^1.26.10
+    version: 1.26.10(react@18.2.0)
   '@clerk/nextjs':
     specifier: ^4.26.2
     version: 4.26.2(next@14.0.0)(react-dom@18.2.0)(react@18.2.0)
@@ -1473,6 +1480,16 @@ packages:
       - react
     dev: false
 
+  /@clerk/localizations@1.26.10(react@18.2.0):
+    resolution: {integrity: sha512-NTzoQvwkn84/FqHnlqv4tdXhpR9vvud+jf4ff4tMlD4DC92jCMlTsoEoVeJXVctuniG+d8KrZ+BE4n2wAmLrwA==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      '@clerk/types': 3.58.0
+      react: 18.2.0
+    dev: false
+
   /@clerk/nextjs@4.26.2(next@14.0.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-L2tEG1RfzOqkh99+U4+AK/yn2JfOkauRacDyUcXRFQl5tnV99n+XqIt84cgDNm++8DBFUhsGPO7OF3xtxygoPg==}
     engines: {node: '>=14'}
@@ -1518,6 +1535,13 @@ packages:
 
   /@clerk/types@3.57.1:
     resolution: {integrity: sha512-x7eIEwEf3S/vvhBPt6gyojtiKInpM5EF03OUUib3eDwDvuSxAjf55K553yZkclbJ+LOLmIdonuSDaOrKvyhwKw==}
+    engines: {node: '>=14'}
+    dependencies:
+      csstype: 3.1.1
+    dev: false
+
+  /@clerk/types@3.58.0:
+    resolution: {integrity: sha512-fIsvEM3nYQwViOuYxNVcwEl0WkXW6AdYpSghNBKfOge1kriSSHP++T5rRMJBXy6asl2AEydVlUBKx9drAzqKoA==}
     engines: {node: '>=14'}
     dependencies:
       csstype: 3.1.1
@@ -7621,7 +7645,3 @@ packages:
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
