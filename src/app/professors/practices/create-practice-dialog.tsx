@@ -10,11 +10,14 @@ import {
 import { Input } from "@/app/_general/components/input";
 import { Label } from "@/app/_general/components/label";
 import { Textarea } from "@/app/_general/components/text-area";
+import { FileCode2 } from "lucide-react";
 
 export const CreatePracticeDialog = () => (
   <Dialog>
     <DialogTrigger asChild>
-      <Button>Crear</Button>
+      <Button className="items-center gap-2">
+        <FileCode2 /> Crear trabajo práctico
+      </Button>
     </DialogTrigger>
 
     <DialogContent className="sm:max-w-[425px]">

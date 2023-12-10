@@ -18,8 +18,8 @@ export const PracticeCard = ({ practice }: { practice: CompletePractice }) => (
 
     <p className="pb-5 text-sm">{practice.description}</p>
 
-    <Button className="flex items-center gap-2">
-      Resolver <Laptop />
+    <Button className="flex items-center gap-2" variant="outline">
+      <Laptop /> Resolver
     </Button>
   </div>
 );
