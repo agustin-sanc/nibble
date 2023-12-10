@@ -28,3 +28,5 @@ Run the following command to create the PostgreSQL database: `docker run --name 
 - If you change the database schema, run the command `pnpm db:push` to update the database.
 
 - If you want to reset the database, run the command `pnpm db:reset`.
+
+- In order to assign professor permissions to a user, you have to search the user in Clerk dashboard, and add the following property to the user public metadata: `isProfessor: true`.
