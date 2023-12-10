@@ -6,7 +6,7 @@ type PracticesGridProps = {
 };
 
 export const PracticesGrid = ({ practices }: PracticesGridProps) => (
-  <div className="mt-6 grid grid-cols-2 gap-4">
+  <div className="mt-6">
     {practices?.length === 0 ? (
       <p>No hay trabajos prácticos para mostrar.</p>
     ) : (

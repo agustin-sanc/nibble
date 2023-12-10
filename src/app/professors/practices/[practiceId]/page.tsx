@@ -1,6 +1,6 @@
 import { prisma } from "@/prisma";
-import InnerLayout from "@/app/_general/components/inner-layout";
 import { Header2, Header3 } from "@/app/_general/components/typography";
+import InnerLayout from "@/app/_general/components/inner-layout";
 
 export default async function Practice({
   params: { practiceId },
