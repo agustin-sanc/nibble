@@ -1,21 +1,18 @@
-import { prisma } from "@/prisma";
 import { PracticeCard } from "@/app/_general/components/practices/practice-card";
+import type { Exercise, Practice } from "@prisma/client";
 
-export const PracticesGrid = async () => {
-  const practices = await prisma.practice.findMany({
-    orderBy: { createdAt: "desc" },
-    include: { exercises: true },
-  });
-
-  return (
-    <div className="mt-6 grid grid-cols-2 gap-4">
-      {practices?.length === 0 ? (
-        <p>No hay trabajos prácticos para mostrar.</p>
-      ) : (
-        practices?.map((practice) => (
-          <PracticeCard key={practice.id} practice={practice} />
-        ))
-      )}
-    </div>
-  );
+type PracticesGridProps = {
+  practices: (Practice & { exercises: Exercise[] })[];
 };
+
+export const PracticesGrid = ({ practices }: PracticesGridProps) => (
+  <div className="mt-6 grid grid-cols-2 gap-4">
+    {practices?.length === 0 ? (
+      <p>No hay trabajos prácticos para mostrar.</p>
+    ) : (
+      practices?.map((practice) => (
+        <PracticeCard key={practice.id} practice={practice} />
+      ))
+    )}
+  </div>
+);
