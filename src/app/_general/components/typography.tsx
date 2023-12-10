@@ -19,3 +19,9 @@ export const Header2 = ({
     {children}
   </h2>
 );
+
+export const Header3 = ({ children }: { children: ReactNode }) => (
+  <h3 className="mt-5 scroll-m-20 text-2xl font-semibold tracking-tight">
+    {children}
+  </h3>
+);
