@@ -2,6 +2,7 @@ import { ArrowRight, Layers2 } from "lucide-react";
 import { Button } from "@/app/_general/components/button";
 import { prisma } from "@/prisma";
 import { TheoryCard } from "@/app/_general/components/theories/theory-card";
+import { Header2 } from "@/app/_general/components/typography";
 
 export const NewestTheories = async ({ className }: { className: string }) => {
   const theories = await prisma.theory.findMany({
@@ -11,13 +12,10 @@ export const NewestTheories = async ({ className }: { className: string }) => {
 
   return (
     <div className={className}>
-      <div className="mb-6 flex justify-between">
+      <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center">
           <Layers2 size={30} />
-
-          <h2 className="ml-3 text-3xl font-semibold">
-            Últimas unidades teóricas
-          </h2>
+          <Header2 className="ml-2 mt-2">Últimas unidades teóricas</Header2>
         </div>
 
         <Button className="flex items-center gap-2" variant="outline">
