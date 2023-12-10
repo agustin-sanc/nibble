@@ -14,68 +14,82 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
   const { user } = useUser();
   const [showSidePanel, setShowSidePanel] = useState(true);
 
+  const LeftSection = () => (
+    <SidePanel showSidePanel={showSidePanel}>
+      <SidePanelItem
+        href={user?.publicMetadata.isProfessor ? "/professors" : "/students"}
+        icon={<Home />}
+        label="Inicio"
+      />
+
+      <SidePanelItem
+        href={
+          user?.publicMetadata.isProfessor
+            ? "/professors/practices"
+            : "/students/practices"
+        }
+        icon={<Layers2 />}
+        label="Trabajos prácticos"
+      />
+
+      <SidePanelItem
+        href={
+          user?.publicMetadata.isProfessor
+            ? "/professors/theories"
+            : "/students/theories"
+        }
+        icon={<Library />}
+        label="Unidades teóricas"
+      />
+
+      {user?.publicMetadata.isProfessor === true && (
+        <SidePanelItem
+          href="/professors/reports"
+          icon={<LineChart />}
+          label="Reportes"
+        />
+      )}
+    </SidePanel>
+  );
+
+  const TopSection = () => (
+    <div className="flex justify-between p-4 pl-8 pr-8 dark:bg-background">
+      <AlignLeft
+        onClick={() => setShowSidePanel(!showSidePanel)}
+        className="cursor-pointer"
+        color="#374151"
+      />
+
+      <div className="flex items-center gap-4">
+        <ModeToggle />
+
+        <UserButton
+          afterSignOutUrl="/"
+          appearance={{
+            baseTheme: dark,
+          }}
+        />
+      </div>
+    </div>
+  );
+
+  const MainSection = () => (
+    <ScrollArea>
+      <div className="mt-7 flex-1 pl-8 pr-8">{children}</div>
+    </ScrollArea>
+  );
+
+  const RightSection = () => (
+    <div className="flex flex-1 flex-col">
+      <TopSection />
+      <MainSection />
+    </div>
+  );
+
   return (
     <div className="flex h-screen">
-      <SidePanel showSidePanel={showSidePanel}>
-        <SidePanelItem
-          href={user?.publicMetadata.isProfessor ? "/professors" : "/students"}
-          icon={<Home />}
-          label="Inicio"
-        />
-
-        <SidePanelItem
-          href={
-            user?.publicMetadata.isProfessor
-              ? "/professors/practices"
-              : "/students/practices"
-          }
-          icon={<Layers2 />}
-          label="Trabajos prácticos"
-        />
-
-        <SidePanelItem
-          href={
-            user?.publicMetadata.isProfessor
-              ? "/professors/theories"
-              : "/students/theories"
-          }
-          icon={<Library />}
-          label="Unidades teóricas"
-        />
-
-        {user?.publicMetadata.isProfessor === true && (
-          <SidePanelItem
-            href="/professors/reports"
-            icon={<LineChart />}
-            label="Reportes"
-          />
-        )}
-      </SidePanel>
-
-      <div className="flex flex-1 flex-col">
-        <div className="flex justify-between p-4 pl-8 pr-8 dark:bg-background">
-          <AlignLeft
-            onClick={() => setShowSidePanel(!showSidePanel)}
-            className="cursor-pointer"
-            color="#374151"
-          />
-
-          <div className="flex items-center gap-4">
-            <ModeToggle />
-
-            <UserButton
-              afterSignOutUrl="/"
-              appearance={{
-                baseTheme: dark,
-              }}
-            />
-          </div>
-        </div>
-
-        <ScrollArea>
-          <div className="mt-7 flex-1 pl-8 pr-8">{children}</div>
-        </ScrollArea>
-      </div>
+      <LeftSection />
+      <RightSection />
     </div>
   );
 };
