@@ -20,9 +20,11 @@ Run the following command to create the PostgreSQL database: `docker run --name 
 - Add valid environment variables to `.env` (ask Agustín for Clerk environment variables or generate your own Clerk project)
 - Run `pnpm install` to install dependencies
 - Run `pnpm db:push` to push database schema
+- Run `pnpm db:seed` to seed database 
 - Run `pnpm run dev` to start app
-- Run `pnpm run test` to run automated tests
 
-## Another notes
+## Additional notes
 
-If you change the database schema, run the command `pnpm db:push` to update the database 
+- If you change the database schema, run the command `pnpm db:push` to update the database.
+
+- If you want to reset the database, run the command `pnpm db:reset`.
