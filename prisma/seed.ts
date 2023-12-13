@@ -2,28 +2,56 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  const practice = await prisma.practice.create({
+  const functionsPractice = await prisma.practice.create({
     data: {
-      name: "Programación dinámica",
+      name: "Funciones",
       description:
-        "La programación dinámica es un método para reducir el tiempo de ejecución de un algoritmo mediante el almacenamiento de resultados de subproblemas calculados previamente.",
+        "Las funciones son un conjunto de instrucciones que realizan una tarea específica. Las funciones se utilizan para reutilizar código, evitar la repetición de código y hacer que el código sea más fácil de leer.",
     },
   });
 
   await prisma.exercise.createMany({
     data: [
       {
-        name: "Exercise 1",
-        description: "Exercise 1 description",
-        practiceId: practice.id,
+        name: "Sumar dos números",
+        description:
+          "Dados dos números, escribir una función que devuelva la suma de ambos.",
+        practiceId: functionsPractice.id,
       },
       {
-        name: "Exercise 2",
-        description: "Exercise 2 description",
-        practiceId: practice.id,
+        name: "Revertir una cadena",
+        description:
+          "Dada una cadena, escribir una función que devuelva la cadena invertida.",
+        practiceId: functionsPractice.id,
       },
     ],
   });
+
+  const arraysPractice = await prisma.practice.create({
+    data: {
+      name: "Arreglos",
+      description:
+        "Los arrays son estructuras de datos que nos permiten almacenar varios valores en una misma variable. Los arrays son muy útiles para almacenar listas de elementos.",
+    },
+  });
+
+  await prisma.exercise.createMany({
+    data: [
+      {
+        name: "Calcular promedio de notas",
+        description: "Dado un array de N notas, calcular el promedio.",
+        practiceId: arraysPractice.id,
+      },
+      {
+        name: "Total de carrito de compra",
+        description:
+          "Dado un array de N precios, calcular el total de un carrito de compra.",
+        practiceId: arraysPractice.id,
+      },
+    ],
+  });
+
+  // TODO: Create exercise tests.
 }
 
 main()
