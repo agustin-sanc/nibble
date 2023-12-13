@@ -12,7 +12,7 @@ export const SidePanel = ({ children }: SidePanelProps) => {
   const { user } = useUser();
 
   return (
-    <div className="bg-highlights flex h-full w-[400px] flex-col border-r-2 bg-gray-50 dark:bg-background">
+    <div className="bg-highlights flex h-full min-w-[270px] flex-col border-r-2 bg-gray-50 dark:bg-background">
       <div className="mb-5 ml-3 mt-8 flex gap-3">
         <div className="mt-1">
           <UserButton
