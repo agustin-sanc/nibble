@@ -61,8 +61,6 @@ async function main() {
       practiceId: arraysPractice.id,
     },
   });
-
-  // TODO: Create exercise tests.
 }
 
 main()
