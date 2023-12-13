@@ -46,13 +46,13 @@ export const CreatePracticeDialog = () => (
           <Textarea
             id="description"
             placeholder="La programación dinámica es un método para reducir el tiempo de ejecución de un algoritmo mediante la utilización de subproblemas superpuestos y subestructuras óptimas."
-            className="col-span-3"
+            className="col-span-3 h-[200px]"
           />
         </div>
       </div>
 
       <DialogFooter>
-        <Button type="submit">Save changes</Button>
+        <Button type="submit">Confirmar</Button>
       </DialogFooter>
     </DialogContent>
   </Dialog>
