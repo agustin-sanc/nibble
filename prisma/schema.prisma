@@ -22,13 +22,14 @@ model Practice {
 }
 
 model Exercise {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String
-  tags        Tag[]    @relation("ExerciseToTag")
-  tests       Test[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           Int           @id @default(autoincrement())
+  name         String
+  description  String
+  tags         Tag[]         @relation("ExerciseToTag")
+  tests        Test[]
+  exampleTests ExampleTest[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 
   practice   Practice? @relation(fields: [practiceId], references: [id])
   practiceId Int?
@@ -56,6 +57,17 @@ model Test {
 
   exercise   Exercise? @relation(fields: [exerciseId], references: [id])
   exerciseId Int?
+}
+
+model ExampleTest {
+  id          Int      @id @default(autoincrement())
+  type        TestType
+  input       String?
+  output      String?
+  description String?
+
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId Int
 }
 
 model Theory {
