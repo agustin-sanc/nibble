@@ -35,20 +35,31 @@ async function main() {
     },
   });
 
-  await prisma.exercise.createMany({
-    data: [
-      {
-        name: "Calcular promedio de notas",
-        description: "Dado un array de N notas, calcular el promedio.",
-        practiceId: arraysPractice.id,
+  await prisma.exercise.create({
+    data: {
+      name: "Calcular promedio de notas",
+      description: "Dado un array de N notas, calcular el promedio.",
+      practiceId: arraysPractice.id,
+      exampleTests: {
+        create: [
+          {
+            input: "[10, 20, 30]",
+            output: "20",
+            description: "Si las 3 notas son 10, 20 y 30; el promedio es 20.",
+            type: "BLACK_BOX",
+          },
+        ],
       },
-      {
-        name: "Total de carrito de compra",
-        description:
-          "Dado un array de N precios, calcular el total de un carrito de compra.",
-        practiceId: arraysPractice.id,
-      },
-    ],
+    },
+  });
+
+  await prisma.exercise.create({
+    data: {
+      name: "Total de carrito de compra",
+      description:
+        "Dado un array de N precios, calcular el total de un carrito de compra.",
+      practiceId: arraysPractice.id,
+    },
   });
 
   // TODO: Create exercise tests.
