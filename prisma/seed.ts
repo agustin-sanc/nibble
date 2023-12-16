@@ -48,6 +48,12 @@ async function main() {
             description: "Si las 3 notas son 10, 20 y 30; el promedio es 20.",
             type: "BLACK_BOX",
           },
+          {
+            input: "[10, 20, 30]",
+            output: "20",
+            description: "Si las 3 notas son 10, 20 y 30; el promedio es 20.",
+            type: "BLACK_BOX",
+          },
         ],
       },
     },
