@@ -8,7 +8,7 @@ import { ModeToggle } from "@/app/_general/components/mode-toggle";
 import SidePanelItem from "@/app/_general/components/side-panel-item";
 import { Home, Layers2, Library, LineChart } from "lucide-react";
 
-const InnerLayout = ({ children }: { children: ReactNode }) => {
+const LayoutWithSidePanel = ({ children }: { children: ReactNode }) => {
   const { user } = useUser();
 
   return (
@@ -57,9 +57,9 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
         </div>
       </SidePanel>
 
-      <ScrollArea className="mt-7 pl-8 pr-8">{children}</ScrollArea>
+      <ScrollArea className="mt-7 w-full pl-8 pr-8">{children}</ScrollArea>
     </div>
   );
 };
 
-export default InnerLayout;
+export default LayoutWithSidePanel;

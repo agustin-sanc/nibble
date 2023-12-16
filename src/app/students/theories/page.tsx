@@ -1,12 +1,12 @@
 import { TheoriesGrid } from "@/app/_general/components/theories/theories-grid";
-import InnerLayout from "@/app/_general/components/inner-layout";
+import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-panel";
 import { Header2 } from "@/app/_general/components/typography";
 
 export default function Theories() {
   return (
-    <InnerLayout>
+    <LayoutWithSidePanel>
       <Header2>Unidades teóricas</Header2>
       <TheoriesGrid />
-    </InnerLayout>
+    </LayoutWithSidePanel>
   );
 }

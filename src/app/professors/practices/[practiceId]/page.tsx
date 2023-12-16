@@ -1,6 +1,6 @@
 import { prisma } from "@/prisma";
 import { Header2, Header3 } from "@/app/_general/components/typography";
-import InnerLayout from "@/app/_general/components/inner-layout";
+import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-panel";
 import { ExercisesGrid } from "@/app/_general/components/exercises/exercises-grid";
 
 export default async function Practice({
@@ -14,11 +14,11 @@ export default async function Practice({
   });
 
   return (
-    <InnerLayout>
+    <LayoutWithSidePanel>
       <Header2>{practice?.name}</Header2>
       <p>{practice?.description}</p>
       <Header3>Ejercicios</Header3>
       <ExercisesGrid exercises={practice?.exercises ?? []} />
-    </InnerLayout>
+    </LayoutWithSidePanel>
   );
 }
