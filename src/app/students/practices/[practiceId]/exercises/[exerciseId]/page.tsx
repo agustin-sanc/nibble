@@ -12,6 +12,7 @@ import {
 } from "@/app/_general/components/accordion";
 import Link from "next/link";
 import { Fragment } from "react";
+import { CodeEditor } from "@/app/_general/components/code-editor";
 
 export default async function Exercise({
   params: { exerciseId, practiceId },
@@ -29,6 +30,7 @@ export default async function Exercise({
   // <SyntaxHighlighter language="cpp" style={docco}>
   //   {codeString}
   // </SyntaxHighlighter>
+  const code = "console.log('Monaco Editor!');";
 
   const renderCodeWithLineBreaks = (text: string) =>
     text.split("\n").map((line, index) => (
@@ -96,7 +98,7 @@ export default async function Exercise({
           )}
 
           <Header3>Solución</Header3>
-          <Textarea className="mb-4 ml-1 mr-3 mt-4 h-[300px] w-[99%] font-mono" />
+          <CodeEditor />
           <Button>Evaluar solución</Button>
         </>
       )}
