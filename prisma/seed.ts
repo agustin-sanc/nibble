@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
 
 async function main() {
@@ -38,20 +39,22 @@ async function main() {
   await prisma.exercise.create({
     data: {
       name: "Calcular promedio de notas",
-      description: "Dado un array de N notas, calcular el promedio.",
+      description:
+        "Dado un array de N notas, calcular el promedio. Tener en cuenta que las notas pueden tener un valor entre 0.00 y 10.00, y son números con 2 decimales. El resultado debe ser un número con 2 decimales también.",
       practiceId: arraysPractice.id,
       exampleTests: {
         create: [
           {
-            input: "[10, 20, 30]",
-            output: "20",
-            description: "Si las 3 notas son 10, 20 y 30; el promedio es 20.",
+            input: "10.00\n8.50\n7.25",
+            output: "8.58",
+            description:
+              "Al dividir la suma entre 10.00, 8.50 y 7.25, el resultado es 8.58.",
             type: "BLACK_BOX",
           },
           {
-            input: "[10, 20, 30]",
-            output: "20",
-            description: "Si las 3 notas son 10, 20 y 30; el promedio es 20.",
+            input: "0.00\n0.00\n0.00",
+            output: "0.00",
+            description: "Si las 3 notas son 0.00, el promedio es 0.00.",
             type: "BLACK_BOX",
           },
         ],

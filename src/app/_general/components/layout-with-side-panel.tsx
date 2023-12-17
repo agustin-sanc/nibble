@@ -57,7 +57,9 @@ const LayoutWithSidePanel = ({ children }: { children: ReactNode }) => {
         </div>
       </SidePanel>
 
-      <ScrollArea className="mt-7 w-full pl-8 pr-8">{children}</ScrollArea>
+      <ScrollArea className="w-full pl-8 pr-8">
+        <div className="first:mt-7 last:mb-7">{children}</div>
+      </ScrollArea>
     </div>
   );
 };

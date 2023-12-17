@@ -14,7 +14,7 @@ export const SidePanel = ({ children }: SidePanelProps) => {
   return (
     <div className="bg-highlights flex h-full min-w-[270px] flex-col border-r-2 bg-gray-50 dark:bg-background">
       <div className="mb-5 ml-3 mt-8 flex gap-3">
-        <div className="mt-1">
+        <div className="ml-1 mt-1">
           <UserButton
             afterSignOutUrl="/"
             appearance={{
