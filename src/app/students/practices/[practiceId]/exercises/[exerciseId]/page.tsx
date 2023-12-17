@@ -2,7 +2,6 @@ import { prisma } from "@/prisma";
 import { Code, Header2, Header3 } from "@/app/_general/components/typography";
 import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-panel";
 import { Button } from "@/app/_general/components/button";
-import { Textarea } from "@/app/_general/components/text-area";
 
 import {
   Accordion,
@@ -23,14 +22,6 @@ export default async function Exercise({
     where: { id: Number(exerciseId) },
     include: { exampleTests: true },
   });
-
-  // import SyntaxHighlighter from "react-syntax-highlighter";
-  // import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-  // const codeString = "int resultado = promedio / 30;";
-  // <SyntaxHighlighter language="cpp" style={docco}>
-  //   {codeString}
-  // </SyntaxHighlighter>
-  const code = "console.log('Monaco Editor!');";
 
   const renderCodeWithLineBreaks = (text: string) =>
     text.split("\n").map((line, index) => (
@@ -59,7 +50,8 @@ export default async function Exercise({
           {exercise?.exampleTests.length > 0 && (
             <>
               <Header3>Ejemplos</Header3>
-              <Accordion type="multiple" collapsible>
+
+              <Accordion type="multiple">
                 {exercise?.exampleTests.map((example, index) => (
                   <AccordionItem
                     key={String(example.id)}
@@ -74,7 +66,11 @@ export default async function Exercise({
                         <p className="font-semibold">Entrada</p>
 
                         <div className="rounded border p-2">
-                          {renderCodeWithLineBreaks(example.input)}
+                          {example.input ? (
+                            renderCodeWithLineBreaks(example.input)
+                          ) : (
+                            <p>No tiene.</p>
+                          )}
                         </div>
                       </div>
 
@@ -82,7 +78,11 @@ export default async function Exercise({
                         <p className="font-semibold">Resultado</p>
 
                         <div className="rounded border p-2">
-                          {renderCodeWithLineBreaks(example.output)}
+                          {example.output ? (
+                            renderCodeWithLineBreaks(example.output)
+                          ) : (
+                            <p>No tiene.</p>
+                          )}
                         </div>
                       </div>
 
