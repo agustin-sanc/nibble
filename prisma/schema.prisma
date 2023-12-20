@@ -29,6 +29,7 @@ model Exercise {
   tags         Tag[]         @relation("ExerciseToTag")
   tests        Test[]
   exampleTests ExampleTest[]
+  solvedBy     String[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
