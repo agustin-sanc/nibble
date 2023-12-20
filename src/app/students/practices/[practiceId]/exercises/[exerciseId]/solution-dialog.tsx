@@ -11,9 +11,11 @@ import {
 import { Button } from "@/app/_general/components/button";
 import { useState } from "react";
 import Editor from "@monaco-editor/react";
+import { useTheme } from "next-themes";
 
 export const SolutionDialog = () => {
   const [code, setCode] = useState("");
+  const { theme } = useTheme();
   const [language, setLanguage] = useState<"C++" | "Python">("C++");
 
   const submitSolution = () => {
@@ -34,7 +36,7 @@ export const SolutionDialog = () => {
         <Editor
           height="400px"
           language="cpp"
-          theme="vs-light"
+          theme={theme === "light" ? "vs-light" : "vs-dark"}
           value={code}
           onChange={(value) => setCode(value ?? "")}
         />
