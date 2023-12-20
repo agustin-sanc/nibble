@@ -15,17 +15,21 @@ export const PracticeCard = ({ practice }: PracticeCardProps) => {
   const { user } = useUser();
 
   return (
-    <div className="mb-6 rounded border p-4">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="flex items-center">
-          <Binary />
-          <h2 className="ml-2 text-xl font-bold">{practice.name}</h2>
+    <div className="mb-2 flex w-[48%] flex-col justify-between rounded border p-4">
+      <div>
+        <div className="mb-4 flex items-center justify-between">
+          <div className="flex items-center">
+            <Binary />
+            <h2 className="ml-2 text-xl font-bold">{practice.name}</h2>
+          </div>
+
+          <Badge variant="outline">
+            {practice.exercises.length} ejercicios
+          </Badge>
         </div>
 
-        <Badge variant="outline">{practice.exercises.length} ejercicios</Badge>
+        <p className="pb-5 text-sm">{practice.description}</p>
       </div>
-
-      <p className="pb-5 text-sm">{practice.description}</p>
 
       <Link
         href={`/${
