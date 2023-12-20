@@ -6,7 +6,7 @@ type ExercisesGridProps = {
 };
 
 export const ExercisesGrid = ({ exercises }: ExercisesGridProps) => (
-  <div className="mt-6 flex flex-row flex-wrap gap-5">
+  <div className="mt-6 flex flex-row flex-wrap justify-between gap-5">
     {exercises?.length === 0 ? (
       <p>No hay ejercicios en este trabajo práctico.</p>
     ) : (
