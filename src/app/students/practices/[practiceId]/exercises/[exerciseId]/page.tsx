@@ -1,6 +1,5 @@
 import { Code, Header2, Header3 } from "@/app/_general/components/typography";
 import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-panel";
-import { Button } from "@/app/_general/components/button";
 
 import {
   Accordion,
@@ -10,16 +9,7 @@ import {
 } from "@/app/_general/components/accordion";
 import Link from "next/link";
 import { Fragment } from "react";
-import { CodeEditor } from "@/app/_general/components/code-editor";
 import { prisma } from "@/prisma";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/app/_general/components/dialog";
 import { SolutionDialog } from "@/app/students/practices/[practiceId]/exercises/[exerciseId]/solution-dialog";
 
 export default async function Exercise({
@@ -31,10 +21,6 @@ export default async function Exercise({
     where: { id: Number(exerciseId) },
     include: { exampleTests: true },
   });
-
-  const submitSolution = async () => {
-    console.log("Submitting solution");
-  };
 
   const renderCodeWithLineBreaks = (text: string) =>
     text.split("\n").map((line, index) => (
