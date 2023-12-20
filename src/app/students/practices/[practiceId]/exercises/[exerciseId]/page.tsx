@@ -43,7 +43,11 @@ export default async function Exercise({
             &lt; Volver al trabajo práctico
           </Link>
 
-          <Header2 className="mt-5">{exercise?.name}</Header2>
+          <div className="mb-5 mt-5 flex flex-row items-center justify-between">
+            <Header2>{exercise?.name}</Header2>
+            <SolutionDialog />
+          </div>
+
           <p>{exercise?.description}</p>
 
           {exercise?.exampleTests.length > 0 && (
@@ -95,9 +99,6 @@ export default async function Exercise({
               </Accordion>
             </>
           )}
-
-          <Header3>Solución</Header3>
-          <SolutionDialog />
         </>
       )}
     </LayoutWithSidePanel>

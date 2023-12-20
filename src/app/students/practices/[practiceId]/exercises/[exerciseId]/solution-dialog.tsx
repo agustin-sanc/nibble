@@ -3,6 +3,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -13,6 +14,7 @@ import Editor from "@monaco-editor/react";
 
 export const SolutionDialog = () => {
   const [code, setCode] = useState("");
+  const [language, setLanguage] = useState<"C++" | "Python">("C++");
 
   const submitSolution = () => {
     console.log("Send solution to evaluator server");
@@ -37,9 +39,11 @@ export const SolutionDialog = () => {
           onChange={(value) => setCode(value ?? "")}
         />
 
-        <Button className="mt-2" onClick={submitSolution}>
-          Evaluar solución
-        </Button>
+        <DialogFooter>
+          <Button className="mt-2" onClick={submitSolution}>
+            Evaluar solución
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
