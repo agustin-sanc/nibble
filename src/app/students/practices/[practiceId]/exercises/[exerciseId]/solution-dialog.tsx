@@ -26,13 +26,15 @@ export const SolutionDialog = () => {
   const [language, setLanguage] = useState<"cpp" | "python">("cpp");
 
   const submitSolution = () => {
+    // TODO: Encode code in base 64
+
     console.log("Send solution to evaluator server");
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="mt-2">Subir solución</Button>
+        <Button>Subir solución</Button>
       </DialogTrigger>
 
       <DialogContent>
