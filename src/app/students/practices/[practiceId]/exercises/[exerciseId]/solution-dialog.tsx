@@ -35,7 +35,7 @@ export const SolutionDialog = () => {
 
         <Editor
           height="400px"
-          language="cpp"
+          language={language === "C++" ? "cpp" : "python"}
           theme={theme === "light" ? "vs-light" : "vs-dark"}
           value={code}
           onChange={(value) => setCode(value ?? "")}
