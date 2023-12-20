@@ -26,7 +26,7 @@ export const SolutionDialog = () => {
   const [language, setLanguage] = useState<"cpp" | "python">("cpp");
 
   const submitSolution = () => {
-    // TODO: Encode code in base 64
+    const encodedCode = btoa(code);
 
     console.log("Send solution to evaluator server");
   };
