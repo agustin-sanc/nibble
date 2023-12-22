@@ -3,71 +3,51 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  const functionsPractice = await prisma.practice.create({
+  const variablesTheory = await prisma.theory.create({
     data: {
-      name: "Funciones",
+      name: "Variables",
       description:
-        "Las funciones son un conjunto de instrucciones que realizan una tarea específica. Las funciones se utilizan para reutilizar código, evitar la repetición de código y hacer que el código sea más fácil de leer.",
+        "Las variables son espacios de memoria que nos permiten almacenar valores.",
+      content:
+        "Las variables son espacios de memoria que nos permiten almacenar valores. Para declarar una variable, se utiliza la palabra reservada var, seguida del nombre de la variable. Por ejemplo, para declarar una variable llamada nombre, se utiliza la siguiente sintaxis: var nombre. Para asignar un valor a una variable, se utiliza el operador de asignación =. Por ejemplo, para asignar el valor 'Juan' a la variable nombre, se utiliza la siguiente sintaxis: nombre = 'Juan'.",
     },
   });
 
-  await prisma.exercise.createMany({
-    data: [
-      {
-        name: "Sumar dos números",
-        description:
-          "Dados dos números, escribir una función que devuelva la suma de ambos.",
-        practiceId: functionsPractice.id,
-      },
-      {
-        name: "Revertir una cadena",
-        description:
-          "Dada una cadena, escribir una función que devuelva la cadena invertida.",
-        practiceId: functionsPractice.id,
-      },
-    ],
-  });
-
-  const arraysPractice = await prisma.practice.create({
+  const variablesPractice = await prisma.practice.create({
     data: {
-      name: "Arreglos",
+      name: "Variables",
       description:
-        "Los arrays son estructuras de datos que nos permiten almacenar varios valores en una misma variable. Los arrays son muy útiles para almacenar listas de elementos.",
+        "Las variables son espacios de memoria que nos permiten almacenar valores.",
+      theories: {
+        connect: {
+          id: variablesTheory.id,
+        },
+      },
     },
   });
 
   await prisma.exercise.create({
     data: {
-      name: "Calcular promedio de notas",
+      name: "Suma",
       description:
-        "Dado un array de N notas, calcular el promedio. Tener en cuenta que las notas pueden tener un valor entre 0.00 y 10.00, y son números con 2 decimales. El resultado debe ser un número con 2 decimales también.",
-      practiceId: arraysPractice.id,
+        "Dados dos números enteros, devolver la suma de ambos números.",
+      practiceId: variablesPractice.id,
       exampleTests: {
         create: [
           {
-            input: "10.00\n8.50\n7.25",
-            output: "8.58",
-            description:
-              "Al dividir la suma entre 10.00, 8.50 y 7.25, el resultado es 8.58.",
+            input: "5\n7",
+            output: "12",
+            description: "Al sumar 5 y 7, el resultado es 12.",
             type: "BLACK_BOX",
           },
           {
-            input: "0.00\n0.00\n0.00",
-            output: "0.00",
-            description: "Si las 3 notas son 0.00, el promedio es 0.00.",
+            input: "0\n-2",
+            output: "-2",
+            description: "Al sumar 0 y -2, el resultado es -2.",
             type: "BLACK_BOX",
           },
         ],
       },
-    },
-  });
-
-  await prisma.exercise.create({
-    data: {
-      name: "Total de carrito de compra",
-      description:
-        "Dado un array de N precios, calcular el total de un carrito de compra.",
-      practiceId: arraysPractice.id,
     },
   });
 }
