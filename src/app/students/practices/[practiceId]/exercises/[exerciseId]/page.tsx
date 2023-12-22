@@ -12,11 +12,13 @@ import { Fragment } from "react";
 import { prisma } from "@/prisma";
 import { SolutionDialog } from "@/app/students/practices/[practiceId]/exercises/[exerciseId]/solution-dialog";
 
+type ExercisePageProps = {
+  params: { exerciseId: string; practiceId: string };
+};
+
 export default async function Exercise({
   params: { exerciseId, practiceId },
-}: {
-  params: { exerciseId: string; practiceId: string };
-}) {
+}: ExercisePageProps) {
   const exercise = await prisma.exercise.findUnique({
     where: { id: Number(exerciseId) },
     include: { exampleTests: true },
