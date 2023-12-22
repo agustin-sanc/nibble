@@ -1,11 +1,11 @@
 import "@/globals.css";
 
 import { Inter } from "next/font/google";
-
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/app/_general/components/theme-provider";
 import { dark } from "@clerk/themes";
 import { esES } from "@clerk/localizations";
+import { ReactQueryProvider } from "@/app/_general/react-query-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,7 +33,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <ReactQueryProvider>{children}</ReactQueryProvider>
           </ThemeProvider>
         </body>
       </html>
