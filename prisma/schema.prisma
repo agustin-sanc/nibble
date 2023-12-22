@@ -63,8 +63,9 @@ model Tag {
 }
 
 model BlackBoxTest {
-  id        Int     @id @default(autoincrement())
-  isExample Boolean @default(false)
+  id          Int     @id @default(autoincrement())
+  isExample   Boolean @default(false)
+  description String?
 
   batchInput  String[]
   batchOutput String[]
@@ -74,8 +75,9 @@ model BlackBoxTest {
 }
 
 model GrayBoxTest {
-  id        Int     @id @default(autoincrement())
-  isExample Boolean @default(false)
+  id          Int     @id @default(autoincrement())
+  isExample   Boolean @default(false)
+  description String?
 
   functionName     String
   functionArgs     String[]
@@ -86,8 +88,9 @@ model GrayBoxTest {
 }
 
 model WhiteBoxTest {
-  id        Int     @id @default(autoincrement())
-  isExample Boolean @default(false)
+  id          Int     @id @default(autoincrement())
+  isExample   Boolean @default(false)
+  description String?
 
   test String
 

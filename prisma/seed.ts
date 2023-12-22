@@ -32,19 +32,19 @@ async function main() {
       description:
         "Dados dos números enteros, devolver la suma de ambos números.",
       practiceId: variablesPractice.id,
-      exampleTests: {
+      blackBoxTests: {
         create: [
           {
-            input: "5\n7",
-            output: "12",
-            description: "Al sumar 5 y 7, el resultado es 12.",
-            type: "BLACK_BOX",
+            batchInput: ["2", "3"],
+            batchOutput: ["5"],
+            isExample: true,
+            description: "Al sumar 2 y 3, el resultado es 5.",
           },
           {
-            input: "0\n-2",
-            output: "-2",
+            batchInput: ["0", "-2"],
+            batchOutput: ["-2"],
+            isExample: true,
             description: "Al sumar 0 y -2, el resultado es -2.",
-            type: "BLACK_BOX",
           },
         ],
       },
