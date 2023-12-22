@@ -1,8 +1,8 @@
-import type { Exercise, Test } from "@prisma/client";
+import type { Exercise } from "@prisma/client";
 import { ExerciseCard } from "@/app/_general/components/exercises/exercise-card";
 
 type ExercisesGridProps = {
-  exercises: (Exercise & { tests: Test[] })[];
+  exercises: Exercise[];
 };
 
 export const ExercisesGrid = ({ exercises }: ExercisesGridProps) => (

@@ -10,7 +10,7 @@ export default async function Practice({
 }) {
   const practice = await prisma.practice.findUnique({
     where: { id: Number(practiceId) },
-    include: { exercises: { include: { tests: true } } },
+    include: { exercises: true },
   });
 
   return (

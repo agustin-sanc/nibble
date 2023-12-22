@@ -2,12 +2,12 @@
 
 import { Binary, Laptop } from "lucide-react";
 import { Button } from "@/app/_general/components/button";
-import type { Exercise, Test } from "@prisma/client";
+import type { Exercise } from "@prisma/client";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 
 type ExerciseCardProps = {
-  exercise: Exercise & { tests: Test[] };
+  exercise: Exercise;
 };
 
 export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {

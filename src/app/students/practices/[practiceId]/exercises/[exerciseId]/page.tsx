@@ -21,7 +21,10 @@ export default async function Exercise({
 }: ExercisePageProps) {
   const exercise = await prisma.exercise.findUnique({
     where: { id: Number(exerciseId) },
-    include: { exampleTests: true },
+  });
+
+  const blackBoxTestExamples = await prisma.blackBoxTest.findMany({
+    where: { exerciseId: Number(exerciseId), isExample: true },
   });
 
   const renderCodeWithLineBreaks = (text: string) =>
@@ -52,12 +55,12 @@ export default async function Exercise({
 
           <p>{exercise?.description}</p>
 
-          {exercise?.exampleTests.length > 0 && (
+          {blackBoxTestExamples.length > 0 && (
             <>
               <Header3>Ejemplos</Header3>
 
               <Accordion type="multiple">
-                {exercise?.exampleTests.map((example, index) => (
+                {blackBoxTestExamples.map((example, index) => (
                   <AccordionItem
                     key={String(example.id)}
                     value={String(example.id)}
@@ -71,11 +74,12 @@ export default async function Exercise({
                         <p className="font-semibold">Entrada</p>
 
                         <div className="rounded border p-2">
-                          {example.input ? (
-                            renderCodeWithLineBreaks(example.input)
-                          ) : (
-                            <p>No tiene.</p>
-                          )}
+                          {example.batchInput.map((input) => (
+                            <>
+                              <Code>{input}</Code>
+                              <br />
+                            </>
+                          )) ?? <p>No tiene.</p>}
                         </div>
                       </div>
 
@@ -83,11 +87,12 @@ export default async function Exercise({
                         <p className="font-semibold">Resultado</p>
 
                         <div className="rounded border p-2">
-                          {example.output ? (
-                            renderCodeWithLineBreaks(example.output)
-                          ) : (
-                            <p>No tiene.</p>
-                          )}
+                          {example.batchOutput.map((output) => (
+                            <>
+                              <Code>{output}</Code>
+                              <br />
+                            </>
+                          )) ?? <p>No tiene.</p>}
                         </div>
                       </div>
 
