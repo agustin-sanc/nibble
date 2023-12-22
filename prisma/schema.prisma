@@ -18,6 +18,7 @@ model Practice {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   exercises   Exercise[]
+  theories    Theory[]   @relation("TheoryToPractice")
 
   @@index([name])
 }
@@ -73,12 +74,13 @@ model ExampleTest {
 }
 
 model Theory {
-  id          Int      @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   name        String
   description String
   content     String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  practices   Practice[] @relation("TheoryToPractice")
 
   @@index([name])
 }
