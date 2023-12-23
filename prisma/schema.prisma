@@ -8,13 +8,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model StudentsGroup {
-  id         Int        @id @default(autoincrement())
-  name       String
-  ownerId    String
-  studentIds String[]
-  theories   Theory[]
-  practices  Practice[]
+model Course {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  ownerId     String
+  studentIds  String[]
+  theories    Theory[]
+  practices   Practice[]
 }
 
 model Theory {
@@ -28,8 +29,8 @@ model Theory {
 
   practices Practice[] @relation("TheoryToPractice")
 
-  studentsGroup   StudentsGroup? @relation(fields: [studentsGroupId], references: [id])
-  studentsGroupId Int?
+  course   Course? @relation(fields: [courseId], references: [id])
+  courseId Int?
 
   @@index([name])
 }
@@ -43,8 +44,8 @@ model Practice {
   exercises   Exercise[]
   theories    Theory[]   @relation("TheoryToPractice")
 
-  studentsGroup   StudentsGroup? @relation(fields: [studentsGroupId], references: [id])
-  studentsGroupId Int?
+  course   Course? @relation(fields: [courseId], references: [id])
+  courseId Int?
 
   @@index([name])
 }
