@@ -1,15 +1,13 @@
-"use client";
-
 import React, { type ReactNode } from "react";
 import { SidePanel } from "@/app/_general/components/side-panel";
 import { ScrollArea } from "@/app/_general/components/scroll-area";
-import { useUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 import { ModeToggle } from "@/app/_general/components/mode-toggle";
 import SidePanelItem from "@/app/_general/components/side-panel-item";
 import { Home, Layers2, Library, LineChart } from "lucide-react";
 
-const LayoutWithSidePanel = ({ children }: { children: ReactNode }) => {
-  const { user } = useUser();
+const LayoutWithSidePanel = async ({ children }: { children: ReactNode }) => {
+  const user = await currentUser();
 
   return (
     <div className="flex h-screen">
