@@ -26,8 +26,27 @@ export const Header3 = ({ children }: { children: ReactNode }) => (
   </h3>
 );
 
+export const Header4 = ({ children }: { children: ReactNode }) => (
+  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+    {children}
+  </h4>
+);
+
 export const Code = ({ children }: { children: ReactNode }) => (
   <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
     {children}
   </code>
+);
+
+export const UnorderedList = ({
+  title,
+  children,
+}: {
+  title?: string;
+  children: ReactNode;
+}) => (
+  <div className="my-6">
+    {title && <p className="font-bold">{title}</p>}
+    <ul className="ml-6 list-disc [&>li]:mt-2">{children}</ul>
+  </div>
 );
