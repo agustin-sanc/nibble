@@ -21,7 +21,7 @@ export const Header2 = ({
 );
 
 export const Header3 = ({ children }: { children: ReactNode }) => (
-  <h3 className="mt-5 scroll-m-20 text-2xl font-semibold tracking-tight">
+  <h3 className="mb-2 mt-5 scroll-m-20 text-2xl font-semibold tracking-tight">
     {children}
   </h3>
 );
@@ -46,15 +46,6 @@ export const Code = ({
   </code>
 );
 
-export const UnorderedList = ({
-  title,
-  children,
-}: {
-  title?: string;
-  children: ReactNode;
-}) => (
-  <div className="my-6">
-    {title && <p className="font-bold">{title}</p>}
-    <ul className="ml-6 list-disc [&>li]:mt-2">{children}</ul>
-  </div>
+export const UnorderedList = ({ children }: { children: ReactNode }) => (
+  <ul className="ml-6 list-disc [&>li]:mt-2">{children}</ul>
 );

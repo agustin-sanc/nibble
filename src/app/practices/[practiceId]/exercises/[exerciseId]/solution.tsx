@@ -1,13 +1,5 @@
 "use client";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/app/_general/components/dialog";
 import { Button } from "@/app/_general/components/button";
 import { useState } from "react";
 import Editor from "@monaco-editor/react";
@@ -19,8 +11,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/app/_general/components/select";
+import { Header3 } from "@/app/_general/components/typography";
 
-export const SolutionDialog = () => {
+export const Solution = () => {
   const [code, setCode] = useState("");
   const { theme } = useTheme();
   const [language, setLanguage] = useState<"cpp" | "python">("cpp");
@@ -32,31 +25,25 @@ export const SolutionDialog = () => {
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>Subir solución</Button>
-      </DialogTrigger>
+    <div className="flex w-[50%] flex-col gap-3">
+      <Header3>Solución</Header3>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Ingresa el código de tu solución aquí</DialogTitle>
-        </DialogHeader>
+      <Editor
+        height="400px"
+        language={language}
+        theme={theme === "light" ? "vs-light" : "vs-dark"}
+        value={code}
+        onChange={(value) => setCode(value ?? "")}
+      />
 
-        <Editor
-          height="400px"
-          language={language}
-          theme={theme === "light" ? "vs-light" : "vs-dark"}
-          value={code}
-          onChange={(value) => setCode(value ?? "")}
-        />
-
+      <div className="flex flex-row items-center gap-4">
         <Select
+          defaultValue={language}
           onValueChange={(value) =>
             value === "cpp" || value === "python"
               ? setLanguage(value)
               : console.error("Invalid language")
           }
-          defaultValue={language}
         >
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Selecciona el lenguaje de programación" />
@@ -68,12 +55,8 @@ export const SolutionDialog = () => {
           </SelectContent>
         </Select>
 
-        <DialogFooter>
-          <Button className="mt-2" onClick={submitSolution}>
-            Evaluar solución
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <Button onClick={submitSolution}>Evaluar solución</Button>
+      </div>
+    </div>
   );
 };
