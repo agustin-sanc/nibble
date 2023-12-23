@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { prisma } from "@/prisma";
 import { SolutionDialog } from "@/app/students/practices/[practiceId]/exercises/[exerciseId]/solution-dialog";
+import { Badge } from "@/app/_general/components/badge";
 
 type ExercisePageProps = {
   params: { exerciseId: string; practiceId: string };
@@ -66,7 +67,10 @@ export default async function Exercise({
                     value={String(example.id)}
                   >
                     <AccordionTrigger>
-                      Caso de prueba {index + 1}
+                      <div className="flex gap-3">
+                        <Badge variant="outline">Caja negra</Badge>
+                        Caso de prueba {index + 1}
+                      </div>
                     </AccordionTrigger>
 
                     <AccordionContent className="flex gap-4">
