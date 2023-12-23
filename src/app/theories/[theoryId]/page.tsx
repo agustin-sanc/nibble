@@ -1,13 +1,13 @@
 import { prisma } from "@/prisma";
 import { Header2, Header3 } from "@/app/_general/components/typography";
 import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-panel";
-import { PracticesGrid } from "@/app/_general/components/practices/practices-grid";
+import { ContentGrid } from "@/app/_general/components/content-grid";
 
-export default async function Theory({
+const Theory = async ({
   params: { theoryId },
 }: {
   params: { theoryId: string };
-}) {
+}) => {
   const theory = await prisma.theory.findUnique({
     where: { id: Number(theoryId) },
     include: { practices: { include: { exercises: true } } },
@@ -19,7 +19,9 @@ export default async function Theory({
       <p>{theory?.description}</p>
 
       <Header3>Trabajos prácticos sobre el tema</Header3>
-      <PracticesGrid practices={theory?.practices ?? []} />
+      {/*<ContentGrid />*/}
     </LayoutWithSidePanel>
   );
-}
+};
+
+export default Theory;

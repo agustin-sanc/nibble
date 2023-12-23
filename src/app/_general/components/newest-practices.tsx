@@ -2,7 +2,8 @@ import { ArrowRight, Layers2 } from "lucide-react";
 import { Button } from "@/app/_general/components/button";
 import { prisma } from "@/prisma";
 import { Header2 } from "@/app/_general/components/typography";
-import { PracticesGrid } from "@/app/_general/components/practices/practices-grid";
+import { ContentGrid } from "@/app/_general/components/content-grid";
+import { PracticeCard } from "@/app/_general/components/practice-card";
 
 export const NewestPractices = async ({ className }: { className: string }) => {
   const practices = await prisma.practice.findMany({
@@ -10,6 +11,8 @@ export const NewestPractices = async ({ className }: { className: string }) => {
     include: { exercises: true },
     take: 4,
   });
+
+  const existPractices = practices.length > 0;
 
   return (
     <div className={className}>
@@ -24,7 +27,14 @@ export const NewestPractices = async ({ className }: { className: string }) => {
         </Button>
       </div>
 
-      <PracticesGrid practices={practices} />
+      <ContentGrid>
+        {!existPractices && <p>No hay trabajos prácticos para mostrar.</p>}
+
+        {existPractices &&
+          practices?.map((practice) => (
+            <PracticeCard key={practice.id} practice={practice} />
+          ))}
+      </ContentGrid>
     </div>
   );
 };

@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { Fragment } from "react";
 import { prisma } from "@/prisma";
-import { SolutionDialog } from "@/app/students/practices/[practiceId]/exercises/[exerciseId]/solution-dialog";
+import { SolutionDialog } from "@/app/practices/[practiceId]/exercises/[exerciseId]/solution-dialog";
 import { Badge } from "@/app/_general/components/badge";
 
 type ExercisePageProps = {
@@ -80,7 +80,7 @@ export default async function Exercise({
                         <div className="rounded border p-2">
                           {example.batchInput.map((input) => (
                             <>
-                              <Code>{input}</Code>
+                              <Code className="mb-1">{input}</Code>
                               <br />
                             </>
                           )) ?? <p>No tiene.</p>}
@@ -93,7 +93,7 @@ export default async function Exercise({
                         <div className="rounded border p-2">
                           {example.batchOutput.map((output) => (
                             <>
-                              <Code>{output}</Code>
+                              <Code className="mb-1">{output}</Code>
                               <br />
                             </>
                           )) ?? <p>No tiene.</p>}

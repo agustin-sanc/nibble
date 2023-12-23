@@ -18,25 +18,21 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <ClerkProvider appearance={{ baseTheme: dark }} localization={esES}>
-      <html lang="es">
-        <body className={`font-sans ${inter.variable}`}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <ReactQueryProvider>{children}</ReactQueryProvider>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
-  );
-}
+const RootLayout = ({ children }: { children: React.ReactNode }) => (
+  <ClerkProvider appearance={{ baseTheme: dark }} localization={esES}>
+    <html lang="es">
+      <body className={`font-sans ${inter.variable}`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </ThemeProvider>
+      </body>
+    </html>
+  </ClerkProvider>
+);
+
+export default RootLayout;

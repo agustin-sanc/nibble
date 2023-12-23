@@ -3,8 +3,8 @@
 import { Binary, Laptop } from "lucide-react";
 import { Button } from "@/app/_general/components/button";
 import type { Exercise } from "@prisma/client";
-import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 type ExerciseCardProps = {
   exercise: Exercise;
@@ -12,6 +12,7 @@ type ExerciseCardProps = {
 
 export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
   const { user } = useUser();
+  const router = useRouter();
 
   return (
     <div className="mb-2 flex w-[48%] flex-col justify-between rounded border p-4">
@@ -26,15 +27,17 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
         <p className="pb-5 text-sm">{exercise.description}</p>
       </div>
 
-      <Link
-        href={`/${
-          !user?.publicMetadata.isProfessor ? "students" : "professors"
-        }/practices/${exercise.practiceId}/exercises/${exercise.id}`}
+      <Button
+        className="flex items-center gap-2"
+        variant="outline"
+        onClick={() =>
+          router.push(
+            `/practices/${exercise.practiceId}/exercises/${exercise.id}`,
+          )
+        }
       >
-        <Button className="flex items-center gap-2" variant="outline">
-          <Laptop /> Abrir ejercicio
-        </Button>
-      </Link>
+        <Laptop /> Abrir ejercicio
+      </Button>
     </div>
   );
 };

@@ -9,7 +9,7 @@ export const TheoryCard = ({ theory }: { theory: Theory }) => {
   const router = useRouter();
 
   return (
-    <div className="rounded border p-4">
+    <div className="mb-2 flex w-[48%] flex-col justify-between rounded border p-4">
       <div className="mb-4 flex items-center">
         <BookText />
         <h2 className="ml-2 text-xl font-bold">{theory.name}</h2>
@@ -20,7 +20,7 @@ export const TheoryCard = ({ theory }: { theory: Theory }) => {
       <Button
         variant="outline"
         className="flex items-center gap-2"
-        onClick={() => router.push(`/students/theories/${theory.id}`)}
+        onClick={() => router.push(`/theories/${theory.id}`)}
       >
         <Eye /> Leer
       </Button>

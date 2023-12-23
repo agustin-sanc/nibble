@@ -16,37 +16,23 @@ const LayoutWithSidePanel = ({ children }: { children: ReactNode }) => {
       <SidePanel>
         <div className="flex h-full flex-col justify-between">
           <div>
-            <SidePanelItem
-              href={
-                user?.publicMetadata.isProfessor ? "/professors" : "/students"
-              }
-              icon={<Home />}
-              label="Inicio"
-            />
+            <SidePanelItem href="/" icon={<Home />} label="Inicio" />
 
             <SidePanelItem
-              href={
-                user?.publicMetadata.isProfessor
-                  ? "/professors/practices"
-                  : "/students/practices"
-              }
+              href="/practices"
               icon={<Layers2 />}
               label="Trabajos prácticos"
             />
 
             <SidePanelItem
-              href={
-                user?.publicMetadata.isProfessor
-                  ? "/professors/theories"
-                  : "/students/theories"
-              }
+              href="/theories"
               icon={<Library />}
               label="Unidades teóricas"
             />
 
             {user?.publicMetadata.isProfessor === true && (
               <SidePanelItem
-                href="/professors/reports"
+                href="/reports"
                 icon={<LineChart />}
                 label="Reportes"
               />

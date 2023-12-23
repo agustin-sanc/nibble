@@ -4,8 +4,8 @@ import { Binary, Laptop } from "lucide-react";
 import { Button } from "@/app/_general/components/button";
 import { Badge } from "@/app/_general/components/badge";
 import type { Practice, Exercise } from "@prisma/client";
-import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 type PracticeCardProps = {
   practice: Practice & { exercises: Exercise[] };
@@ -13,6 +13,7 @@ type PracticeCardProps = {
 
 export const PracticeCard = ({ practice }: PracticeCardProps) => {
   const { user } = useUser();
+  const router = useRouter();
   const practiceHasOneExercise = practice.exercises.length === 1;
 
   return (
@@ -34,15 +35,13 @@ export const PracticeCard = ({ practice }: PracticeCardProps) => {
         <p className="pb-5 text-sm">{practice.description}</p>
       </div>
 
-      <Link
-        href={`/${
-          !user?.publicMetadata.isProfessor ? "students" : "professors"
-        }/practices/${practice.id}`}
+      <Button
+        variant="outline"
+        className="flex items-center gap-2"
+        onClick={() => router.push(`/practices/${practice.id}`)}
       >
-        <Button className="flex items-center gap-2" variant="outline">
-          <Laptop /> Ver trabajo práctico
-        </Button>
-      </Link>
+        <Laptop /> Abrir trabajo práctico
+      </Button>
     </div>
   );
 };
