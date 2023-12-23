@@ -7,7 +7,7 @@ export const TheoriesGrid = async () => {
   });
 
   return (
-    <div className="mb-6 mt-6 grid grid-cols-2 gap-4">
+    <div className="my-6 grid grid-cols-2 gap-4">
       {theories?.length === 0 ? (
         <p>No hay unidades teóricas para mostrar.</p>
       ) : (
