@@ -42,6 +42,14 @@ export const SolutionDialog = () => {
           <DialogTitle>Ingresa el código de tu solución aquí</DialogTitle>
         </DialogHeader>
 
+        <Editor
+          height="400px"
+          language={language}
+          theme={theme === "light" ? "vs-light" : "vs-dark"}
+          value={code}
+          onChange={(value) => setCode(value ?? "")}
+        />
+
         <Select
           onValueChange={(value) =>
             value === "cpp" || value === "python"
@@ -59,14 +67,6 @@ export const SolutionDialog = () => {
             <SelectItem value="python">Python</SelectItem>
           </SelectContent>
         </Select>
-
-        <Editor
-          height="400px"
-          language={language}
-          theme={theme === "light" ? "vs-light" : "vs-dark"}
-          value={code}
-          onChange={(value) => setCode(value ?? "")}
-        />
 
         <DialogFooter>
           <Button className="mt-2" onClick={submitSolution}>
