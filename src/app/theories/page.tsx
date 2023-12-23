@@ -2,7 +2,7 @@ import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-pane
 import { Header2 } from "@/app/_general/components/typography";
 import { ContentGrid } from "@/app/_general/components/content-grid";
 import { prisma } from "@/prisma";
-import { TheoryCard } from "@/app/_general/components/theory-card";
+import { ContentCard } from "@/app/_general/components/content-card";
 
 // import SyntaxHighlighter from "react-syntax-highlighter";
 // import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
@@ -27,7 +27,7 @@ const Theories = async () => {
 
         {existTheories &&
           theories.map((theory) => (
-            <TheoryCard key={theory.id} theory={theory} />
+            <ContentCard key={theory.id} type="theory" theory={theory} />
           ))}
       </ContentGrid>
     </LayoutWithSidePanel>

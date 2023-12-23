@@ -16,7 +16,7 @@ import { Fragment } from "react";
 import { prisma } from "@/prisma";
 import { Solution } from "@/app/practices/[practiceId]/exercises/[exerciseId]/solution";
 import { Badge } from "@/app/_general/components/badge";
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 type ExercisePageProps = {
   params: { exerciseId: string; practiceId: string };

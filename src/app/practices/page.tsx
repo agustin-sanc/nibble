@@ -2,7 +2,7 @@ import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-pane
 import { ContentGrid } from "@/app/_general/components/content-grid";
 import { Header2 } from "@/app/_general/components/typography";
 import { prisma } from "@/prisma";
-import { PracticeCard } from "@/app/_general/components/practice-card";
+import { ContentCard } from "@/app/_general/components/content-card";
 
 const Practices = async () => {
   const practices = await prisma.practice.findMany({
@@ -20,7 +20,11 @@ const Practices = async () => {
 
         {existPractices &&
           practices?.map((practice) => (
-            <PracticeCard key={practice.id} practice={practice} />
+            <ContentCard
+              key={practice.id}
+              type="practice"
+              practice={practice}
+            />
           ))}
       </ContentGrid>
     </LayoutWithSidePanel>

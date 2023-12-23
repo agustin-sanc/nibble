@@ -3,7 +3,7 @@ import { Button } from "@/app/_general/components/button";
 import { prisma } from "@/prisma";
 import { Header2 } from "@/app/_general/components/typography";
 import { ContentGrid } from "@/app/_general/components/content-grid";
-import { PracticeCard } from "@/app/_general/components/practice-card";
+import { ContentCard } from "@/app/_general/components/content-card";
 
 export const NewestPractices = async ({ className }: { className: string }) => {
   const practices = await prisma.practice.findMany({
@@ -32,7 +32,11 @@ export const NewestPractices = async ({ className }: { className: string }) => {
 
         {existPractices &&
           practices?.map((practice) => (
-            <PracticeCard key={practice.id} practice={practice} />
+            <ContentCard
+              key={practice.id}
+              type="practice"
+              practice={practice}
+            />
           ))}
       </ContentGrid>
     </div>
