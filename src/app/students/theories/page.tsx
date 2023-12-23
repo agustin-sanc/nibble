@@ -9,11 +9,11 @@ import { Header2 } from "@/app/_general/components/typography";
 //   {codeString}
 // </SyntaxHighlighter>
 
-export default function Theories() {
-  return (
-    <LayoutWithSidePanel>
-      <Header2>Unidades teóricas</Header2>
-      <TheoriesGrid />
-    </LayoutWithSidePanel>
-  );
-}
+const Theories = () => (
+  <LayoutWithSidePanel>
+    <Header2>Unidades teóricas</Header2>
+    <TheoriesGrid />
+  </LayoutWithSidePanel>
+);
+
+export default Theories;
