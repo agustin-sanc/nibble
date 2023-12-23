@@ -13,6 +13,7 @@ type PracticeCardProps = {
 
 export const PracticeCard = ({ practice }: PracticeCardProps) => {
   const { user } = useUser();
+  const practiceHasOneExercise = practice.exercises.length === 1;
 
   return (
     <div className="mb-2 flex w-[48%] flex-col justify-between rounded border p-4">
@@ -24,7 +25,9 @@ export const PracticeCard = ({ practice }: PracticeCardProps) => {
           </div>
 
           <Badge variant="outline">
-            {practice.exercises.length} ejercicios
+            {`${practice.exercises.length} ${
+              practiceHasOneExercise ? "ejercicio" : "ejercicios"
+            }`}
           </Badge>
         </div>
 
