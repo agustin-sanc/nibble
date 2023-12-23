@@ -2,11 +2,11 @@ import { prisma } from "@/prisma";
 import {
   Header2,
   Header3,
-  Header4,
   UnorderedList,
 } from "@/app/_general/components/typography";
 import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-panel";
 import { ExercisesGrid } from "@/app/_general/components/exercises/exercises-grid";
+import Link from "next/link";
 
 export default async function Practice({
   params: { practiceId },
@@ -23,9 +23,11 @@ export default async function Practice({
       <Header2>{practice?.name}</Header2>
       <p>{practice?.description}</p>
 
-      <UnorderedList title="Unidades teóricas relacionadas">
+      <UnorderedList title="Teoría relacionada">
         {practice?.theories.map((theory) => (
-          <li key={theory.id}>{theory.name}</li>
+          <li key={theory.id} className="hover:underline">
+            <Link href={`/students/theories/${theory.id}`}>{theory.name}</Link>
+          </li>
         ))}
       </UnorderedList>
 
