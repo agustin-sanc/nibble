@@ -1,4 +1,4 @@
-import { ArrowRight, Layers2 } from "lucide-react";
+import { ArrowRight, Library } from "lucide-react";
 import { Button } from "@/app/_general/components/button";
 import { prisma } from "@/prisma";
 import { Header2 } from "@/app/_general/components/typography";
@@ -19,7 +19,7 @@ export const NewestTheories = async ({ className }: { className: string }) => {
     <div className={className}>
       <div className="mb-6 flex justify-between">
         <div className="flex items-center">
-          <Layers2 size={30} />
+          <Library size={30} />
           <Header2 className="ml-2 mt-2">Últimas unidades teóricas</Header2>
         </div>
 
