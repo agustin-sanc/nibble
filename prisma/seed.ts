@@ -3,6 +3,15 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
+  const aed = await prisma.course.create({
+    data: {
+      name: "AED: 1k6 (2024)",
+      description: "Cátedra de algoritmos y estructuras de datos, UTN-FRT.",
+      ownerId: "user_2Xre7xN7YsgdtkfsWsGyzsP0NIk",
+      studentIds: ["user_2XmUmwYgRF2yPH0DvYj7WgIAE8G"],
+    },
+  });
+
   const variablesTheory = await prisma.theory.create({
     data: {
       name: "Variables",
@@ -10,6 +19,7 @@ async function main() {
         "Las variables son espacios de memoria que nos permiten almacenar valores.",
       content:
         "Las variables son espacios de memoria que nos permiten almacenar valores. Para declarar una variable, se utiliza la palabra reservada var, seguida del nombre de la variable. Por ejemplo, para declarar una variable llamada nombre, se utiliza la siguiente sintaxis: var nombre. Para asignar un valor a una variable, se utiliza el operador de asignación =. Por ejemplo, para asignar el valor 'Juan' a la variable nombre, se utiliza la siguiente sintaxis: nombre = 'Juan'.",
+      courseId: aed.id,
     },
   });
 
@@ -23,6 +33,7 @@ async function main() {
           id: variablesTheory.id,
         },
       },
+      courseId: aed.id,
     },
   });
 
