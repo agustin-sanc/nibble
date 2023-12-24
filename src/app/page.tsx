@@ -1,5 +1,5 @@
-import { Header1 } from "@/app/_general/components/typography";
-import { Button } from "@/app/_general/components/button";
+import { Header1 } from "@/app/_common/components/typography";
+import { Button } from "@/app/_common/components/button";
 import Link from "next/link";
 
 const Home = () => (

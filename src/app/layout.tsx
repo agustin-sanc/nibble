@@ -1,10 +1,10 @@
-import "@/app/_general/globals.css";
+import "@/app/_common/globals.css";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { ThemeProvider } from "@/app/_general/components/theme-provider";
+import { ThemeProvider } from "@/app/_common/components/theme-provider";
 import { dark } from "@clerk/themes";
 import { esES } from "@clerk/localizations";
-import { ReactQueryProvider } from "@/app/_general/react-query-provider";
+import { ReactQueryProvider } from "@/app/_common/react-query-provider";
 import { type ReactNode } from "react";
 
 const inter = Inter({
