@@ -4,6 +4,7 @@ import { prisma } from "@/prisma";
 import { Header2 } from "@/app/_general/components/typography";
 import { ContentGrid } from "@/app/_general/components/content-grid";
 import { ContentCard } from "@/app/_general/components/content-card";
+import Link from "next/link";
 
 export const NewestTheories = async ({ className }: { className: string }) => {
   const theories = await prisma.theory.findMany({
@@ -22,8 +23,10 @@ export const NewestTheories = async ({ className }: { className: string }) => {
           <Header2 className="ml-2 mt-2">Últimas unidades teóricas</Header2>
         </div>
 
-        <Button className="flex items-center gap-2" variant="outline">
-          Ver todas <ArrowRight />
+        <Button className="flex items-center gap-2" variant="outline" asChild>
+          <Link href="/theories" className="flex items-center gap-2">
+            Ver todas <ArrowRight />
+          </Link>
         </Button>
       </div>
 
