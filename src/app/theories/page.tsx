@@ -1,4 +1,4 @@
-import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-panel";
+import { LayoutWithSidePanel } from "@/app/_general/components/layout-with-side-panel";
 import { Header2 } from "@/app/_general/components/typography";
 import { ContentGrid } from "@/app/_general/components/content-grid";
 import { prisma } from "@/prisma";

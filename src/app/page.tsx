@@ -1,4 +1,4 @@
-import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-panel";
+import { LayoutWithSidePanel } from "@/app/_general/components/layout-with-side-panel";
 import { Header1 } from "@/app/_general/components/typography";
 import { MotivationalQuotes } from "@/app/_general/components/motivational-quotes";
 import { NewestPractices } from "@/app/_general/components/newest-practices";

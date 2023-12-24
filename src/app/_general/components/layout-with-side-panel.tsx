@@ -6,7 +6,11 @@ import { ModeToggle } from "@/app/_general/components/mode-toggle";
 import SidePanelItem from "@/app/_general/components/side-panel-item";
 import { Home, Layers2, Library, LineChart, Users } from "lucide-react";
 
-const LayoutWithSidePanel = async ({ children }: { children: ReactNode }) => {
+export const LayoutWithSidePanel = async ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
   const user = await currentUser();
 
   return (
@@ -48,5 +52,3 @@ const LayoutWithSidePanel = async ({ children }: { children: ReactNode }) => {
     </div>
   );
 };
-
-export default LayoutWithSidePanel;
