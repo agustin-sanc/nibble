@@ -16,7 +16,7 @@ const Courses = async () => {
         {!existCourses && <p>No fuiste agregado a un curso aún.</p>}
 
         {existCourses &&
-          courses?.map((course) => (
+          courses.map((course) => (
             <ContentCard key={course.id} type="course" course={course} />
           ))}
       </ContentGrid>
