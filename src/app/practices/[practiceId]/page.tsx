@@ -1,7 +1,6 @@
 import { prisma } from "@/prisma";
 import { Header2, Header3 } from "@/app/_general/components/typography";
 import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-panel";
-import { ExercisesGrid } from "@/app/_general/components/exercises/exercises-grid";
 import { ContentGrid } from "@/app/_general/components/content-grid";
 import { ContentCard } from "@/app/_general/components/content-card";
 
@@ -15,6 +14,9 @@ const Practice = async ({
     include: { exercises: true, theories: true },
   });
 
+  const hasExercises = practice?.exercises.length > 0;
+  const hasRelatedTheories = practice?.theories.length > 0;
+
   return (
     <LayoutWithSidePanel>
       {!practice && <p>El trabajo práctico no existe.</p>}
@@ -25,15 +27,26 @@ const Practice = async ({
           <p>{practice?.description}</p>
 
           <Header3>Ejercicios</Header3>
-          <ExercisesGrid exercises={practice?.exercises ?? []} />
+          {!hasExercises && <p>No hay ejercicios aún.</p>}
+
+          {hasExercises && (
+            <ContentGrid>
+              {practice.exercises.map((theory) => (
+                <ContentCard key={theory.id} type="theory" theory={theory} />
+              ))}
+            </ContentGrid>
+          )}
 
           <Header3>Teoría relacionada</Header3>
+          {!hasRelatedTheories && <p>No hay teoría relacionada.</p>}
 
-          <ContentGrid>
-            {practice.theories.map((theory) => (
-              <ContentCard key={theory.id} type="theory" theory={theory} />
-            ))}
-          </ContentGrid>
+          {hasRelatedTheories && (
+            <ContentGrid>
+              {practice.theories.map((theory) => (
+                <ContentCard key={theory.id} type="theory" theory={theory} />
+              ))}
+            </ContentGrid>
+          )}
         </>
       )}
     </LayoutWithSidePanel>
