@@ -1,29 +1,41 @@
 import { Button } from "@/app/_general/components/button";
 import Link from "next/link";
 
-export const OpenContent = ({
-  id,
-  type,
-}: {
-  id: number;
-  type: "practice" | "theory" | "course";
-}) => {
+type OpenExerciseProps = {
+  type: "exercise";
+  practiceId: number;
+  exerciseId: number;
+};
+
+type OpenContentProps =
+  | OpenExerciseProps
+  | {
+      id: number;
+      type: "practice" | "theory" | "course";
+    };
+
+export const OpenContent = (props: OpenContentProps) => {
   let label: string, href: string;
 
-  switch (type) {
+  switch (props.type) {
+    case "course":
+      label = "Entrar al curso";
+      href = `/courses/${props.id}`;
+      break;
+
     case "practice":
       label = "Abrir trabajo práctico";
-      href = `/practices/${id}`;
+      href = `/practices/${props.id}`;
+      break;
+
+    case "exercise":
+      label = "Abrir ejercicio";
+      href = `/practices/${props.practiceId}/exercises/${props.exerciseId}`;
       break;
 
     case "theory":
       label = "Abrir unidad teórica";
-      href = `/theories/${id}`;
-      break;
-
-    case "course":
-      label = "Entrar al curso";
-      href = `/courses/${id}`;
+      href = `/theories/${props.id}`;
       break;
   }
 

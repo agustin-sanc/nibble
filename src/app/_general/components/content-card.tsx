@@ -1,13 +1,23 @@
-import { Binary, BookText, Users } from "lucide-react";
+import { Binary, BookText, Users, Layers2 } from "lucide-react";
 import type { Practice, Theory, Exercise, Course } from "@prisma/client";
 import { NumberOfExercisesBadge } from "@/app/_general/components/number-of-exercises-badge";
 import { NumberOfStudentsBadge } from "@/app/_general/components/number-of-students-badge";
 import { OpenContent } from "@/app/_general/components/open-content";
 import { type ReactNode } from "react";
 
+type CourseCardProps = {
+  type: "course";
+  course: Course;
+};
+
 type PracticeCardProps = {
   type: "practice";
   practice: Practice & { exercises: Exercise[] };
+};
+
+type ExerciseCardProps = {
+  type: "exercise";
+  exercise: Exercise;
 };
 
 type TheoryCardProps = {
@@ -15,12 +25,11 @@ type TheoryCardProps = {
   theory: Theory;
 };
 
-type CourseCardProps = {
-  type: "course";
-  course: Course;
-};
-
-type ContentCardProps = PracticeCardProps | TheoryCardProps | CourseCardProps;
+type ContentCardProps =
+  | PracticeCardProps
+  | ExerciseCardProps
+  | TheoryCardProps
+  | CourseCardProps;
 
 export const ContentCard = ({ type, ...props }: ContentCardProps) => {
   const { name, description } = props[type];
@@ -28,8 +37,17 @@ export const ContentCard = ({ type, ...props }: ContentCardProps) => {
   let titleIcon: ReactNode, titleBadge: ReactNode;
 
   switch (type) {
+    case "course": {
+      titleIcon = <Users />;
+
+      const studentsNumber = props.course.studentIds.length;
+      titleBadge = <NumberOfStudentsBadge number={studentsNumber} />;
+
+      break;
+    }
+
     case "practice": {
-      titleIcon = <Binary />;
+      titleIcon = <Layers2 />;
 
       const exercisesNumber = props.practice.exercises.length;
       titleBadge = <NumberOfExercisesBadge number={exercisesNumber} />;
@@ -42,12 +60,8 @@ export const ContentCard = ({ type, ...props }: ContentCardProps) => {
       break;
     }
 
-    case "course": {
-      titleIcon = <Users />;
-
-      const studentsNumber = props.course.studentIds.length;
-      titleBadge = <NumberOfStudentsBadge number={studentsNumber} />;
-
+    case "exercise": {
+      titleIcon = <Binary />;
       break;
     }
   }
