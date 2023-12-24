@@ -2,6 +2,8 @@ import { prisma } from "@/prisma";
 import { Header2, Header3 } from "@/app/_general/components/typography";
 import LayoutWithSidePanel from "@/app/_general/components/layout-with-side-panel";
 import { ExercisesGrid } from "@/app/_general/components/exercises/exercises-grid";
+import { ContentGrid } from "@/app/_general/components/content-grid";
+import { ContentCard } from "@/app/_general/components/content-card";
 
 const Practice = async ({
   params: { practiceId },
@@ -26,7 +28,12 @@ const Practice = async ({
           <ExercisesGrid exercises={practice?.exercises ?? []} />
 
           <Header3>Teoría relacionada</Header3>
-          {/*<TheoriesGrid theories={practice?.theories ?? []} />*/}
+
+          <ContentGrid>
+            {practice.theories.map((theory) => (
+              <ContentCard key={theory.id} type="theory" theory={theory} />
+            ))}
+          </ContentGrid>
         </>
       )}
     </LayoutWithSidePanel>
