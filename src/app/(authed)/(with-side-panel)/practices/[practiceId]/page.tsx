@@ -1,6 +1,5 @@
 import { prisma } from "@/app/_general/prisma";
 import { Header2, Header3 } from "@/app/_general/components/typography";
-import { LayoutWithSidePanel } from "@/app/_general/components/layout-with-side-panel";
 import { ContentGrid } from "@/app/_general/components/content-grid";
 import { ContentCard } from "@/app/_general/components/content-card";
 
@@ -18,7 +17,7 @@ const Practice = async ({
   const hasRelatedTheories = practice?.theories?.length > 0;
 
   return (
-    <LayoutWithSidePanel>
+    <>
       {!practice && <p>El trabajo práctico no existe.</p>}
 
       {practice && (
@@ -53,7 +52,7 @@ const Practice = async ({
           )}
         </>
       )}
-    </LayoutWithSidePanel>
+    </>
   );
 };
 

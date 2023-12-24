@@ -1,5 +1,4 @@
 import { prisma } from "@/app/_general/prisma";
-import { LayoutWithSidePanel } from "@/app/_general/components/layout-with-side-panel";
 import { MarkdownViewer } from "@/app/_general/components/markdown-viewer";
 
 const Theory = async ({
@@ -12,10 +11,10 @@ const Theory = async ({
   });
 
   return (
-    <LayoutWithSidePanel>
+    <>
       {!theory && <p>La unidad teórica no existe.</p>}
       {theory && <MarkdownViewer source={theory.content} />}
-    </LayoutWithSidePanel>
+    </>
   );
 };
 

@@ -14,9 +14,9 @@ import {
 import Link from "next/link";
 import { Fragment } from "react";
 import { prisma } from "@/app/_general/prisma";
-import { Solution } from "@/app/(authed)/practices/[practiceId]/exercises/[exerciseId]/solution";
 import { Badge } from "@/app/_general/components/badge";
 import { ArrowUpRight } from "lucide-react";
+import { Solution } from "@/app/(authed)/(without-side-panel)/practices/[practiceId]/exercises/[exerciseId]/solution";
 
 type ExercisePageProps = {
   params: { exerciseId: string; practiceId: string };

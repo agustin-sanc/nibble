@@ -1,4 +1,3 @@
-import { LayoutWithSidePanel } from "@/app/_general/components/layout-with-side-panel";
 import { ContentGrid } from "@/app/_general/components/content-grid";
 import { Header2 } from "@/app/_general/components/typography";
 import { prisma } from "@/app/_general/prisma";
@@ -12,7 +11,7 @@ const Practices = async () => {
   const existPractices = practices.length > 0;
 
   return (
-    <LayoutWithSidePanel>
+    <>
       <Header2>Trabajos prácticos</Header2>
 
       <ContentGrid>
@@ -27,7 +26,7 @@ const Practices = async () => {
             />
           ))}
       </ContentGrid>
-    </LayoutWithSidePanel>
+    </>
   );
 };
 

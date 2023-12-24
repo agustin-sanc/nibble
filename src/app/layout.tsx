@@ -1,11 +1,11 @@
 import "@/app/_general/globals.css";
-
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/app/_general/components/theme-provider";
 import { dark } from "@clerk/themes";
 import { esES } from "@clerk/localizations";
 import { ReactQueryProvider } from "@/app/_general/react-query-provider";
+import { type ReactNode } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,7 +18,7 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => (
+const RootLayout = ({ children }: { children: ReactNode }) => (
   <ClerkProvider appearance={{ baseTheme: dark }} localization={esES}>
     <html lang="es">
       <body className={`font-sans ${inter.variable}`}>

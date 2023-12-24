@@ -1,4 +1,3 @@
-import { LayoutWithSidePanel } from "@/app/_general/components/layout-with-side-panel";
 import { ContentGrid } from "@/app/_general/components/content-grid";
 import { Header2 } from "@/app/_general/components/typography";
 import { prisma } from "@/app/_general/prisma";
@@ -9,7 +8,7 @@ const Courses = async () => {
   const existCourses = courses.length > 0;
 
   return (
-    <LayoutWithSidePanel>
+    <>
       <Header2>Cursos</Header2>
 
       <ContentGrid>
@@ -20,7 +19,7 @@ const Courses = async () => {
             <ContentCard key={course.id} type="course" course={course} />
           ))}
       </ContentGrid>
-    </LayoutWithSidePanel>
+    </>
   );
 };
 
