@@ -4,7 +4,7 @@ import { ScrollArea } from "@/app/_general/components/scroll-area";
 import { currentUser } from "@clerk/nextjs";
 import { ModeToggle } from "@/app/_general/components/mode-toggle";
 import SidePanelItem from "@/app/_general/components/side-panel-item";
-import { Home, Layers2, Library, LineChart } from "lucide-react";
+import { Home, Layers2, Library, LineChart, Users } from "lucide-react";
 
 const LayoutWithSidePanel = async ({ children }: { children: ReactNode }) => {
   const user = await currentUser();
@@ -15,6 +15,7 @@ const LayoutWithSidePanel = async ({ children }: { children: ReactNode }) => {
         <div className="flex h-full flex-col justify-between">
           <div>
             <SidePanelItem href="/" icon={<Home />} label="Inicio" />
+            <SidePanelItem href="/courses" icon={<Users />} label="Cursos" />
 
             <SidePanelItem
               href="/practices"
