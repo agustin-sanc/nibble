@@ -22,6 +22,9 @@ const Course = async ({
     },
   });
 
+  const hasPractices = course?.practices?.length > 0;
+  const hasTheories = course?.theories?.length > 0;
+
   return (
     <LayoutWithSidePanel>
       {!course && <p>El trabajo práctico no existe.</p>}
@@ -32,24 +35,30 @@ const Course = async ({
           <p>{course.description}</p>
 
           <Header3>Trabajos prácticos</Header3>
+          {!hasPractices && <p>No hay trabajos prácticos aún.</p>}
 
-          <ContentGrid>
-            {course.practices.map((practice) => (
-              <ContentCard
-                key={practice.id}
-                type="practice"
-                practice={practice}
-              />
-            ))}
-          </ContentGrid>
+          {hasPractices && (
+            <ContentGrid>
+              {course.practices.map((practice) => (
+                <ContentCard
+                  key={practice.id}
+                  type="practice"
+                  practice={practice}
+                />
+              ))}
+            </ContentGrid>
+          )}
 
           <Header3>Unidades teóricas</Header3>
+          {!hasTheories && <p>No hay unidades teóricas aún.</p>}
 
-          <ContentGrid>
-            {course.theories.map((theory) => (
-              <ContentCard key={theory.id} type="theory" theory={theory} />
-            ))}
-          </ContentGrid>
+          {hasTheories && (
+            <ContentGrid>
+              {course.theories.map((theory) => (
+                <ContentCard key={theory.id} type="theory" theory={theory} />
+              ))}
+            </ContentGrid>
+          )}
         </>
       )}
     </LayoutWithSidePanel>
