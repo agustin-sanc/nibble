@@ -14,8 +14,8 @@ const Practice = async ({
     include: { exercises: true, theories: true },
   });
 
-  const hasExercises = practice?.exercises.length > 0;
-  const hasRelatedTheories = practice?.theories.length > 0;
+  const hasExercises = practice?.exercises?.length > 0;
+  const hasRelatedTheories = practice?.theories?.length > 0;
 
   return (
     <LayoutWithSidePanel>
@@ -23,16 +23,20 @@ const Practice = async ({
 
       {practice && (
         <>
-          <Header2>{practice?.name}</Header2>
-          <p>{practice?.description}</p>
+          <Header2>{practice.name}</Header2>
+          <p>{practice.description}</p>
 
           <Header3>Ejercicios</Header3>
           {!hasExercises && <p>No hay ejercicios aún.</p>}
 
           {hasExercises && (
             <ContentGrid>
-              {practice.exercises.map((theory) => (
-                <ContentCard key={theory.id} type="theory" theory={theory} />
+              {practice.exercises.map((exercise) => (
+                <ContentCard
+                  key={exercise.id}
+                  type="exercise"
+                  exercise={exercise}
+                />
               ))}
             </ContentGrid>
           )}
