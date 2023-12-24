@@ -19,7 +19,7 @@ export const OpenContent = (props: OpenContentProps) => {
 
   switch (props.type) {
     case "course":
-      label = "Entrar al curso";
+      label = "Abrir curso";
       href = `/courses/${props.id}`;
       break;
 
