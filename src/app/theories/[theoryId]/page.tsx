@@ -1,4 +1,4 @@
-import { prisma } from "@/prisma";
+import { prisma } from "@/app/_general/prisma";
 import { LayoutWithSidePanel } from "@/app/_general/components/layout-with-side-panel";
 import { MarkdownViewer } from "@/app/_general/components/markdown-viewer";
 

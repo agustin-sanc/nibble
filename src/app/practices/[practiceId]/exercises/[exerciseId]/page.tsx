@@ -13,7 +13,7 @@ import {
 } from "@/app/_general/components/accordion";
 import Link from "next/link";
 import { Fragment } from "react";
-import { prisma } from "@/prisma";
+import { prisma } from "@/app/_general/prisma";
 import { Solution } from "@/app/practices/[practiceId]/exercises/[exerciseId]/solution";
 import { Badge } from "@/app/_general/components/badge";
 import { ArrowUpRight } from "lucide-react";

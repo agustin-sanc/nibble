@@ -1,4 +1,4 @@
-import { cn } from "@/cn";
+import { cn } from "@/app/_general/cn";
 
 export const Skeleton = ({
   className,

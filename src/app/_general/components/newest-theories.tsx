@@ -1,6 +1,6 @@
 import { ArrowRight, Library } from "lucide-react";
 import { Button } from "@/app/_general/components/button";
-import { prisma } from "@/prisma";
+import { prisma } from "@/app/_general/prisma";
 import { Header2 } from "@/app/_general/components/typography";
 import { ContentGrid } from "@/app/_general/components/content-grid";
 import { ContentCard } from "@/app/_general/components/content-card";

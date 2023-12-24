@@ -1,7 +1,7 @@
 import { LayoutWithSidePanel } from "@/app/_general/components/layout-with-side-panel";
 import { ContentGrid } from "@/app/_general/components/content-grid";
 import { Header2 } from "@/app/_general/components/typography";
-import { prisma } from "@/prisma";
+import { prisma } from "@/app/_general/prisma";
 import { ContentCard } from "@/app/_general/components/content-card";
 
 const Practices = async () => {

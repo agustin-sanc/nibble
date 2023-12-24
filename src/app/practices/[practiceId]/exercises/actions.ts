@@ -1,4 +1,4 @@
-import { prisma } from "@/prisma";
+import { prisma } from "@/app/_general/prisma";
 import { z } from "zod";
 
 // z.object({
