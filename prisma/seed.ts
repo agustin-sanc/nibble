@@ -17,8 +17,61 @@ async function main() {
       name: "Variables",
       description:
         "Las variables son espacios de memoria que nos permiten almacenar valores.",
-      content:
-        "Las variables son espacios de memoria que nos permiten almacenar valores. Para declarar una variable, se utiliza la palabra reservada var, seguida del nombre de la variable. Por ejemplo, para declarar una variable llamada nombre, se utiliza la siguiente sintaxis: var nombre. Para asignar un valor a una variable, se utiliza el operador de asignación =. Por ejemplo, para asignar el valor 'Juan' a la variable nombre, se utiliza la siguiente sintaxis: nombre = 'Juan'.",
+      content: `
+# Variables
+
+Las variables son una parte fundamental en la programación en C. Una variable es un nombre simbólico para una porción de memoria, que se puede utilizar para almacenar datos, y cuyo valor puede cambiar durante la ejecución de un programa.
+
+## Declaración de variables
+
+En C, una variable se declara especificando su tipo seguido del nombre de la variable. Por ejemplo:
+
+\`\`\`c
+int edad;
+float salario;
+char inicial;
+\`\`\`
+
+## Inicialización de variables
+
+Una variable puede ser inicializada al momento de su declaración:
+
+\`\`\`c
+int edad = 30;
+float salario = 2500.50;
+char inicial = 'J';
+\`\`\`
+
+## Ejemplo de uso de variables
+A continuación, se muestra un ejemplo de cómo se utilizan las variables en un programa en C:
+
+\`\`\`c
+#include <stdio.h>
+
+int main() {
+    // Declaración e inicialización de variables
+    int edad = 25;
+    float salario = 3200.75;
+    char grado = 'A';
+
+    // Uso de variables en cálculos
+    edad = edad + 1;
+    salario = salario * 1.10;
+
+    // Mostrar los valores de las variables
+    printf("Edad: %d\\n", edad);
+    printf("Salario: %.2f\\n", salario);
+    printf("Grado: %c\\n", grado);
+
+    return 0;
+}
+\`\`\`
+
+En este ejemplo, las variables edad, salario y grado son inicializadas y luego utilizadas en cálculos. Finalmente, se muestran los valores actualizados de estas variables.
+
+## Conclusión
+Las variables son esenciales para almacenar y manipular datos en los programas. En C, es importante declarar el tipo de la variable y comprender cómo se pueden utilizar en diferentes situaciones.
+      `,
       courseId: aed.id,
     },
   });
