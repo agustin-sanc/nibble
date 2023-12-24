@@ -10,14 +10,14 @@ const Courses = async () => {
 
   return (
     <LayoutWithSidePanel>
-      <Header2>Trabajos prácticos</Header2>
+      <Header2>Cursos</Header2>
 
       <ContentGrid>
-        {!existCourses && <p>No te agregaron a ningún curso aún.</p>}
+        {!existCourses && <p>No fuiste agregado a un curso aún.</p>}
 
         {existCourses &&
           courses?.map((course) => (
-            <ContentCard key={course.id} type="practice" practice={course} />
+            <ContentCard key={course.id} type="course" course={course} />
           ))}
       </ContentGrid>
     </LayoutWithSidePanel>
