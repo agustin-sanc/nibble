@@ -18,7 +18,7 @@ export const LayoutWithSidePanel = async ({
       <SidePanel>
         <div className="flex h-full flex-col justify-between">
           <div>
-            <SidePanelItem href="/" icon={<Home />} label="Inicio" />
+            <SidePanelItem href="/dashboard" icon={<Home />} label="Inicio" />
             <SidePanelItem href="/courses" icon={<Users />} label="Cursos" />
 
             <SidePanelItem
