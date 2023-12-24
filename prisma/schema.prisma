@@ -9,13 +9,18 @@ datasource db {
 }
 
 model Course {
-  id          Int        @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   name        String
   description String
-  ownerId     String
-  studentIds  String[]
-  theories    Theory[]
-  practices   Practice[]
+
+  ownerId    String
+  studentIds String[]
+
+  theories  Theory[]
+  practices Practice[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Theory {
@@ -36,16 +41,18 @@ model Theory {
 }
 
 model Practice {
-  id          Int        @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   name        String
   description String
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  exercises   Exercise[]
-  theories    Theory[]   @relation("TheoryToPractice")
+
+  exercises Exercise[]
+  theories  Theory[]   @relation("TheoryToPractice")
 
   course   Course? @relation(fields: [courseId], references: [id])
   courseId Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([name])
 }
