@@ -79,7 +79,16 @@ export const ContentCard = ({ type, ...props }: ContentCardProps) => {
         </div>
 
         <p className="pb-5 text-sm">{description}</p>
-        <OpenContent id={props[type].id} type={type} />
+
+        {type === "exercise" ? (
+          <OpenContent
+            practiceId={props[type].practiceId}
+            exerciseId={props[type].id}
+            type={type}
+          />
+        ) : (
+          <OpenContent id={props[type].id} type={type} />
+        )}
       </div>
     </div>
   );
