@@ -1,4 +1,4 @@
-import { Binary, BookText } from "lucide-react";
+import { Binary, BookText, Users } from "lucide-react";
 import type { Practice, Theory, Exercise, Course } from "@prisma/client";
 import { NumberOfExercisesBadge } from "@/app/_general/components/number-of-exercises-badge";
 import { NumberOfStudentsBadge } from "@/app/_general/components/number-of-students-badge";
@@ -30,12 +30,15 @@ export const ContentCard = (props: ContentCardProps) => {
       <div>
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center">
-            {props.type === "practice" ? <Binary /> : <BookText />}
+            {props.type === "practice" && <Binary />}
+            {props.type === "theory" && <BookText />}
+            {props.type === "course" && <Users />}
+
             <h2 className="ml-2 text-xl font-bold">{name}</h2>
           </div>
 
           {props.type === "practice" && (
-            <NumberOfExercisesBadge practice={props.practice} />
+            <NumberOfExercisesBadge number={props.practice.exercises.length} />
           )}
 
           {props.type === "course" && (
