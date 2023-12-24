@@ -1,9 +1,8 @@
 import { Binary, BookText } from "lucide-react";
-import type { Practice, Exercise } from "@prisma/client";
-import { OpenPractice } from "@/app/_general/components/open-practice";
-import { type Theory } from "@prisma/client";
+import type { Practice, Theory, Exercise, Course } from "@prisma/client";
 import { NumberOfExercisesBadge } from "@/app/_general/components/number-of-exercises-badge";
-import { OpenTheory } from "@/app/_general/components/open-theory";
+import { NumberOfStudentsBadge } from "@/app/_general/components/number-of-students-badge";
+import { OpenContent } from "@/app/_general/components/open-content";
 
 type PracticeCardProps = {
   type: "practice";
@@ -15,7 +14,14 @@ type TheoryCardProps = {
   theory: Theory;
 };
 
-export const ContentCard = (props: PracticeCardProps | TheoryCardProps) => {
+type CourseCardProps = {
+  type: "course";
+  course: Course;
+};
+
+type ContentCardProps = PracticeCardProps | TheoryCardProps | CourseCardProps;
+
+export const ContentCard = (props: ContentCardProps) => {
   const name = props[`${props.type}`].name;
   const description = props[`${props.type}`].description;
 
@@ -31,15 +37,15 @@ export const ContentCard = (props: PracticeCardProps | TheoryCardProps) => {
           {props.type === "practice" && (
             <NumberOfExercisesBadge practice={props.practice} />
           )}
+
+          {props.type === "course" && (
+            <NumberOfStudentsBadge number={props.course.studentIds.length} />
+          )}
         </div>
 
         <p className="pb-5 text-sm">{description}</p>
 
-        {props.type === "practice" ? (
-          <OpenPractice id={props.practice.id} />
-        ) : (
-          <OpenTheory id={props.theory.id} />
-        )}
+        <OpenContent id={props[`${props.type}`].id} type={props.type} />
       </div>
     </div>
   );
