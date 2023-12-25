@@ -1,7 +1,7 @@
 import { Skeleton } from "@/app/_common/components/skeleton";
 
 const Loading = () => (
-  <div className="flex h-full w-full flex-col gap-2 p-8">
+  <div className="flex h-full w-full flex-col gap-2 p-3">
     <Skeleton className="h-10 w-[75%]" />
     <Skeleton className="mt-5 h-10 w-[45%]" />
 
