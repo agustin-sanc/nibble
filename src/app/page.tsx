@@ -1,6 +1,6 @@
 import { Header1 } from "@/app/_common/components/typography";
 import { Button } from "@/app/_common/components/button";
-import Link from "next/link";
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
 
 const Home = () => (
   <div className="flex w-full flex-col items-center justify-center gap-4 pt-8">
@@ -8,16 +8,35 @@ const Home = () => (
 
     <div className="flex w-[300px] flex-col gap-3">
       <Button variant="outline" asChild>
-        <Link href="/sign-up?userType=professor">
+        <SignUpButton
+          mode="modal"
+          unsafeMetadata={{ isProfessor: true }}
+          afterSignUpUrl="/dashboard"
+          afterSignInUrl="/dashboard"
+        >
           Registrarme como profesor
-        </Link>
+        </SignUpButton>
       </Button>
 
       <Button variant="outline" asChild>
-        <Link href="/sign-up?userType=student">Registrarme como alumno</Link>
+        <SignUpButton
+          mode="modal"
+          afterSignInUrl="/dashboard"
+          afterSignUpUrl="/dashboard"
+        >
+          Registrarme como alumno
+        </SignUpButton>
       </Button>
 
-      <Button>Iniciar sesión</Button>
+      <Button asChild>
+        <SignInButton
+          mode="modal"
+          afterSignInUrl="/dashboard"
+          afterSignUpUrl="/dashboard"
+        >
+          Iniciar sesión
+        </SignInButton>
+      </Button>
     </div>
   </div>
 );
