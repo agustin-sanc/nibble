@@ -5,18 +5,12 @@ import {
   UnorderedList,
 } from "@/app/_common/components/typography";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/app/_common/components/accordion";
 import Link from "next/link";
 import { Fragment } from "react";
 import { prisma } from "@/app/_common/prisma";
-import { Badge } from "@/app/_common/components/badge";
 import { ArrowUpRight } from "lucide-react";
 import { Solution } from "@/app/(authed)/(custom-layout)/practices/[practiceId]/exercises/[exerciseId]/solution";
+import { TestExamples } from "@/app/(authed)/(custom-layout)/practices/[practiceId]/exercises/[exerciseId]/test-examples";
 
 type ExercisePageProps = {
   params: { exerciseId: string; practiceId: string };
@@ -64,60 +58,7 @@ export default async function Exercise({
               <Header3>Descripción</Header3>
               <p className="mt-4">{exercise?.description}</p>
 
-              {blackBoxTestExamples.length > 0 && (
-                <>
-                  <Header3>Ejemplos</Header3>
-
-                  <Accordion type="multiple">
-                    {blackBoxTestExamples.map((example, index) => (
-                      <AccordionItem
-                        key={String(example.id)}
-                        value={String(example.id)}
-                      >
-                        <AccordionTrigger>
-                          <div className="flex gap-3">
-                            <Badge variant="outline">Caja negra</Badge>
-                            Caso de prueba {index + 1}
-                          </div>
-                        </AccordionTrigger>
-
-                        <AccordionContent className="flex gap-4">
-                          <div className="flex w-1/3 flex-col gap-2">
-                            <p className="font-semibold">Entrada</p>
-
-                            <div className="rounded border p-2">
-                              {example.batchInput.map((input) => (
-                                <>
-                                  <Code className="mb-1">{input}</Code>
-                                  <br />
-                                </>
-                              )) ?? <p>No tiene.</p>}
-                            </div>
-                          </div>
-
-                          <div className="flex w-1/3 flex-col gap-2">
-                            <p className="font-semibold">Resultado</p>
-
-                            <div className="rounded border p-2">
-                              {example.batchOutput.map((output) => (
-                                <>
-                                  <Code className="mb-1">{output}</Code>
-                                  <br />
-                                </>
-                              )) ?? <p>No tiene.</p>}
-                            </div>
-                          </div>
-
-                          <div className="flex w-1/3 flex-col gap-2">
-                            <p className="font-semibold">Descripción</p>
-                            <p>{example.description}</p>
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                </>
-              )}
+              <TestExamples examples={blackBoxTestExamples} />
 
               {exercise.practice.theories.length > 0 && (
                 <div>
