@@ -14,8 +14,8 @@ import {
 import { Header3 } from "@/app/_common/components/typography";
 
 export const Solution = () => {
-  const [code, setCode] = useState("");
   const { theme } = useTheme();
+  const [code, setCode] = useState("");
   const [language, setLanguage] = useState<"cpp" | "python">("cpp");
 
   const submitSolution = () => {
