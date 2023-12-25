@@ -34,7 +34,7 @@ export default async function Exercise({
       </Link>
 
       <div className="mt-5 flex flex-row items-center justify-between">
-        <Header2>{exercise?.name}</Header2>
+        <Header2>{exercise.name}</Header2>
       </div>
     </div>
   );
