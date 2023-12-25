@@ -2,8 +2,8 @@ import { ContentGrid } from "@/app/_common/components/content-grid";
 import { Header2 } from "@/app/_common/components/typography";
 import { prisma } from "@/app/_common/prisma";
 import { ContentCard } from "@/app/_common/components/content-card";
-import { Button } from "@/app/_common/components/button";
 import { currentUser } from "@clerk/nextjs";
+import { CreateCourseDialog } from "@/app/(authed)/(common-layout)/courses/create-course-dialog";
 
 const Courses = async () => {
   const user = await currentUser();
@@ -15,7 +15,7 @@ const Courses = async () => {
       <div className="flex justify-between">
         <Header2>Cursos</Header2>
 
-        {user?.publicMetadata.isProfessor && <Button>Crear curso</Button>}
+        {user?.publicMetadata.isProfessor && <CreateCourseDialog />}
       </div>
 
       <ContentGrid>
