@@ -1,9 +1,13 @@
 import Link from "next/link";
-import { Header2, Header3 } from "@/app/_cross/components/typography";
+import {
+  Header2,
+  Header3,
+  UnorderedList,
+} from "@/app/_cross/components/typography";
 import { prisma } from "@/app/_cross/prisma";
-import { Solution } from "@/app/(custom-layouts)/practices/[practiceId]/exercises/[exerciseId]/solution";
-import { TestExamples } from "@/app/(custom-layouts)/practices/[practiceId]/exercises/[exerciseId]/test-examples";
-import { RelatedTheories } from "@/app/(custom-layouts)/practices/[practiceId]/exercises/[exerciseId]/related-theories";
+import { Solution } from "@/app/(custom-layouts)/practices/[practiceId]/exercises/[exerciseId]/_components/solution";
+import { TestExamples } from "@/app/(custom-layouts)/practices/[practiceId]/exercises/[exerciseId]/_components/test-examples";
+import { ArrowUpRight } from "lucide-react";
 
 type ExercisePageProps = {
   params: { exerciseId: string; practiceId: string };
@@ -39,6 +43,33 @@ export default async function Exercise({
     </div>
   );
 
+  const RelatedTheories = () => {
+    const theories = exercise.practice?.theories ?? [];
+
+    return (
+      theories.length > 0 && (
+        <div>
+          <Header3>Teoría recomendada</Header3>
+
+          <UnorderedList>
+            {theories.map((theory) => (
+              <li key={theory.id}>
+                <Link
+                  href={`/theories/${theory.id}`}
+                  className="flex flex-row items-center hover:underline"
+                  target="_blank"
+                >
+                  {theory.name}
+                  <ArrowUpRight size={20} />
+                </Link>
+              </li>
+            ))}
+          </UnorderedList>
+        </div>
+      )
+    );
+  };
+
   const Problem = () => (
     <div className="w-[50%]">
       <Header3>Descripción</Header3>
@@ -52,7 +83,7 @@ export default async function Exercise({
         ]}
       />
 
-      <RelatedTheories theories={exercise.practice?.theories} />
+      <RelatedTheories />
     </div>
   );
 
