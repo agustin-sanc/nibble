@@ -1,5 +1,5 @@
-import { Header1 } from "@/app/_common/components/typography";
-import { Button } from "@/app/_common/components/button";
+import { Header1 } from "@/app/_cross/components/typography";
+import { Button } from "@/app/_cross/components/button";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 
 const Home = () => (
