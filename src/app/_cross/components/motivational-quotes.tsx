@@ -12,8 +12,8 @@ const quotes = [
   "La educación es el arma más poderosa que puedes usar para cambiar el mundo.",
 ];
 
-export const MotivationalQuotes = ({ className }: { className: string }) => (
-  <div className={className}>
+export const MotivationalQuotes = () => (
+  <div className="mt-3">
     <Writer
       options={{
         strings: shuffleArray(quotes),

@@ -6,7 +6,7 @@ import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import Link from "next/link";
 
-export const NewestTheories = async ({ className }: { className: string }) => {
+export const NewestTheories = async () => {
   const theories = await prisma.theory.findMany({
     orderBy: { createdAt: "desc" },
     include: { practices: true },
@@ -16,7 +16,7 @@ export const NewestTheories = async ({ className }: { className: string }) => {
   const existTheories = theories.length > 0;
 
   return (
-    <div className={className}>
+    <div className="mt-7">
       <div className="mb-6 flex justify-between">
         <div className="flex items-center">
           <Library size={30} />

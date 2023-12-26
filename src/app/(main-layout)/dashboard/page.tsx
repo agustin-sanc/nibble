@@ -6,9 +6,9 @@ import { NewestTheories } from "@/app/_cross/components/newest-theories";
 const Dashboard = () => (
   <>
     <Header1>Bienvenido a Nibble!</Header1>
-    <MotivationalQuotes className="mt-3" />
-    <NewestPractices className="mt-7" />
-    <NewestTheories className="mt-7" />
+    <MotivationalQuotes />
+    <NewestPractices />
+    <NewestTheories />
   </>
 );
 
