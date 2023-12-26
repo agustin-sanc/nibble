@@ -5,10 +5,8 @@ import { NewestTheories } from "@/app/_cross/components/newest-theories";
 
 const Dashboard = () => (
   <>
-    <Header1> Bienvenido a Nibble!</Header1>
+    <Header1>Bienvenido a Nibble!</Header1>
     <MotivationalQuotes className="mt-3" />
-    {/*//TODO: Add card that shows quantity of solved exercises.*/}
-    {/*//TODO: Add card that shows another user data.*/}
     <NewestPractices className="mt-7" />
     <NewestTheories className="mt-7" />
   </>
