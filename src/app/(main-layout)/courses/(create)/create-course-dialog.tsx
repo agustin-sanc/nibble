@@ -9,8 +9,8 @@ import {
 } from "@/app/_cross/components/dialog";
 import { Button } from "@/app/_cross/components/button";
 import { Input } from "@/app/_cross/components/input";
-import { saveCourse } from "@/app/(main-layout)/courses/save-course";
-import * as z from "zod";
+import { saveCourse } from "@/app/(main-layout)/courses/(create)/save-course";
+import type * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -22,36 +22,24 @@ import {
   FormMessage,
 } from "@/app/_cross/components/form";
 import { useState } from "react";
+import { createCourseFormSchema } from "@/app/(main-layout)/courses/(create)/create-course-form-schema";
+import { currentUser, useUser } from "@clerk/nextjs";
 
-const formSchema = z.object({
-  name: z
-    .string({
-      required_error: "Tiene que tener un nombre",
-    })
-    .min(5, "El nombre tiene que tener un mínimo de 5 caracteres")
-    .max(20, "El nombre tiene que tener un máximo de 20 caracteres"),
-  description: z
-    .string({
-      required_error: "Tiene que tener una descripción",
-    })
-    .min(5, "La descripción tiene que tener un mínimo de 5 caracteres")
-    .max(20, "La descripción tiene que tener un máximo de 20 caracteres"),
-});
-
-export const CreateCourseDialog = () => {
+export const CreateCourseDialog = async () => {
+  const { user } = useUser();
   const [loading, setLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof createCourseFormSchema>>({
+    resolver: zodResolver(createCourseFormSchema),
     defaultValues: {
       name: "",
       description: "",
     },
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
+  const onSubmit = async (data: z.infer<typeof createCourseFormSchema>) => {
     setLoading(true);
-    saveCourse(data);
+    if (user) await saveCourse({ ...data, ownerId: user.id });
     setLoading(false);
 
     // TODO: Redirect to course detail page.
