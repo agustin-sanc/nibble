@@ -24,7 +24,7 @@ import {
 import { useState } from "react";
 import { createCourseFormSchema } from "@/app/(main-layout)/courses/(create)/create-course-form-schema";
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export const CreateCourseDialog = () => {
