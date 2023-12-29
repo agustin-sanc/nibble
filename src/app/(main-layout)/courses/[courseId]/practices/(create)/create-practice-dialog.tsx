@@ -27,7 +27,7 @@ import { toast } from "sonner";
 import { createPracticeFormSchema } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-form-schema";
 import { savePractice } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/save-practice";
 
-export const CreatePracticeDialog = () => {
+export const CreatePracticeDialog = ({ courseId }: { courseId: number }) => {
   const { user } = useUser();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -45,9 +45,12 @@ export const CreatePracticeDialog = () => {
 
     if (user) {
       try {
-        const practice = await savePractice(data);
+        const practice = await savePractice({
+          ...data,
+          courseId,
+        });
         toast.success("Trabajo práctico creado con éxito.");
-        router.push(`/courses/${practice.courseId}/practices/${practice.id}`);
+        router.push(`/courses/${courseId}/practices/${practice.id}`);
       } catch (error) {
         setLoading(false);
         toast.error("Ocurrió un error al crear el trabajo práctico.");
@@ -58,12 +61,12 @@ export const CreatePracticeDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Crear curso</Button>
+        <Button>Crear trabajo práctico</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Crear curso</DialogTitle>
+          <DialogTitle>Crear trabajo práctico</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -104,7 +107,7 @@ export const CreatePracticeDialog = () => {
             />
 
             <Button type="submit" loading={loading}>
-              Crear curso
+              Crear trabajo práctico
             </Button>
           </form>
         </Form>

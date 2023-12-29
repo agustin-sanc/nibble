@@ -4,6 +4,7 @@ import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import { currentUser } from "@clerk/nextjs";
 import { CreatePracticeDialog } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-dialog";
+import { CreateTheoryDialog } from "@/app/(main-layout)/courses/[courseId]/theories/(create)/create-theory-dialog";
 
 const Course = async ({
   params: { courseId },
@@ -41,7 +42,10 @@ const Course = async ({
 
           <div className="flex flex-row items-center justify-between">
             <Header3>Trabajos prácticos</Header3>
-            {user?.publicMetadata.isProfessor && <CreatePracticeDialog />}
+
+            {user?.publicMetadata.isProfessor && (
+              <CreatePracticeDialog courseId={Number(courseId)} />
+            )}
           </div>
 
           {!hasPractices && <p>No hay trabajos prácticos aún.</p>}
