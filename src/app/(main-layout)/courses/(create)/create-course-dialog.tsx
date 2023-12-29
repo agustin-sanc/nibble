@@ -23,10 +23,13 @@ import {
 } from "@/app/_cross/components/form";
 import { useState } from "react";
 import { createCourseFormSchema } from "@/app/(main-layout)/courses/(create)/create-course-form-schema";
-import { currentUser, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/router";
+import { toast } from "sonner";
 
-export const CreateCourseDialog = async () => {
+export const CreateCourseDialog = () => {
   const { user } = useUser();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof createCourseFormSchema>>({
@@ -39,10 +42,18 @@ export const CreateCourseDialog = async () => {
 
   const onSubmit = async (data: z.infer<typeof createCourseFormSchema>) => {
     setLoading(true);
-    if (user) await saveCourse({ ...data, ownerId: user.id });
-    setLoading(false);
 
-    // TODO: Redirect to course detail page.
+    if (user) {
+      try {
+        const course = await saveCourse({ ...data, ownerId: user.id });
+        toast.success("Curso creado con éxito.");
+
+        await router.push(`/courses/${course.id}`);
+      } catch (error) {
+        setLoading(false);
+        toast.error("Ocurrió un error al crear el curso.");
+      }
+    }
   };
 
   return (
