@@ -8,6 +8,7 @@ import * as z from "zod";
 const inputSchema = z.object({
   name: z.string(),
   description: z.string(),
+  courseId: z.number(),
 });
 
 const validateInput = (input: z.infer<typeof inputSchema>) => {
