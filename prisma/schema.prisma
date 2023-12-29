@@ -34,8 +34,8 @@ model Theory {
 
   practices Practice[] @relation("TheoryToPractice")
 
-  course   Course? @relation(fields: [courseId], references: [id])
-  courseId Int?
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId Int
 
   @@index([name])
 }
@@ -48,8 +48,8 @@ model Practice {
   exercises Exercise[]
   theories  Theory[]   @relation("TheoryToPractice")
 
-  course   Course? @relation(fields: [courseId], references: [id])
-  courseId Int?
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
