@@ -27,7 +27,7 @@ import { toast } from "sonner";
 import { saveTheory } from "@/app/(main-layout)/courses/[courseId]/theories/(create)/save-theory";
 import { createTheoryFormSchema } from "@/app/(main-layout)/courses/[courseId]/theories/(create)/create-theory-form-schema";
 
-export const CreateTheoryDialog = () => {
+export const CreateTheoryDialog = ({ courseId }: { courseId: number }) => {
   const { user } = useUser();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -45,9 +45,9 @@ export const CreateTheoryDialog = () => {
 
     if (user) {
       try {
-        const theory = await saveTheory(data);
+        const theory = await saveTheory({ ...data, courseId });
         toast.success("Unidad teórica creada con éxito.");
-        router.push(`/courses/${theory.courseId}/theories/${theory.id}`);
+        router.push(`/courses/${courseId}/theories/${theory.id}`);
       } catch (error) {
         setLoading(false);
         toast.error("Ocurrió un error al crear la unidad teórica.");

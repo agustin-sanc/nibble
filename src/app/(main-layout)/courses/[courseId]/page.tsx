@@ -64,7 +64,10 @@ const Course = async ({
 
           <div className="flex flex-row items-center justify-between">
             <Header3>Unidades teóricas</Header3>
-            {user?.publicMetadata.isProfessor && <CreateTheoryDialog />}
+
+            {user?.publicMetadata.isProfessor && (
+              <CreateTheoryDialog courseId={Number(courseId)} />
+            )}
           </div>
 
           {!hasTheories && <p>No hay unidades teóricas aún.</p>}
