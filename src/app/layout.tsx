@@ -6,6 +6,7 @@ import { dark } from "@clerk/themes";
 import { esES } from "@clerk/localizations";
 import { ReactQueryProvider } from "@/app/_cross/react-query-provider";
 import { type ReactNode } from "react";
+import { Toaster } from "@/app/_cross/components/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
           disableTransitionOnChange
         >
           <ReactQueryProvider>{children}</ReactQueryProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
