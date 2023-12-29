@@ -2,12 +2,18 @@ import { prisma } from "@/app/_cross/prisma";
 import { Header2, Header3 } from "@/app/_cross/components/typography";
 import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
+import { currentUser } from "@clerk/nextjs";
+import { CreatePracticeDialog } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-dialog";
 
 const Course = async ({
   params: { courseId },
 }: {
   params: { courseId: string };
 }) => {
+  const user = await currentUser();
+
+  if (!user) throw new Error("User not found.");
+
   const course = await prisma.course.findUnique({
     where: { id: Number(courseId) },
     include: {
@@ -33,7 +39,11 @@ const Course = async ({
           <Header2>{course.name}</Header2>
           <p>{course.description}</p>
 
-          <Header3>Trabajos prácticos</Header3>
+          <div className="flex flex-row items-center justify-between">
+            <Header3>Trabajos prácticos</Header3>
+            {user?.publicMetadata.isProfessor && <CreatePracticeDialog />}
+          </div>
+
           {!hasPractices && <p>No hay trabajos prácticos aún.</p>}
 
           {hasPractices && (
@@ -48,7 +58,11 @@ const Course = async ({
             </ContentGrid>
           )}
 
-          <Header3>Unidades teóricas</Header3>
+          <div className="flex flex-row items-center justify-between">
+            <Header3>Unidades teóricas</Header3>
+            {user?.publicMetadata.isProfessor && <CreateTheoryDialog />}
+          </div>
+
           {!hasTheories && <p>No hay unidades teóricas aún.</p>}
 
           {hasTheories && (

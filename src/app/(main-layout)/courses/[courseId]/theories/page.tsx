@@ -3,8 +3,15 @@ import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { prisma } from "@/app/_cross/prisma";
 import { ContentCard } from "@/app/_cross/components/content-card";
 
-const Theories = async () => {
+const Theories = async ({
+  params: { courseId },
+}: {
+  params: { courseId: string };
+}) => {
+  if (!courseId) throw new Error("courseId must be defined");
+
   const theories = await prisma.theory.findMany({
+    where: { courseId: Number(courseId) },
     orderBy: { createdAt: "desc" },
   });
 

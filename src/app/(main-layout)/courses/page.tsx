@@ -7,7 +7,8 @@ import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-
 
 const Courses = async () => {
   const user = await currentUser();
-  if (!user) return;
+
+  if (!user) throw new Error("User not found.");
 
   const courses = await prisma.course.findMany({
     where: {
@@ -21,7 +22,6 @@ const Courses = async () => {
     <>
       <div className="flex justify-between">
         <Header2>Cursos</Header2>
-
         {user?.publicMetadata.isProfessor && <CreateCourseDialog />}
       </div>
 
