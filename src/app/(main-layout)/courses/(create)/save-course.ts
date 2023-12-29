@@ -11,15 +11,13 @@ const inputSchema = z.object({
   ownerId: z.string(),
 });
 
-export const saveCourse = async (input: z.infer<typeof inputSchema>) => {
+const validateInput = (input: z.infer<typeof inputSchema>) => {
   const validatedFields = inputSchema.safeParse(input);
 
-  if (!validatedFields.success)
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-    };
+  if (!validatedFields.success) throw new Error("Invalid input");
+};
 
-  const { data } = validatedFields;
-
-  return await prisma.course.create({ data });
+export const saveCourse = async (input: z.infer<typeof inputSchema>) => {
+  validateInput(input);
+  return await prisma.course.create({ data: input });
 };
