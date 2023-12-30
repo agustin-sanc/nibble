@@ -34,10 +34,6 @@ export const CreateCourseDialog = () => {
 
   const form = useForm<z.infer<typeof createCourseFormSchema>>({
     resolver: zodResolver(createCourseFormSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-    },
   });
 
   const onSubmit = async (data: z.infer<typeof createCourseFormSchema>) => {
