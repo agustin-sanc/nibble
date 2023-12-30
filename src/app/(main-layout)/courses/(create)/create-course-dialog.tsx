@@ -25,7 +25,7 @@ import { useState } from "react";
 import { createCourseFormSchema } from "@/app/(main-layout)/courses/(create)/create-course-form-schema";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Textarea } from "@/app/_cross/components/text-area";
+import { TextArea } from "@/app/_cross/components/text-area";
 
 export const CreateCourseDialog = () => {
   const [loading, setLoading] = useState(false);
@@ -86,7 +86,7 @@ export const CreateCourseDialog = () => {
                   <FormLabel>Descripción</FormLabel>
 
                   <FormControl>
-                    <Textarea
+                    <TextArea
                       placeholder="Cátedra de algoritmos y estructuras de datos, UTN-FRT"
                       {...field}
                     />
