@@ -16,11 +16,14 @@ const validateInput = (input: z.infer<typeof inputSchema>) => {
   if (!validatedFields.success) throw new Error("Invalid input");
 };
 
-export const saveCourse = async (input: z.infer<typeof inputSchema>) => {
+const throwErrorIfUserIsNotProfessor = async () => {
   const user = await getCurrentUser();
 
-  if (!user.isProfessor) throw new Error("User is not a professor.");
+  if (!user.isProfessor) throw new Error("User must be a professor");
+};
 
+export const saveCourse = async (input: z.infer<typeof inputSchema>) => {
+  await throwErrorIfUserIsNotProfessor();
   validateInput(input);
 
   return await prisma.course.create({ data: input });
