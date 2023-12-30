@@ -43,12 +43,12 @@ export const CreateCourseDialog = () => {
       try {
         const course = await saveCourse({ ...data, ownerId: user.id });
         toast.success("Curso creado con éxito.");
-
         router.push(`/courses/${course.id}`);
       } catch (error) {
-        setLoading(false);
         toast.error("Ocurrió un error al crear el curso.");
       }
+
+      setLoading(false);
     }
   };
 
