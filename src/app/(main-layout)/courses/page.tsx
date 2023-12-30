@@ -3,7 +3,7 @@ import { Header2 } from "@/app/_cross/components/typography";
 import { prisma } from "@/app/_cross/prisma";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-course-dialog";
-import { getCurrentUser } from "@/app/_cross/get-current-user";
+import { getCurrentUser } from "@/app/_cross/utils/get-current-user";
 
 const Courses = async () => {
   const { id: currentUserId, isProfessor: currentUserIsProfessor } =
