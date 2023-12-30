@@ -2,8 +2,7 @@
 
 import { prisma } from "@/app/_cross/prisma";
 import * as z from "zod";
-
-// TODO: What about security on server actions?
+import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 
 const inputSchema = z.object({
   name: z.string(),
@@ -18,6 +17,11 @@ const validateInput = (input: z.infer<typeof inputSchema>) => {
 };
 
 export const saveCourse = async (input: z.infer<typeof inputSchema>) => {
+  const user = await getCurrentUser();
+
+  if (!user.isProfessor) throw new Error("User is not a professor.");
+
   validateInput(input);
+
   return await prisma.course.create({ data: input });
 };
