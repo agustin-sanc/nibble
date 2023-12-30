@@ -5,7 +5,7 @@ export const getCurrentUser = async () => {
 
   if (!user) throw new Error("No current user.");
 
-  const isProfessor = user.publicMetadata.isProfessor ?? false;
+  const isProfessor = user.publicMetadata.isProfessor;
 
   return { ...user, isProfessor };
 };

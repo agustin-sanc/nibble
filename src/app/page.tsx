@@ -21,6 +21,7 @@ const Home = () => (
       <Button variant="outline" asChild>
         <SignUpButton
           mode="modal"
+          unsafeMetadata={{ isProfessor: false }}
           afterSignInUrl="/dashboard"
           afterSignUpUrl="/dashboard"
         >
