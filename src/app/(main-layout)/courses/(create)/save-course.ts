@@ -6,7 +6,7 @@ import {
 } from "@/app/(main-layout)/courses/(create)/create-course-form-schema";
 import { prisma } from "@/app/_cross/prisma";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
-import { verifyUserIsProfessor } from "@/app/_cross/auth/verify-user-is-professor";
+import { assureUserIsProfessor } from "@/app/_cross/auth/assure-user-is-professor";
 
 const validateInput = (input: CreateCourseFormSchema) => {
   const validatedFields = createCourseFormSchema.safeParse(input);
@@ -16,9 +16,9 @@ const validateInput = (input: CreateCourseFormSchema) => {
 
 export const saveCourse = async (input: CreateCourseFormSchema) => {
   const user = await getCurrentUser();
-  const ownerId = user.id;
+  assureUserIsProfessor(user);
 
-  verifyUserIsProfessor(user);
+  const ownerId = user.id;
   validateInput(input);
 
   return await prisma.course.create({ data: { ...input, ownerId } });

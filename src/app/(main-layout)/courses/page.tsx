@@ -4,16 +4,17 @@ import { prisma } from "@/app/_cross/prisma";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-course-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
+import { isProfessorUser } from "@/app/_cross/auth/is-professor-user";
 
 const Courses = async () => {
-  const { id: currentUserId, isProfessor: currentUserIsProfessor } =
-    await getCurrentUser();
+  const user = await getCurrentUser();
+  const currentUserIsProfessor = isProfessorUser(user);
 
   const courses = await prisma.course.findMany({
     where: {
       ...(currentUserIsProfessor
-        ? { ownerId: currentUserId }
-        : { studentIds: { has: currentUserId } }),
+        ? { ownerId: user.id }
+        : { studentIds: { has: user.id } }),
     },
   });
 
@@ -26,13 +27,7 @@ const Courses = async () => {
         {currentUserIsProfessor && <CreateCourseDialog />}
       </div>
 
-      {!hasCourses && (
-        <p>
-          {currentUserIsProfessor
-            ? "No creaste un curso aún."
-            : "No fuiste agregado a un curso aún."}
-        </p>
-      )}
+      {!hasCourses && <p>No perteneces a ningún curso aún.</p>}
 
       {hasCourses && (
         <ContentGrid>
