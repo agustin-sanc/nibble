@@ -7,7 +7,6 @@ import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 const inputSchema = z.object({
   name: z.string(),
   description: z.string(),
-  ownerId: z.string(),
 });
 
 const validateInput = (input: z.infer<typeof inputSchema>) => {
@@ -16,15 +15,12 @@ const validateInput = (input: z.infer<typeof inputSchema>) => {
   if (!validatedFields.success) throw new Error("Invalid input");
 };
 
-const verifyUser = async () => {
+export const saveCourse = async (input: z.infer<typeof inputSchema>) => {
   const user = await getCurrentUser();
 
-  if (!user.isProfessor) throw new Error("User must be a professor");
-};
+  if (!user.isProfessor) throw new Error("Only professors can create courses");
 
-export const saveCourse = async (input: z.infer<typeof inputSchema>) => {
-  await verifyUser();
   validateInput(input);
 
-  return await prisma.course.create({ data: input });
+  return await prisma.course.create({ data: { ...input, ownerId: user.id } });
 };
