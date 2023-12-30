@@ -26,20 +26,21 @@ const Courses = async () => {
         {currentUserIsProfessor && <CreateCourseDialog />}
       </div>
 
-      <ContentGrid>
-        {!hasCourses && (
-          <p>
-            {currentUserIsProfessor
-              ? "No creaste un curso aún."
-              : "No fuiste agregado a un curso aún."}
-          </p>
-        )}
+      {!hasCourses && (
+        <p>
+          {currentUserIsProfessor
+            ? "No creaste un curso aún."
+            : "No fuiste agregado a un curso aún."}
+        </p>
+      )}
 
-        {hasCourses &&
-          courses.map((course) => (
+      {hasCourses && (
+        <ContentGrid>
+          {courses.map((course) => (
             <ContentCard key={course.id} type="course" course={course} />
           ))}
-      </ContentGrid>
+        </ContentGrid>
+      )}
     </>
   );
 };
