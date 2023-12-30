@@ -18,7 +18,7 @@ const validateInput = (input: z.infer<typeof inputSchema>) => {
 export const saveCourse = async (input: z.infer<typeof inputSchema>) => {
   const user = await getCurrentUser();
 
-  if (!user.isProfessor) throw new Error("Only professors can create courses");
+  if (!user?.isProfessor) throw new Error("Only professors can create courses");
 
   validateInput(input);
 
