@@ -14,3 +14,5 @@ export const createCourseFormSchema = z.object({
     .min(4, "La descripción tiene que tener un mínimo de 4 caracteres")
     .max(20, "La descripción tiene que tener un máximo de 20 caracteres"),
 });
+
+export type CreateCourseFormSchema = z.infer<typeof createCourseFormSchema>;
