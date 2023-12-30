@@ -19,8 +19,6 @@ const Courses = async () => {
 
   const hasCourses = courses.length > 0;
 
-  console.log({ currentUserId, currentUserIsProfessor, courses });
-
   return (
     <>
       <div className="flex justify-between">
