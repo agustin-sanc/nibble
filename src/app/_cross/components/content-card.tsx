@@ -81,31 +81,31 @@ export const ContentCard = ({ type, ...props }: ContentCardProps) => {
         <p className="pb-5 text-sm">{description}</p>
 
         {type === "course" && (
-          <OpenContent type="course" courseId={props[type].course.id} />
+          <OpenContent type="course" courseId={props[type].id} />
         )}
 
         {type === "practice" && (
           <OpenContent
             type="practice"
-            courseId={props[type].practice.courseId}
-            practiceId={props[type].practice.id}
+            courseId={props[type].courseId}
+            practiceId={props[type].id}
           />
         )}
 
         {type === "theory" && (
           <OpenContent
             type="theory"
-            courseId={props[type].theory.courseId}
-            theoryId={props[type].theory.id}
+            courseId={props[type].courseId}
+            theoryId={props[type].id}
           />
         )}
 
         {type === "exercise" && (
           <OpenContent
             type="exercise"
-            courseId={props[type].exercise.practice.courseId}
-            practiceId={props[type].exercise.practiceId}
-            exerciseId={props[type].exercise.id}
+            courseId={props[type].practice.courseId}
+            practiceId={props[type].practiceId}
+            exerciseId={props[type].id}
           />
         )}
       </div>
