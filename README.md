@@ -48,13 +48,3 @@ docker run --name nibble -e POSTGRES_PASSWORD=1234 -e POSTGRES_DB=nibble -d -p 5
 - If you change the database schema, run the command `pnpm db:push` to update the database. Modify the seed file if necessary. Since we're not deploying this web platform anywhere and just running it locally, we aren't managing database migrations and directly push the schema instead.
 
 - If you want to reset the database, run the command `pnpm db:reset`, and then run `pnpm db:push`. Optionally, you can run `pnpm db:seed` to generate data.
-
-### How to set professor role to a user 
-
-In order to assign professor permissions to a created user, you have to search the user in Clerk dashboard, and assign the following public metadata. 
-
-```json
-{
-  "isProfessor": true
-}
-```
