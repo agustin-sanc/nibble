@@ -4,7 +4,7 @@ import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreatePracticeDialog } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-dialog";
 import { CreateTheoryDialog } from "@/app/(main-layout)/courses/[courseId]/theories/(create)/create-theory-dialog";
-import { getCurrentUser } from "@/app/_cross/utils/get-current-user";
+import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 
 const Course = async ({
   params: { courseId },
