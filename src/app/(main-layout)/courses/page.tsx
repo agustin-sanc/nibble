@@ -4,11 +4,11 @@ import { prisma } from "@/app/_cross/prisma";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-course-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
-import { isProfessorUser } from "@/app/_cross/auth/is-professor-user";
+import { isProfessor } from "@/app/_cross/auth/is-professor";
 
 const Courses = async () => {
   const user = await getCurrentUser();
-  const currentUserIsProfessor = isProfessorUser(user);
+  const currentUserIsProfessor = isProfessor(user);
 
   const courses = await prisma.course.findMany({
     where: {
