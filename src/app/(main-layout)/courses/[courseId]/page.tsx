@@ -36,58 +36,54 @@ const Course = async ({
     },
   });
 
-  const hasPractices = course?.practices?.length > 0;
-  const hasTheories = course?.theories?.length > 0;
+  if (!course) return <p>El curso no existe</p>;
+
+  const hasPractices = course.practices?.length > 0;
+  const hasTheories = course.theories?.length > 0;
 
   return (
     <>
-      {!course && <p>El trabajo práctico no existe.</p>}
+      <Header2>{course.name}</Header2>
+      <p>{course.description}</p>
 
-      {course && (
-        <>
-          <Header2>{course.name}</Header2>
-          <p>{course.description}</p>
+      <div className="flex flex-row items-center justify-between">
+        <Header3>Trabajos prácticos</Header3>
 
-          <div className="flex flex-row items-center justify-between">
-            <Header3>Trabajos prácticos</Header3>
+        {user?.publicMetadata.isProfessor && (
+          <CreatePracticeDialog courseId={Number(courseId)} />
+        )}
+      </div>
 
-            {user?.publicMetadata.isProfessor && (
-              <CreatePracticeDialog courseId={Number(courseId)} />
-            )}
-          </div>
+      {!hasPractices && <p>No hay trabajos prácticos aún.</p>}
 
-          {!hasPractices && <p>No hay trabajos prácticos aún.</p>}
+      {hasPractices && (
+        <ContentGrid>
+          {course.practices.map((practice) => (
+            <ContentCard
+              key={practice.id}
+              type="practice"
+              practice={practice}
+            />
+          ))}
+        </ContentGrid>
+      )}
 
-          {hasPractices && (
-            <ContentGrid>
-              {course.practices.map((practice) => (
-                <ContentCard
-                  key={practice.id}
-                  type="practice"
-                  practice={practice}
-                />
-              ))}
-            </ContentGrid>
-          )}
+      <div className="flex flex-row items-center justify-between">
+        <Header3>Unidades teóricas</Header3>
 
-          <div className="flex flex-row items-center justify-between">
-            <Header3>Unidades teóricas</Header3>
+        {user?.publicMetadata.isProfessor && (
+          <CreateTheoryDialog courseId={Number(courseId)} />
+        )}
+      </div>
 
-            {user?.publicMetadata.isProfessor && (
-              <CreateTheoryDialog courseId={Number(courseId)} />
-            )}
-          </div>
+      {!hasTheories && <p>No hay unidades teóricas aún.</p>}
 
-          {!hasTheories && <p>No hay unidades teóricas aún.</p>}
-
-          {hasTheories && (
-            <ContentGrid>
-              {course.theories.map((theory) => (
-                <ContentCard key={theory.id} type="theory" theory={theory} />
-              ))}
-            </ContentGrid>
-          )}
-        </>
+      {hasTheories && (
+        <ContentGrid>
+          {course.theories.map((theory) => (
+            <ContentCard key={theory.id} type="theory" theory={theory} />
+          ))}
+        </ContentGrid>
       )}
     </>
   );
