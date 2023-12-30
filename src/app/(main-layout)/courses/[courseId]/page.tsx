@@ -20,7 +20,15 @@ const Course = async ({
     include: {
       practices: {
         include: {
-          exercises: true,
+          exercises: {
+            include: {
+              practice: {
+                select: {
+                  courseId: true,
+                },
+              },
+            },
+          },
           theories: true,
         },
       },
