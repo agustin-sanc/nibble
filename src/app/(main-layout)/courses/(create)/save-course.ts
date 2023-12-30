@@ -16,7 +16,7 @@ const validateInput = (input: CreateCourseFormSchema) => {
 export const saveCourse = async (input: CreateCourseFormSchema) => {
   const user = await getCurrentUser();
 
-  if (!user?.isProfessor) throw new Error("Only professors can create courses");
+  if (!user.isProfessor) throw new Error("Only professors can create courses");
 
   validateInput(input);
 
