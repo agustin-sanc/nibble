@@ -27,7 +27,8 @@ const fetchCourse = async (id: number) =>
   });
 
 const Course = async ({ params }: { params: { courseId: string } }) => {
-  // TODO: Validate that params.courseId is a valid number.
+  if (isNaN(Number(params.courseId))) return <p>El curso no existe</p>;
+
   const courseId = Number(params.courseId);
   const course = await fetchCourse(Number(courseId));
 
