@@ -14,6 +14,6 @@ export const assureUserCanAccessCourse = ({
   if (userIsProfessor && course.ownerId !== user.id)
     throw new Error("El usuario no pertenece al curso");
 
-  if (!userIsProfessor && course.studentIds.includes(user.id))
+  if (!userIsProfessor && !course.studentIds.includes(user.id))
     throw new Error("El usuario no pertenece al curso");
 };
