@@ -6,9 +6,7 @@ import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/app/_cross/utils/cn";
 
 const Select = SelectPrimitive.Root;
-
 const SelectGroup = SelectPrimitive.Group;
-
 const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = React.forwardRef<
@@ -29,6 +27,7 @@ const SelectTrigger = React.forwardRef<
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
+
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 const SelectScrollUpButton = React.forwardRef<
@@ -63,6 +62,7 @@ const SelectScrollDownButton = React.forwardRef<
     <ChevronDown className="h-4 w-4" />
   </SelectPrimitive.ScrollDownButton>
 ));
+
 SelectScrollDownButton.displayName =
   SelectPrimitive.ScrollDownButton.displayName;
 
@@ -83,6 +83,7 @@ const SelectContent = React.forwardRef<
       {...props}
     >
       <SelectScrollUpButton />
+
       <SelectPrimitive.Viewport
         className={cn(
           "p-1",
@@ -92,10 +93,12 @@ const SelectContent = React.forwardRef<
       >
         {children}
       </SelectPrimitive.Viewport>
+
       <SelectScrollDownButton />
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
 ));
+
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
 const SelectLabel = React.forwardRef<
@@ -108,6 +111,7 @@ const SelectLabel = React.forwardRef<
     {...props}
   />
 ));
+
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
 const SelectItem = React.forwardRef<
@@ -131,6 +135,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
   </SelectPrimitive.Item>
 ));
+
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
 const SelectSeparator = React.forwardRef<
@@ -143,6 +148,7 @@ const SelectSeparator = React.forwardRef<
     {...props}
   />
 ));
+
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
 export {

@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { cn } from "@/app/_cross/utils/cn";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
@@ -19,6 +18,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   },
 );
+
 Input.displayName = "Input";
 
 export { Input };

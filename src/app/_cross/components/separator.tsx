@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
-
 import { cn } from "@/app/_cross/utils/cn";
 
 const Separator = React.forwardRef<
@@ -26,6 +25,7 @@ const Separator = React.forwardRef<
     />
   ),
 );
+
 Separator.displayName = SeparatorPrimitive.Root.displayName;
 
 export { Separator };
