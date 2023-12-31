@@ -7,6 +7,8 @@ import { CreateTheoryDialog } from "@/app/(main-layout)/courses/[courseId]/theor
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { isProfessor } from "@/app/_cross/auth/is-professor";
 import { assureUserCanAccessCourse } from "@/app/_cross/auth/assure-user-can-access-course";
+import { Button } from "@/app/_cross/components/button";
+import Link from "next/link";
 
 const fetchCourse = async (id: number) =>
   await prisma.course.findUnique({
@@ -40,11 +42,10 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
 
   const hasPractices = course.practices?.length > 0;
 
-  const PracticesSection = () => (
+  const Practices = () => (
     <>
       <div className="flex flex-row items-center justify-between">
         <Header3>Trabajos prácticos</Header3>
-
         {userIsProfessor && <CreatePracticeDialog courseId={course.id} />}
       </div>
 
@@ -55,9 +56,15 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
           {course.practices.map((practice) => (
             <ContentCard
               key={practice.id}
-              type="practice"
-              practice={practice}
-            />
+              title={practice.name}
+              subtitle={practice.description}
+            >
+              <Button variant="outline" className="w-full" asChild>
+                <Link href={`/courses/${courseId}/practices/${practice.id}`}>
+                  Abrir trabajo práctico
+                </Link>
+              </Button>
+            </ContentCard>
           ))}
         </ContentGrid>
       )}
@@ -66,7 +73,7 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
 
   const hasTheories = course.theories?.length > 0;
 
-  const TheoriesSection = () => (
+  const Theories = () => (
     <>
       <div className="flex flex-row items-center justify-between">
         <Header3>Unidades teóricas</Header3>
@@ -78,7 +85,17 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
       {hasTheories && (
         <ContentGrid>
           {course.theories.map((theory) => (
-            <ContentCard key={theory.id} type="theory" theory={theory} />
+            <ContentCard
+              key={theory.id}
+              title={theory.name}
+              subtitle={theory.description}
+            >
+              <Button variant="outline" className="w-full" asChild>
+                <Link href={`/courses/${courseId}/theories/${theory.id}`}>
+                  Abrir unidad teórica
+                </Link>
+              </Button>
+            </ContentCard>
           ))}
         </ContentGrid>
       )}
@@ -90,8 +107,8 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
       <Header2>{course.name}</Header2>
       <p>{course.description}</p>
 
-      <PracticesSection />
-      <TheoriesSection />
+      <Practices />
+      <Theories />
     </>
   );
 };

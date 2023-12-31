@@ -5,6 +5,8 @@ import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-course-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { isProfessor } from "@/app/_cross/auth/is-professor";
+import { Button } from "@/app/_cross/components/button";
+import Link from "next/link";
 
 const Courses = async () => {
   const user = await getCurrentUser();
@@ -32,7 +34,15 @@ const Courses = async () => {
       {hasCourses && (
         <ContentGrid>
           {courses.map((course) => (
-            <ContentCard key={course.id} type="course" course={course} />
+            <ContentCard
+              key={course.id}
+              title={course.name}
+              subtitle={course.description}
+            >
+              <Button variant="outline" className="w-full" asChild>
+                <Link href={`/courses/${course.id}`}>Abrir curso</Link>
+              </Button>
+            </ContentCard>
           ))}
         </ContentGrid>
       )}
