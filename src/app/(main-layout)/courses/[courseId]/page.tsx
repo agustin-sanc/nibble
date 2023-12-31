@@ -5,26 +5,18 @@ import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreatePracticeDialog } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-dialog";
 import { CreateTheoryDialog } from "@/app/(main-layout)/courses/[courseId]/theories/(create)/create-theory-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
+import { isProfessor } from "@/app/_cross/auth/is-professor";
+import { assureUserCanAccessCourse } from "@/app/_cross/auth/assure-user-can-access-course";
 
-const Course = async ({
-  params: { courseId },
-}: {
-  params: { courseId: string };
-}) => {
-  const { isProfessor: currentUserIsProfessor } = await getCurrentUser();
-
-  const course = await prisma.course.findUnique({
-    where: { id: Number(courseId) },
+const fetchCourse = async (id: number) =>
+  await prisma.course.findUnique({
+    where: { id },
     include: {
       practices: {
         include: {
           exercises: {
             include: {
-              practice: {
-                select: {
-                  courseId: true,
-                },
-              },
+              practice: true,
             },
           },
           theories: true,
@@ -34,7 +26,16 @@ const Course = async ({
     },
   });
 
+const Course = async ({ params }: { params: { courseId: string } }) => {
+  // TODO: Validate that params.courseId is a valid number.
+  const courseId = Number(params.courseId);
+  const course = await fetchCourse(Number(courseId));
+
   if (!course) return <p>El curso no existe</p>;
+
+  const user = await getCurrentUser();
+  const userIsProfessor = isProfessor(user);
+  assureUserCanAccessCourse({ course, user });
 
   const hasPractices = course.practices?.length > 0;
 
@@ -43,9 +44,7 @@ const Course = async ({
       <div className="flex flex-row items-center justify-between">
         <Header3>Trabajos prácticos</Header3>
 
-        {currentUserIsProfessor && (
-          <CreatePracticeDialog courseId={course.id} />
-        )}
+        {userIsProfessor && <CreatePracticeDialog courseId={course.id} />}
       </div>
 
       {!hasPractices && <p>No hay trabajos prácticos aún.</p>}
@@ -70,7 +69,7 @@ const Course = async ({
     <>
       <div className="flex flex-row items-center justify-between">
         <Header3>Unidades teóricas</Header3>
-        {currentUserIsProfessor && <CreateTheoryDialog courseId={course.id} />}
+        {userIsProfessor && <CreateTheoryDialog courseId={course.id} />}
       </div>
 
       {!hasTheories && <p>No hay unidades teóricas aún.</p>}
