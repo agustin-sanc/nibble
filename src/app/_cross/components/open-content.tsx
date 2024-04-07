@@ -20,8 +20,8 @@ type OpenTheoryProps = {
 
 type OpenExerciseProps = {
   type: "exercise";
-  courseId: number;
-  practiceId: number;
+  courseId: number | null;
+  practiceId: number | null;
   exerciseId: number;
 };
 

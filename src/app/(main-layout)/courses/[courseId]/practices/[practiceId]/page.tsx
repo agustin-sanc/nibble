@@ -6,11 +6,11 @@ import { ContentCard } from "@/app/_cross/components/content-card";
 const Practice = async ({
   params: { practiceId },
 }: {
-  params: { practiceId: string };
+  params: { practiceId: string, courseId: string };
 }) => {
   const practice = await prisma.practice.findUnique({
     where: { id: Number(practiceId) },
-    include: { exercises: true, theories: true },
+    include: { exercises: { include: { practice: true }}, theories: true },
   });
 
   const hasExercises = practice && practice?.exercises?.length > 0;

@@ -17,7 +17,7 @@ type PracticeCardProps = {
 
 type ExerciseCardProps = {
   type: "exercise";
-  exercise: Exercise & { practice: { courseId: number } };
+  exercise: Exercise & { practice: Practice | null };
 };
 
 type TheoryCardProps = {
@@ -31,14 +31,17 @@ type ContentCardProps =
   | TheoryCardProps
   | CourseCardProps;
 
-export const ContentCard = ({ type, ...props }: ContentCardProps) => {
-  const { name, description } = props[type];
+export const ContentCard = (props: ContentCardProps) => {
+  let name: string, description: string;
 
   let titleIcon: ReactNode, titleBadge: ReactNode;
 
-  switch (type) {
+  switch (props.type) {
     case "course": {
       titleIcon = <Users />;
+
+      name = props.course.name;
+      description = props.course.description;
 
       const studentsNumber = props.course.studentIds.length;
       titleBadge = <NumberOfStudentsBadge number={studentsNumber} />;
@@ -49,6 +52,9 @@ export const ContentCard = ({ type, ...props }: ContentCardProps) => {
     case "practice": {
       titleIcon = <Layers2 />;
 
+      name = props.practice.name;
+      description = props.practice.description;
+
       const exercisesNumber = props.practice.exercises.length;
       titleBadge = <NumberOfExercisesBadge number={exercisesNumber} />;
 
@@ -57,11 +63,17 @@ export const ContentCard = ({ type, ...props }: ContentCardProps) => {
 
     case "theory": {
       titleIcon = <BookText />;
+      name = props.theory.name;
+      description = props.theory.description;
+
       break;
     }
 
     case "exercise": {
       titleIcon = <Binary />;
+      name = props.exercise.name;
+      description = props.exercise.description;
+
       break;
     }
   }
@@ -80,32 +92,32 @@ export const ContentCard = ({ type, ...props }: ContentCardProps) => {
 
         <p className="pb-5 text-sm">{description}</p>
 
-        {type === "course" && (
-          <OpenContent type="course" courseId={props[type].id} />
+        {props.type === "course" && (
+          <OpenContent type="course" courseId={props.course.id} />
         )}
 
-        {type === "practice" && (
+        {props.type === "practice" && (
           <OpenContent
             type="practice"
-            courseId={props[type].courseId}
-            practiceId={props[type].id}
+            courseId={props.practice.courseId}
+            practiceId={props.practice.id}
           />
         )}
 
-        {type === "theory" && (
+        {props.type === "theory" && (
           <OpenContent
             type="theory"
-            courseId={props[type].courseId}
-            theoryId={props[type].id}
+            courseId={props.theory.courseId}
+            theoryId={props.theory.id}
           />
         )}
 
-        {type === "exercise" && (
+        {props.type === "exercise" && (
           <OpenContent
             type="exercise"
-            courseId={props[type].practice.courseId}
-            practiceId={props[type].practiceId}
-            exerciseId={props[type].id}
+            courseId={props.exercise.practice?.courseId ?? null}
+            practiceId={props.exercise.practiceId}
+            exerciseId={props.exercise.id}
           />
         )}
       </div>
