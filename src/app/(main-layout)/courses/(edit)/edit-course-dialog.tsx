@@ -48,7 +48,7 @@ export const EditCourseDialog = ({ course }: { course: Course }) => {
       toast.success("Curso actualizado con éxito.");
       router.push(`/courses/${course.id}`);
     } catch (error) {
-      toast.error("Ocurrió un error al crear el curso.");
+      toast.error("Ocurrió un error al actualizar el curso.");
     }
 
     setLoading(false);
