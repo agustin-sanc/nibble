@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const createCourseFormSchema = z.object({
+export const courseFormSchema = z.object({
   name: z
     .string({
       required_error: "Tiene que tener un nombre",

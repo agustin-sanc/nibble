@@ -6,8 +6,11 @@ import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 
 const Courses = async () => {
-  const { id: currentUserId, isProfessor: currentUserIsProfessor } =
-    await getCurrentUser();
+  const user = await getCurrentUser();
+
+  if (!user) throw new Error("User not found");
+
+  const { id: currentUserId, isProfessor: currentUserIsProfessor } = user;
 
   const courses = await prisma.course.findMany({
     where: {

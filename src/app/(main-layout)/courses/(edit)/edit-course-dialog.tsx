@@ -26,13 +26,18 @@ import { courseFormSchema } from "@/app/(main-layout)/courses/course-form-schema
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { TextArea } from "@/app/_cross/components/text-area";
+import { Course } from "@prisma/client";
 
-export const CreateCourseDialog = () => {
+export const EditCourseDialog = ({ course }: { course: Course }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof courseFormSchema>>({
     resolver: zodResolver(courseFormSchema),
+    defaultValues: {
+      name: course.name,
+      description: course.description,
+    },
   });
 
   const onSubmit = async (data: z.infer<typeof courseFormSchema>) => {
@@ -40,7 +45,7 @@ export const CreateCourseDialog = () => {
 
     try {
       const course = await saveCourse(data);
-      toast.success("Curso creado con éxito.");
+      toast.success("Curso actualizado con éxito.");
       router.push(`/courses/${course.id}`);
     } catch (error) {
       toast.error("Ocurrió un error al crear el curso.");
@@ -52,12 +57,12 @@ export const CreateCourseDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Crear curso</Button>
+        <Button>Editar curso</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Crear curso</DialogTitle>
+          <DialogTitle>Editar curso</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -98,7 +103,7 @@ export const CreateCourseDialog = () => {
             />
 
             <Button type="submit" loading={loading}>
-              Crear curso
+              Guardar cambios
             </Button>
           </form>
         </Form>

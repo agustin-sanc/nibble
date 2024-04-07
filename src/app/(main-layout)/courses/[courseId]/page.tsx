@@ -5,13 +5,18 @@ import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreatePracticeDialog } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-dialog";
 import { CreateTheoryDialog } from "@/app/(main-layout)/courses/[courseId]/theories/(create)/create-theory-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
+import { EditCourseDialog } from "@/app/(main-layout)/courses/(edit)/edit-course-dialog";
 
 const Course = async ({
   params: { courseId },
 }: {
   params: { courseId: string };
 }) => {
-  const { isProfessor: currentUserIsProfessor } = await getCurrentUser();
+  const user = await getCurrentUser();
+
+  if (!user) throw new Error("User not found");
+
+  const { isProfessor: currentUserIsProfessor } = user;
 
   const course = await prisma.course.findUnique({
     where: { id: Number(courseId) },
@@ -87,7 +92,10 @@ const Course = async ({
 
   return (
     <>
-      <Header2>{course.name}</Header2>
+      <div className="flex items-center justify-between">
+        <Header2>{course.name}</Header2>
+        <EditCourseDialog course={course} />
+      </div>
       <p>{course.description}</p>
 
       <PracticesSection />
