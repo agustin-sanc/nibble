@@ -3,19 +3,17 @@
 import { prisma } from "@/app/_cross/prisma";
 import * as z from "zod";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
+import { createCourseFormSchema } from "@/app/(main-layout)/courses/(create)/create-course-form-schema";
 
-const inputSchema = z.object({
-  name: z.string(),
-  description: z.string(),
-});
-
-const validateInput = (input: z.infer<typeof inputSchema>) => {
-  const validatedFields = inputSchema.safeParse(input);
+const validateInput = (input: z.infer<typeof createCourseFormSchema>) => {
+  const validatedFields = createCourseFormSchema.safeParse(input);
 
   if (!validatedFields.success) throw new Error("Invalid input");
 };
 
-export const saveCourse = async (input: z.infer<typeof inputSchema>) => {
+export const saveCourse = async (
+  input: z.infer<typeof createCourseFormSchema>,
+) => {
   const user = await getCurrentUser();
 
   if (!user?.isProfessor) throw new Error("Only professors can create courses");

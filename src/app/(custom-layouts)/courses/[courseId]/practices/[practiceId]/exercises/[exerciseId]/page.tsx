@@ -55,7 +55,7 @@ export default async function Exercise({
             {theories.map((theory) => (
               <li key={theory.id}>
                 <Link
-                  href={`/courses/${courseId}/practices/${practiceId}/theories/${theory.id}`}
+                  href={`/courses/${courseId}/theories/${theory.id}`}
                   className="flex flex-row items-center hover:underline"
                   target="_blank"
                 >
