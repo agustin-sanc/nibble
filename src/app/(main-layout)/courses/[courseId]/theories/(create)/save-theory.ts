@@ -3,17 +3,17 @@
 import { prisma } from "@/app/_cross/prisma";
 import * as z from "zod";
 
-// TODO: What about security on server actions?
-
 const inputSchema = z.object({
   name: z.string(),
   description: z.string(),
+  content: z.string(),
   courseId: z.number(),
 });
 
 const validateInput = (input: z.infer<typeof inputSchema>) => {
-  const validatedFields = inputSchema.safeParse(input);
-  if (!validatedFields.success) throw new Error("Invalid input");
+  const { success } = inputSchema.safeParse(input);
+
+  if (!success) throw new Error("Invalid input");
 };
 
 export const saveTheory = async (input: z.infer<typeof inputSchema>) => {
