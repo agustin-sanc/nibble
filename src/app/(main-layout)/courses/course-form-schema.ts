@@ -15,4 +15,4 @@ export const courseFormSchema = z.object({
     .max(200, "La descripción tiene que tener un máximo de 200 caracteres"),
 });
 
-export type CreateCourseFormSchema = z.infer<typeof courseFormSchema>;
+export type CourseFormSchema = z.infer<typeof courseFormSchema>;
