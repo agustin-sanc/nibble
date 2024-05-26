@@ -95,7 +95,7 @@ export const CreateCourseDialog = () => {
             />
 
             <Button type="submit" loading={loading}>
-              Crear curso
+              Crear
             </Button>
           </form>
         </Form>
