@@ -48,10 +48,26 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
     <>
       <div className="flex flex-row items-center justify-between">
         <Header3>Trabajos prácticos</Header3>
-        {userIsProfessor && <CreatePracticeDialog courseId={course.id} />}
+
+        {userIsProfessor && hasPractices && (
+          <CreatePracticeDialog courseId={course.id} />
+        )}
       </div>
 
-      {!hasPractices && <p>No hay trabajos prácticos aún.</p>}
+      {!hasPractices && (
+        <div
+          className="mt-4 flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
+          x-chunk="dashboard-02-chunk-1"
+        >
+          <div className="flex flex-col items-center gap-4 p-6 text-center">
+            <h3 className="text-2xl font-bold tracking-tight">
+              Este curso no tiene trabajos prácticos aún.
+            </h3>
+
+            {userIsProfessor && <CreatePracticeDialog courseId={course.id} />}
+          </div>
+        </div>
+      )}
 
       {hasPractices && (
         <ContentGrid>
@@ -73,10 +89,25 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
     <>
       <div className="flex flex-row items-center justify-between">
         <Header3>Unidades teóricas</Header3>
-        {userIsProfessor && <CreateTheoryDialog courseId={course.id} />}
+        {userIsProfessor && hasTheories && (
+          <CreateTheoryDialog courseId={course.id} />
+        )}
       </div>
 
-      {!hasTheories && <p>No hay unidades teóricas aún.</p>}
+      {!hasTheories && (
+        <div
+          className="mt-4 flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
+          x-chunk="dashboard-02-chunk-1"
+        >
+          <div className="flex flex-col items-center gap-4 p-6 text-center">
+            <h3 className="text-2xl font-bold tracking-tight">
+              Este curso no tiene unidades teóricas aún.
+            </h3>
+
+            {userIsProfessor && <CreateTheoryDialog courseId={course.id} />}
+          </div>
+        </div>
+      )}
 
       {hasTheories && (
         <ContentGrid>
