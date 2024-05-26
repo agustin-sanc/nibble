@@ -49,6 +49,7 @@ export const CreatePracticeDialog = ({ courseId }: { courseId: number }) => {
           ...data,
           courseId,
         });
+
         toast.success("Trabajo práctico creado con éxito.");
         router.push(`/courses/${courseId}/practices/${practice.id}`);
       } catch (error) {

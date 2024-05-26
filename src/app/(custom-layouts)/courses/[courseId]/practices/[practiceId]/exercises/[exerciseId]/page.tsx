@@ -5,16 +5,16 @@ import {
   UnorderedList,
 } from "@/app/_cross/components/typography";
 import { prisma } from "@/app/_cross/prisma";
-import { Solution } from "@/app/(custom-layouts)/practices/[practiceId]/exercises/[exerciseId]/_components/solution";
-import { TestExamples } from "@/app/(custom-layouts)/practices/[practiceId]/exercises/[exerciseId]/_components/test-examples";
+import { Solution } from "@/app/(custom-layouts)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/_components/solution";
+import { TestExamples } from "@/app/(custom-layouts)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/_components/test-examples";
 import { ArrowUpRight } from "lucide-react";
 
 type ExercisePageProps = {
-  params: { exerciseId: string; practiceId: string };
+  params: { exerciseId: string; practiceId: string; courseId: string; };
 };
 
 export default async function Exercise({
-  params: { exerciseId, practiceId },
+  params: { exerciseId, practiceId, courseId },
 }: ExercisePageProps) {
   const exercise = await prisma.exercise.findUnique({
     where: { id: Number(exerciseId) },
@@ -31,7 +31,7 @@ export default async function Exercise({
   const Header = () => (
     <div>
       <Link
-        href={`/practices/${practiceId}`}
+        href={`/courses/${courseId}/practices/${practiceId}`}
         className="text-xs hover:underline"
       >
         &lt; Volver al trabajo práctico
@@ -55,7 +55,7 @@ export default async function Exercise({
             {theories.map((theory) => (
               <li key={theory.id}>
                 <Link
-                  href={`/theories/${theory.id}`}
+                  href={`/courses/${courseId}/theories/${theory.id}`}
                   className="flex flex-row items-center hover:underline"
                   target="_blank"
                 >

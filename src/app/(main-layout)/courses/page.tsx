@@ -4,19 +4,19 @@ import { prisma } from "@/app/_cross/prisma";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-course-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
-import { isProfessor } from "@/app/_cross/auth/is-professor";
-import { Button } from "@/app/_cross/components/button";
-import Link from "next/link";
 
 const Courses = async () => {
   const user = await getCurrentUser();
-  const currentUserIsProfessor = isProfessor(user);
+
+  if (!user) throw new Error("User not found");
+
+  const { id: currentUserId, isProfessor: currentUserIsProfessor } = user;
 
   const courses = await prisma.course.findMany({
     where: {
       ...(currentUserIsProfessor
-        ? { ownerId: user.id }
-        : { studentIds: { has: user.id } }),
+        ? { ownerId: currentUserId }
+        : { studentIds: { has: currentUserId } }),
     },
   });
 
@@ -29,20 +29,18 @@ const Courses = async () => {
         {currentUserIsProfessor && <CreateCourseDialog />}
       </div>
 
-      {!hasCourses && <p>No perteneces a ningún curso aún.</p>}
+      {!hasCourses && (
+        <p>
+          {currentUserIsProfessor
+            ? "No creaste un curso aún."
+            : "No fuiste agregado a un curso aún."}
+        </p>
+      )}
 
       {hasCourses && (
         <ContentGrid>
           {courses.map((course) => (
-            <ContentCard
-              key={course.id}
-              title={course.name}
-              subtitle={course.description}
-            >
-              <Button variant="outline" className="w-full" asChild>
-                <Link href={`/courses/${course.id}`}>Abrir curso</Link>
-              </Button>
-            </ContentCard>
+            <ContentCard key={course.id} type="course" course={course} />
           ))}
         </ContentGrid>
       )}

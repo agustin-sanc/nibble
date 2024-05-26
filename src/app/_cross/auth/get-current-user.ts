@@ -3,7 +3,9 @@ import { currentUser } from "@clerk/nextjs";
 export const getCurrentUser = async () => {
   const user = await currentUser();
 
-  if (!user) throw new Error("No current user");
+  if (!user) return undefined;
 
-  return user;
+  const isProfessor = user.publicMetadata.isProfessor as boolean;
+
+  return { ...user, isProfessor };
 };

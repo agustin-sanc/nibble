@@ -2,12 +2,10 @@
 
 import { prisma } from "@/app/_cross/prisma";
 import * as z from "zod";
-
-// TODO: What about security on server actions?
+import { createPracticeFormSchema } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-form-schema";
 
 const inputSchema = z.object({
-  name: z.string(),
-  description: z.string(),
+  ...createPracticeFormSchema.shape,
   courseId: z.number(),
 });
 
