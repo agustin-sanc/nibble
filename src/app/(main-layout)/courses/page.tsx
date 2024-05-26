@@ -4,6 +4,7 @@ import { prisma } from "@/app/_cross/prisma";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-course-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
+import { Button } from "@/app/_cross/components/button";
 
 const Courses = async () => {
   const user = await getCurrentUser();
@@ -22,19 +23,29 @@ const Courses = async () => {
 
   const hasCourses = courses.length > 0;
 
+  const EmptyState = () => (
+    <div
+      className="mt-4 flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
+      x-chunk="dashboard-02-chunk-1"
+    >
+      <div className="flex flex-col items-center gap-4 p-6 text-center">
+        <h3 className="text-2xl font-bold tracking-tight">
+          No creaste ningún curso aún.
+        </h3>
+
+        <CreateCourseDialog />
+      </div>
+    </div>
+  );
+
   return (
     <>
-      <div className="flex justify-between">
-        <Header2>Cursos</Header2>
-        {currentUserIsProfessor && <CreateCourseDialog />}
-      </div>
+      <Header2>Cursos</Header2>
 
-      {!hasCourses && (
-        <p>
-          {currentUserIsProfessor
-            ? "No creaste un curso aún."
-            : "No fuiste agregado a un curso aún."}
-        </p>
+      {currentUserIsProfessor && !hasCourses && <EmptyState />}
+
+      {!currentUserIsProfessor && !hasCourses && (
+        <p>No fuiste agregado a un curso aún.</p>
       )}
 
       {hasCourses && (
