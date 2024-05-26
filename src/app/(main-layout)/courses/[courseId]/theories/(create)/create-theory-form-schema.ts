@@ -13,4 +13,7 @@ export const createTheoryFormSchema = z.object({
     })
     .min(4, "La descripción tiene que tener un mínimo de 4 caracteres")
     .max(20, "La descripción tiene que tener un máximo de 20 caracteres"),
+  content: z.string({
+    required_error: "Tiene que tener un contenido",
+  }),
 });

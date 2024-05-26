@@ -104,6 +104,26 @@ export const CreateTheoryDialog = ({ courseId }: { courseId: number }) => {
               )}
             />
 
+            <FormField
+              control={form.control}
+              name="content"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Descripción</FormLabel>
+
+                  <FormControl>
+                    <Input
+                      placeholder="Las funciones son..."
+                      type="textarea"
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Button type="submit" loading={loading}>
               Crear unidad teórica
             </Button>
