@@ -23,13 +23,11 @@ import {
 } from "@/app/_cross/components/form";
 import { useState } from "react";
 import { courseFormSchema } from "@/app/(main-layout)/courses/course-form-schema";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { TextArea } from "@/app/_cross/components/text-area";
 
 export const CreateCourseDialog = () => {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof courseFormSchema>>({
     resolver: zodResolver(courseFormSchema),
@@ -39,9 +37,8 @@ export const CreateCourseDialog = () => {
     setLoading(true);
 
     try {
-      const course = await saveCourse(data);
+      await saveCourse(data);
       toast.success("Curso creado con éxito.");
-      router.push(`/courses/${course.id}`);
     } catch (error) {
       toast.error("Ocurrió un error al crear el curso.");
     }
