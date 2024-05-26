@@ -9,7 +9,7 @@ import {
 } from "@/app/_cross/components/dialog";
 import { Button } from "@/app/_cross/components/button";
 import { Input } from "@/app/_cross/components/input";
-import { saveCourse } from "@/app/(main-layout)/courses/(create)/save-course";
+import { createCourse } from "@/app/(main-layout)/courses/(create)/create-course";
 import type * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -37,7 +37,7 @@ export const CreateCourseDialog = () => {
     setLoading(true);
 
     try {
-      await saveCourse(data);
+      await createCourse(data);
       toast.success("Curso creado con éxito.");
     } catch (error) {
       toast.error("Ocurrió un error al crear el curso.");

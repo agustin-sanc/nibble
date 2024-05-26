@@ -13,9 +13,7 @@ const validateInput = (data: z.infer<typeof courseFormSchema>) => {
   if (!success) throw new Error("Invalid data");
 };
 
-export const saveCourse = async (
-  data: { id: number } & z.infer<typeof courseFormSchema>,
-) => {
+export const createCourse = async (data: z.infer<typeof courseFormSchema>) => {
   const user = await getCurrentUser();
 
   if (!user) throw new Error("User not found");
@@ -23,13 +21,10 @@ export const saveCourse = async (
 
   validateInput(data);
 
-  const course = await prisma.course.upsert({
-    where: { id: data.id },
-    update: data,
-    create: { ...data, ownerId: user.id },
+  const course = await prisma.course.create({
+    data: { ...data, ownerId: user.id },
   });
 
   revalidatePath("/courses");
-
-  if (!data.id) redirect(`/courses/${course.id}`);
+  redirect(`/courses/${course.id}`);
 };

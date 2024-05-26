@@ -9,7 +9,6 @@ import {
 } from "@/app/_cross/components/dialog";
 import { Button } from "@/app/_cross/components/button";
 import { Input } from "@/app/_cross/components/input";
-import { saveCourse } from "@/app/(main-layout)/courses/(create)/save-course";
 import type * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -23,14 +22,13 @@ import {
 } from "@/app/_cross/components/form";
 import { useState } from "react";
 import { courseFormSchema } from "@/app/(main-layout)/courses/course-form-schema";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { TextArea } from "@/app/_cross/components/text-area";
 import { Course } from "@prisma/client";
+import { editCourse } from "@/app/(main-layout)/courses/(edit)/edit-course";
 
 export const EditCourseDialog = ({ course }: { course: Course }) => {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof courseFormSchema>>({
     resolver: zodResolver(courseFormSchema),
@@ -44,7 +42,7 @@ export const EditCourseDialog = ({ course }: { course: Course }) => {
     setLoading(true);
 
     try {
-      await saveCourse(data);
+      await editCourse({ id: course.id, ...data });
       toast.success("Curso actualizado con éxito.");
     } catch (error) {
       toast.error("Ocurrió un error al actualizar el curso.");
@@ -56,7 +54,7 @@ export const EditCourseDialog = ({ course }: { course: Course }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Editar curso</Button>
+        <Button>Editar</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
