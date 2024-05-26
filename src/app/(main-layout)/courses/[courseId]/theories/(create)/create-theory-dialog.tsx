@@ -109,7 +109,7 @@ export const CreateTheoryDialog = ({ courseId }: { courseId: number }) => {
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descripción</FormLabel>
+                  <FormLabel>Contenido</FormLabel>
 
                   <FormControl>
                     <Input
