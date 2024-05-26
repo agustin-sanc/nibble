@@ -25,7 +25,10 @@ const Courses = async () => {
 
   return (
     <>
-      <Header2>Cursos</Header2>
+      <div className="flex justify-between">
+        <Header2>Cursos</Header2>
+        <CreateCourseDialog />
+      </div>
 
       {currentUserIsProfessor && !hasCourses && (
         <div
