@@ -44,9 +44,8 @@ export const EditCourseDialog = ({ course }: { course: Course }) => {
     setLoading(true);
 
     try {
-      const course = await saveCourse(data);
+      await saveCourse(data);
       toast.success("Curso actualizado con éxito.");
-      router.push(`/courses/${course.id}`);
     } catch (error) {
       toast.error("Ocurrió un error al actualizar el curso.");
     }
