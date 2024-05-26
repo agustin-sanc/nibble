@@ -7,8 +7,10 @@
     "node": ">=18.16.0"
   },
   "scripts": {
-    "build": "next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
     "db:push": "prisma db push",
+    "db:generate:migration": "prisma migrate dev --name",
+    "db:migrate": "prisma migrate deploy",
     "db:studio": "prisma studio",
     "db:seed": "npx prisma db seed",
     "db:reset": "prisma migrate reset --force",
