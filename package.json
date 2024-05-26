@@ -10,6 +10,7 @@
     "build": "prisma generate && prisma migrate deploy && next build",
     "db:push": "prisma db push",
     "db:generate:migration": "prisma migrate dev --name",
+    "db:migrate:dev": "prisma migrate dev",
     "db:migrate": "prisma migrate deploy",
     "db:studio": "prisma studio",
     "db:seed": "npx prisma db seed",
