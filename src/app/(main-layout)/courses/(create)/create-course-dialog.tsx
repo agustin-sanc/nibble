@@ -94,7 +94,9 @@ export const CreateCourseDialog = () => {
               )}
             />
 
-            <Button type="submit">Confirmar</Button>
+            <Button type="submit" disabled={!submitButtonEnabled}>
+              Confirmar
+            </Button>
           </form>
         </Form>
       </DialogContent>
