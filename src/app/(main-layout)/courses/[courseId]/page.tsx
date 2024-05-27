@@ -107,10 +107,12 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
       <div className="flex items-center justify-between">
         <Header2>{course.name}</Header2>
 
-        <div className="flex gap-2">
-          <EditCourseDialog course={course} />
-          <DeleteCourseDialog courseId={course.id} />
-        </div>
+        {user.isProfessor && (
+          <div className="flex gap-2">
+            <EditCourseDialog course={course} />
+            <DeleteCourseDialog courseId={course.id} />
+          </div>
+        )}
       </div>
 
       <p>{course.description}</p>
