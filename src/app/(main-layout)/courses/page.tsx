@@ -27,7 +27,7 @@ const Courses = async () => {
   return (
     <>
       <div className="flex justify-between">
-        <Header2>Cursos</Header2>
+        <Header2 className="mb-3">Cursos</Header2>
         {currentUserIsProfessor && hasCourses && <CreateCourseDialog />}
       </div>
 

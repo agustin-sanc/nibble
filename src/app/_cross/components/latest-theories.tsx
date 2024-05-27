@@ -45,7 +45,7 @@ export const LatestTheories = async () => {
 
       <ContentGrid>
         {!hasTheories && (
-          <EmptyState title="No hay unidades teóricas para mostrar" />
+          <EmptyState title="No hay unidades teóricas para mostrar." />
         )}
 
         {hasTheories &&
