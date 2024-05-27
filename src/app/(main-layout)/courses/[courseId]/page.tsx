@@ -8,6 +8,7 @@ import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { isProfessor } from "@/app/_cross/auth/is-professor";
 import { assureUserCanAccessCourse } from "@/app/_cross/auth/assure-user-can-access-course";
 import { EditCourseDialog } from "@/app/(main-layout)/courses/(edit)/edit-course-dialog";
+import { EmptyState } from "@/app/_cross/components/empty-state";
 
 const fetchCourse = async (id: number) =>
   await prisma.course.findUnique({
@@ -55,18 +56,9 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
       </div>
 
       {!hasPractices && (
-        <div
-          className="mt-4 flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
-          x-chunk="dashboard-02-chunk-1"
-        >
-          <div className="flex flex-col items-center gap-4 p-6 text-center">
-            <h3 className="text-2xl font-bold tracking-tight">
-              Este curso no tiene trabajos prácticos aún.
-            </h3>
-
-            {userIsProfessor && <CreatePracticeDialog courseId={course.id} />}
-          </div>
-        </div>
+        <EmptyState title="Este curso no tiene trabajos prácticos aún.">
+          {userIsProfessor && <CreatePracticeDialog courseId={course.id} />}
+        </EmptyState>
       )}
 
       {hasPractices && (
@@ -95,18 +87,9 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
       </div>
 
       {!hasTheories && (
-        <div
-          className="mt-4 flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
-          x-chunk="dashboard-02-chunk-1"
-        >
-          <div className="flex flex-col items-center gap-4 p-6 text-center">
-            <h3 className="text-2xl font-bold tracking-tight">
-              Este curso no tiene unidades teóricas aún.
-            </h3>
-
-            {userIsProfessor && <CreateTheoryDialog courseId={course.id} />}
-          </div>
-        </div>
+        <EmptyState title="Este curso no tiene unidades teóricas aún.">
+          {userIsProfessor && <CreateTheoryDialog courseId={course.id} />}
+        </EmptyState>
       )}
 
       {hasTheories && (

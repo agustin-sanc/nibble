@@ -37,6 +37,7 @@ export const CreateTheoryDialog = ({ courseId }: { courseId: number }) => {
     defaultValues: {
       name: "",
       description: "",
+      content: "",
     },
   });
 

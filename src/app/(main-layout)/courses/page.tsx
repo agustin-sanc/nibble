@@ -5,6 +5,7 @@ import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-course-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { Button } from "@/app/_cross/components/button";
+import { EmptyState } from "@/app/_cross/components/empty-state";
 
 const Courses = async () => {
   const user = await getCurrentUser();
@@ -27,22 +28,13 @@ const Courses = async () => {
     <>
       <div className="flex justify-between">
         <Header2>Cursos</Header2>
-        <CreateCourseDialog />
+        {currentUserIsProfessor && hasCourses && <CreateCourseDialog />}
       </div>
 
       {currentUserIsProfessor && !hasCourses && (
-        <div
-          className="mt-4 flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
-          x-chunk="dashboard-02-chunk-1"
-        >
-          <div className="flex flex-col items-center gap-4 p-6 text-center">
-            <h3 className="text-2xl font-bold tracking-tight">
-              No creaste un curso aún.
-            </h3>
-
-            <CreateCourseDialog />
-          </div>
-        </div>
+        <EmptyState title="No creaste un curso aún.">
+          <CreateCourseDialog />
+        </EmptyState>
       )}
 
       {!currentUserIsProfessor && !hasCourses && (
