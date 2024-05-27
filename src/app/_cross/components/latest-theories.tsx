@@ -6,7 +6,7 @@ import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import Link from "next/link";
 
-export const NewestTheories = async () => {
+export const LatestTheories = async () => {
   const theories = await prisma.theory.findMany({
     orderBy: { createdAt: "desc" },
     include: { practices: true },
