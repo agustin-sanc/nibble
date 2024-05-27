@@ -13,11 +13,9 @@ export const LatestPractices = async () => {
 
   if (!user) throw new Error("User not found");
 
-  const currentUserIsProfessor = user.isProfessor;
-
   const practices = await prisma.practice.findMany({
     where: {
-      ...(currentUserIsProfessor
+      ...(user.isProfessor
         ? { course: { ownerId: user.id } }
         : { course: { studentIds: { has: user.id } } }),
     },
