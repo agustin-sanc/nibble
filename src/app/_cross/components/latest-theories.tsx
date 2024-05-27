@@ -11,13 +11,13 @@ import { EmptyState } from "@/app/_cross/components/empty-state";
 export const LatestTheories = async () => {
   const user = await getCurrentUser();
 
-  if (!user) throw new Error("User not found");
-
   const theories = await prisma.theory.findMany({
     where: {
-      ...(user.isProfessor
-        ? { course: { ownerId: user.id } }
-        : { course: { studentIds: { has: user.id } } }),
+      course: {
+        ...(user.isProfessor
+          ? { ownerId: user.id }
+          : { studentIds: { has: user.id } }),
+      },
     },
     orderBy: { createdAt: "desc" },
     include: { practices: true },
@@ -34,10 +34,10 @@ export const LatestTheories = async () => {
           <Header2 className="ml-2 mt-2">Últimas unidades teóricas</Header2>
         </div>
 
-        {hasTheories && (
+        {hasTheories && theories.length > 4 && (
           <Button className="flex items-center gap-2" variant="outline" asChild>
-            <Link href="/theories" className="flex items-center gap-2">
-              Ver todas <ArrowRight />
+            <Link href="/latest-theories" className="flex items-center gap-2">
+              Ver más <ArrowRight />
             </Link>
           </Button>
         )}

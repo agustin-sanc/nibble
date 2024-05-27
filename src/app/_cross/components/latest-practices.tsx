@@ -11,16 +11,16 @@ import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 export const LatestPractices = async () => {
   const user = await getCurrentUser();
 
-  if (!user) throw new Error("User not found");
-
   const practices = await prisma.practice.findMany({
     where: {
-      ...(user.isProfessor
-        ? { course: { ownerId: user.id } }
-        : { course: { studentIds: { has: user.id } } }),
+      course: {
+        ...(user.isProfessor
+          ? { ownerId: user.id }
+          : { studentIds: { has: user.id } }),
+      },
     },
+    include: { exercises: true },
     orderBy: { createdAt: "desc" },
-    include: { exercises: true, course: true },
     take: 4,
   });
 
@@ -34,10 +34,10 @@ export const LatestPractices = async () => {
           <Header2 className="ml-2 mt-2">Últimos trabajos prácticos</Header2>
         </div>
 
-        {hasPractices && (
+        {hasPractices && practices.length > 4 && (
           <Button className="flex items-center gap-2" variant="outline" asChild>
             <Link href="/latest-practices" className="flex items-center gap-2">
-              Ver todos <ArrowRight />
+              Ver más <ArrowRight />
             </Link>
           </Button>
         )}
