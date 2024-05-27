@@ -39,7 +39,7 @@ export const DeleteCourseDialog = ({ courseId }: { courseId: number }) => {
 
         <DialogClose asChild>
           <Button onClick={onConfirm} variant="destructive">
-            Confirmo que deseo eliminar el curso.
+            Sí, confirmo que deseo eliminar el curso.
           </Button>
         </DialogClose>
       </DialogContent>
