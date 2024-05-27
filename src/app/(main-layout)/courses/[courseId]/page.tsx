@@ -7,6 +7,7 @@ import { CreateTheoryDialog } from "@/app/(main-layout)/courses/[courseId]/theor
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { EditCourseDialog } from "@/app/(main-layout)/courses/[courseId]/(edit)/edit-course-dialog";
 import { EmptyState } from "@/app/_cross/components/empty-state";
+import { DeleteCourseDialog } from "@/app/(main-layout)/courses/[courseId]/(delete)/delete-course-dialog";
 
 const Course = async ({ params }: { params: { courseId: string } }) => {
   const user = await getCurrentUser();
@@ -105,7 +106,11 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
     <>
       <div className="flex items-center justify-between">
         <Header2>{course.name}</Header2>
-        <EditCourseDialog course={course} />
+
+        <div className="flex gap-2">
+          <EditCourseDialog course={course} />
+          <DeleteCourseDialog courseId={course.id} />
+        </div>
       </div>
 
       <p>{course.description}</p>
