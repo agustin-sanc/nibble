@@ -5,15 +5,28 @@ import { Header2 } from "@/app/_cross/components/typography";
 import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import Link from "next/link";
+import { EmptyState } from "@/app/_cross/components/empty-state";
+import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 
 export const NewestPractices = async () => {
+  const user = await getCurrentUser();
+
+  if (!user) throw new Error("User not found");
+
+  const currentUserIsProfessor = user.isProfessor;
+
   const practices = await prisma.practice.findMany({
+    where: {
+      ...(currentUserIsProfessor
+        ? { course: { ownerId: user.id } }
+        : { course: { studentIds: { has: user.id } } }),
+    },
     orderBy: { createdAt: "desc" },
     include: { exercises: true },
     take: 4,
   });
 
-  const existPractices = practices.length > 0;
+  const hasPractices = practices.length > 0;
 
   return (
     <div className="mt-7">
@@ -23,17 +36,21 @@ export const NewestPractices = async () => {
           <Header2 className="ml-2 mt-2">Últimos trabajos prácticos</Header2>
         </div>
 
-        <Button className="flex items-center gap-2" variant="outline" asChild>
-          <Link href="/practices" className="flex items-center gap-2">
-            Ver todos <ArrowRight />
-          </Link>
-        </Button>
+        {hasPractices && (
+          <Button className="flex items-center gap-2" variant="outline" asChild>
+            <Link href="/practices" className="flex items-center gap-2">
+              Ver todos <ArrowRight />
+            </Link>
+          </Button>
+        )}
       </div>
 
       <ContentGrid>
-        {!existPractices && <p>No hay trabajos prácticos para mostrar.</p>}
+        {!hasPractices && (
+          <EmptyState title="No hay trabajos prácticos para mostrar." />
+        )}
 
-        {existPractices &&
+        {hasPractices &&
           practices?.map((practice) => (
             <ContentCard
               key={practice.id}
