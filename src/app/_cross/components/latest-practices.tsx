@@ -8,7 +8,7 @@ import Link from "next/link";
 import { EmptyState } from "@/app/_cross/components/empty-state";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 
-export const NewestPractices = async () => {
+export const LatestPractices = async () => {
   const user = await getCurrentUser();
 
   if (!user) throw new Error("User not found");
@@ -38,7 +38,7 @@ export const NewestPractices = async () => {
 
         {hasPractices && (
           <Button className="flex items-center gap-2" variant="outline" asChild>
-            <Link href="/practices" className="flex items-center gap-2">
+            <Link href="/latest-practices" className="flex items-center gap-2">
               Ver todos <ArrowRight />
             </Link>
           </Button>
