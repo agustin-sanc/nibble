@@ -6,7 +6,7 @@ export const EmptyState = ({
   children,
 }: {
   title: string;
-  children: ReactNode;
+  children?: ReactNode;
 }) => (
   <div
     className="mt-4 flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
