@@ -25,7 +25,7 @@ import { courseFormSchema } from "@/app/(main-layout)/courses/course-form-schema
 import { toast } from "sonner";
 import { TextArea } from "@/app/_cross/components/text-area";
 import { Course } from "@prisma/client";
-import { editCourse } from "@/app/(main-layout)/courses/(edit)/edit-course";
+import { editCourse } from "@/app/(main-layout)/courses/[courseId]/(edit)/edit-course";
 
 export const EditCourseDialog = ({ course }: { course: Course }) => {
   const [loading, setLoading] = useState(false);

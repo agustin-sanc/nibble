@@ -5,7 +5,7 @@ import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreatePracticeDialog } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-dialog";
 import { CreateTheoryDialog } from "@/app/(main-layout)/courses/[courseId]/theories/(create)/create-theory-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
-import { EditCourseDialog } from "@/app/(main-layout)/courses/(edit)/edit-course-dialog";
+import { EditCourseDialog } from "@/app/(main-layout)/courses/[courseId]/(edit)/edit-course-dialog";
 import { EmptyState } from "@/app/_cross/components/empty-state";
 
 const Course = async ({ params }: { params: { courseId: string } }) => {
