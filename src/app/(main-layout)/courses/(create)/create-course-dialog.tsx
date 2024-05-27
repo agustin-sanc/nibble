@@ -27,23 +27,23 @@ import { toast } from "sonner";
 import { TextArea } from "@/app/_cross/components/text-area";
 
 export const CreateCourseDialog = () => {
-  const [loading, setLoading] = useState(false);
-
   const form = useForm<z.infer<typeof courseFormSchema>>({
     resolver: zodResolver(courseFormSchema),
   });
 
-  const onSubmit = async (data: z.infer<typeof courseFormSchema>) => {
-    setLoading(true);
+  const [submitButtonEnabled, setSubmitButtonEnabled] = useState(true);
 
-    try {
-      await createCourse(data);
-      toast.success("Curso creado con éxito.");
-    } catch (error) {
-      toast.error("Ocurrió un error al crear el curso.");
-    }
+  const onSubmit = (data: z.infer<typeof courseFormSchema>) => {
+    setSubmitButtonEnabled(false);
 
-    setLoading(false);
+    toast.promise(createCourse(data), {
+      loading: "Creando el curso...",
+      success: () => "Curso creado exitosamente",
+      error: () => {
+        setSubmitButtonEnabled(true);
+        return "Ocurrió un error al crear el curso. Por favor, intente de nuevo.";
+      },
+    });
   };
 
   return (
@@ -94,9 +94,7 @@ export const CreateCourseDialog = () => {
               )}
             />
 
-            <Button type="submit" loading={loading}>
-              Crear
-            </Button>
+            <Button type="submit">Confirmar</Button>
           </form>
         </Form>
       </DialogContent>

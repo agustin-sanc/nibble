@@ -30,7 +30,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
           disableTransitionOnChange
         >
           <ReactQueryProvider>{children}</ReactQueryProvider>
-          <Toaster />
+          <Toaster closeButton />
         </ThemeProvider>
       </body>
     </html>
