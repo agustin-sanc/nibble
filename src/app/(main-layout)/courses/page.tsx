@@ -4,7 +4,6 @@ import { prisma } from "@/app/_cross/prisma";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-course-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
-import { Button } from "@/app/_cross/components/button";
 import { EmptyState } from "@/app/_cross/components/empty-state";
 
 const Courses = async () => {
@@ -27,7 +26,7 @@ const Courses = async () => {
   return (
     <>
       <div className="flex justify-between">
-        <Header2 className="mb-3">Cursos</Header2>
+        <Header2>Cursos</Header2>
         {currentUserIsProfessor && hasCourses && <CreateCourseDialog />}
       </div>
 

@@ -20,7 +20,7 @@ export const LatestPractices = async () => {
         : { course: { studentIds: { has: user.id } } }),
     },
     orderBy: { createdAt: "desc" },
-    include: { exercises: true },
+    include: { exercises: true, course: true },
     take: 4,
   });
 
@@ -28,7 +28,7 @@ export const LatestPractices = async () => {
 
   return (
     <div className="mt-7">
-      <div className="mb-6 flex justify-between">
+      <div className="flex justify-between">
         <div className="flex items-center">
           <Layers2 size={30} />
           <Header2 className="ml-2 mt-2">Últimos trabajos prácticos</Header2>

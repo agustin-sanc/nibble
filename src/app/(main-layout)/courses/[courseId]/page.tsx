@@ -5,14 +5,25 @@ import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreatePracticeDialog } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-dialog";
 import { CreateTheoryDialog } from "@/app/(main-layout)/courses/[courseId]/theories/(create)/create-theory-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
-import { isProfessor } from "@/app/_cross/auth/is-professor";
-import { assureUserCanAccessCourse } from "@/app/_cross/auth/assure-user-can-access-course";
 import { EditCourseDialog } from "@/app/(main-layout)/courses/(edit)/edit-course-dialog";
 import { EmptyState } from "@/app/_cross/components/empty-state";
 
-const fetchCourse = async (id: number) =>
-  await prisma.course.findUnique({
-    where: { id },
+const Course = async ({ params }: { params: { courseId: string } }) => {
+  const user = await getCurrentUser();
+
+  if (!user) throw new Error("User not found");
+
+  if (isNaN(Number(params.courseId))) return <p>El curso no existe</p>;
+
+  const courseId = Number(params.courseId);
+
+  const course = await prisma.course.findUnique({
+    where: {
+      id: courseId,
+      ...(user.isProfessor
+        ? { ownerId: user.id }
+        : { studentIds: { has: user.id } }),
+    },
     include: {
       practices: {
         include: {
@@ -28,20 +39,7 @@ const fetchCourse = async (id: number) =>
     },
   });
 
-const Course = async ({ params }: { params: { courseId: string } }) => {
-  if (isNaN(Number(params.courseId))) return <p>El curso no existe</p>;
-
-  const courseId = Number(params.courseId);
-  const course = await fetchCourse(Number(courseId));
-
   if (!course) return <p>El curso no existe</p>;
-
-  const user = await getCurrentUser();
-
-  if (!user) throw new Error("User not found");
-
-  const userIsProfessor = isProfessor(user);
-  assureUserCanAccessCourse({ course, user });
 
   const hasPractices = course.practices?.length > 0;
 
@@ -50,14 +48,14 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
       <div className="flex flex-row items-center justify-between">
         <Header3>Trabajos prácticos</Header3>
 
-        {userIsProfessor && hasPractices && (
+        {user.isProfessor && hasPractices && (
           <CreatePracticeDialog courseId={course.id} />
         )}
       </div>
 
       {!hasPractices && (
         <EmptyState title="Este curso no tiene trabajos prácticos aún.">
-          {userIsProfessor && <CreatePracticeDialog courseId={course.id} />}
+          {user.isProfessor && <CreatePracticeDialog courseId={course.id} />}
         </EmptyState>
       )}
 
@@ -81,14 +79,15 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
     <>
       <div className="flex flex-row items-center justify-between">
         <Header3>Unidades teóricas</Header3>
-        {userIsProfessor && hasTheories && (
+
+        {user.isProfessor && hasTheories && (
           <CreateTheoryDialog courseId={course.id} />
         )}
       </div>
 
       {!hasTheories && (
         <EmptyState title="Este curso no tiene unidades teóricas aún.">
-          {userIsProfessor && <CreateTheoryDialog courseId={course.id} />}
+          {user.isProfessor && <CreateTheoryDialog courseId={course.id} />}
         </EmptyState>
       )}
 
@@ -108,6 +107,7 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
         <Header2>{course.name}</Header2>
         <EditCourseDialog course={course} />
       </div>
+
       <p>{course.description}</p>
 
       <Practices />

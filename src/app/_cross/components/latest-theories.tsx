@@ -28,7 +28,7 @@ export const LatestTheories = async () => {
 
   return (
     <div className="mt-7">
-      <div className="mb-6 flex justify-between">
+      <div className="flex justify-between">
         <div className="flex items-center">
           <Library size={30} />
           <Header2 className="ml-2 mt-2">Últimas unidades teóricas</Header2>
