@@ -38,7 +38,7 @@ export const CreateCourseDialog = () => {
 
     toast.promise(createCourse(data), {
       loading: "Creando el curso...",
-      success: () => "Curso creado exitosamente",
+      success: "Curso creado exitosamente",
       error: () => {
         setSubmitButtonEnabled(true);
         return "Ocurrió un error al crear el curso. Por favor, intente de nuevo.";
