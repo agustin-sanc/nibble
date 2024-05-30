@@ -9,16 +9,12 @@ const Home = async () => {
     <div className="flex w-full flex-col items-center justify-center gap-4 pt-8">
       <Header1>Nibble</Header1>
 
-      {user && (
-        <div className="flex w-[300px] flex-col gap-3">
+      <div className="flex w-[300px] flex-col gap-3">
+        {user ? (
           <Button asChild>
             <a href="/dashboard">Ir al dashboard</a>
           </Button>
-        </div>
-      )}
-
-      {!user && (
-        <div className="flex w-[300px] flex-col gap-3">
+        ) : (
           <Button asChild>
             <SignInButton
               mode="modal"
@@ -28,8 +24,8 @@ const Home = async () => {
               Iniciar sesión
             </SignInButton>
           </Button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
