@@ -3,26 +3,26 @@ import Link from "next/link";
 
 type OpenCourseProps = {
   type: "course";
-  courseId: number;
+  courseId: string;
 };
 
 type OpenPracticeProps = {
   type: "practice";
-  courseId: number;
-  practiceId: number;
+  courseId: string;
+  practiceId: string;
 };
 
 type OpenTheoryProps = {
   type: "theory";
-  courseId: number;
-  theoryId: number;
+  courseId: string;
+  theoryId: string;
 };
 
 type OpenExerciseProps = {
   type: "exercise";
-  courseId: number | null;
-  practiceId: number | null;
-  exerciseId: number;
+  courseId: string | null;
+  practiceId: string | null;
+  exerciseId: string;
 };
 
 type OpenContentProps =
