@@ -24,12 +24,12 @@ export const DeleteCourseDialog = ({ courseId }: { courseId: number }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="destructive">Eliminar</Button>
+        <Button variant="outline">Eliminar</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Estás seguro?</DialogTitle>
+          <DialogTitle>¿Estás seguro?</DialogTitle>
 
           <DialogDescription>
             Esta acción no puede ser deshecha. Esto eliminará permanentemente el
