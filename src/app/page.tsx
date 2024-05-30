@@ -1,10 +1,9 @@
 import { Header1 } from "@/app/_cross/components/typography";
 import { Button } from "@/app/_cross/components/button";
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
-import {getCurrentUser} from "@/app/_cross/auth/get-current-user";
+import { currentUser, SignInButton, SignUpButton } from "@clerk/nextjs";
 
 const Home = async () => {
-  const user = await getCurrentUser();
+  const user = await currentUser();
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 pt-8">
@@ -54,7 +53,7 @@ const Home = async () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Home;
