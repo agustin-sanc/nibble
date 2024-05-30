@@ -18,7 +18,7 @@ export const DeleteCourseDialog = ({ courseId }: { courseId: number }) => {
     toast.promise(deleteCourse(courseId), {
       loading: "Eliminando el curso...",
       success: "Curso eliminado exitosamente.",
-      error: "Ocurrió un error al eliminar el curso.",
+      error: "No se pudo eliminar el curso.",
     });
 
   return (

@@ -35,7 +35,7 @@ model Theory {
 
   practices Practice[] @relation("TheoryToPractice")
 
-  course   Course @relation(fields: [courseId], references: [id])
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
   courseId Int
 
   @@index([name])
@@ -49,7 +49,7 @@ model Practice {
   exercises Exercise[]
   theories  Theory[]   @relation("TheoryToPractice")
 
-  course   Course @relation(fields: [courseId], references: [id])
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
   courseId Int
 
   createdAt DateTime @default(now())
@@ -72,7 +72,7 @@ model Exercise {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  practice   Practice? @relation(fields: [practiceId], references: [id])
+  practice   Practice? @relation(fields: [practiceId], references: [id], onDelete: Cascade)
   practiceId Int?
 
   @@index([name])
@@ -94,7 +94,7 @@ model BlackBoxTest {
   batchInput  String[]
   batchOutput String[]
 
-  exercise   Exercise? @relation(fields: [exerciseId], references: [id])
+  exercise   Exercise? @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   exerciseId Int?
 }
 
@@ -107,7 +107,7 @@ model GrayBoxTest {
   functionArgs     String[]
   functionResponse String
 
-  exercise   Exercise? @relation(fields: [exerciseId], references: [id])
+  exercise   Exercise? @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   exerciseId Int?
 }
 
@@ -118,6 +118,6 @@ model WhiteBoxTest {
 
   test String
 
-  exercise   Exercise? @relation(fields: [exerciseId], references: [id])
+  exercise   Exercise? @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   exerciseId Int?
 }
