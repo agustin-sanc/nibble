@@ -3,7 +3,7 @@ import { currentUser } from "@clerk/nextjs";
 export const getCurrentUser = async () => {
   const user = await currentUser();
 
-  if (!user) throw new Error("User not found");
+  if (!user) return;
 
   const isProfessor = user.publicMetadata.isProfessor as boolean;
 
