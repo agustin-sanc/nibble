@@ -21,45 +21,53 @@ import {
   FormMessage,
 } from "@/app/_cross/components/form";
 import { useState } from "react";
-import { courseFormSchema } from "@/app/courses/course-form-schema";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { TextArea } from "@/app/_cross/components/text-area";
-import { Course } from "@prisma/client";
-import { editCourse } from "@/app/courses/[courseId]/(edit)/edit-course";
+import { createPracticeFormSchema } from "@/app/(platform)/courses/[courseId]/practices/(create)/create-practice-form-schema";
+import { savePractice } from "@/app/(platform)/courses/[courseId]/practices/(create)/save-practice";
 
-export const EditCourseDialog = ({ course }: { course: Course }) => {
+export const CreatePracticeDialog = ({ courseId }: { courseId: string }) => {
+  const { user } = useUser();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof courseFormSchema>>({
-    resolver: zodResolver(courseFormSchema),
+  const form = useForm<z.infer<typeof createPracticeFormSchema>>({
+    resolver: zodResolver(createPracticeFormSchema),
     defaultValues: {
-      name: course.name,
-      description: course.description,
+      name: "",
+      description: "",
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof courseFormSchema>) => {
+  const onSubmit = async (data: z.infer<typeof createPracticeFormSchema>) => {
     setLoading(true);
 
-    try {
-      await editCourse({ id: course.id, ...data });
-      toast.success("Curso actualizado con éxito.");
-    } catch (error) {
-      toast.error("Ocurrió un error al actualizar el curso.");
-    }
+    if (user) {
+      try {
+        const practice = await savePractice({
+          ...data,
+          courseId,
+        });
 
-    setLoading(false);
+        toast.success("Trabajo práctico creado con éxito.");
+        router.push(`/courses/${courseId}/practices/${practice.id}`);
+      } catch (error) {
+        setLoading(false);
+        toast.error("Ocurrió un error al crear el trabajo práctico.");
+      }
+    }
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Editar</Button>
+        <Button>Crear trabajo práctico</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Editar curso</DialogTitle>
+          <DialogTitle>Crear trabajo práctico</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -88,7 +96,7 @@ export const EditCourseDialog = ({ course }: { course: Course }) => {
                   <FormLabel>Descripción</FormLabel>
 
                   <FormControl>
-                    <TextArea
+                    <Input
                       placeholder="Cátedra de algoritmos y estructuras de datos, UTN-FRT"
                       {...field}
                     />
@@ -100,7 +108,7 @@ export const EditCourseDialog = ({ course }: { course: Course }) => {
             />
 
             <Button type="submit" loading={loading}>
-              Guardar cambios
+              Crear trabajo práctico
             </Button>
           </form>
         </Form>

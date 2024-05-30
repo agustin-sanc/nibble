@@ -9,6 +9,7 @@ import {
 } from "@/app/_cross/components/dialog";
 import { Button } from "@/app/_cross/components/button";
 import { Input } from "@/app/_cross/components/input";
+import { createCourse } from "@/app/(platform)/courses/(create)/create-course";
 import type * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,53 +22,39 @@ import {
   FormMessage,
 } from "@/app/_cross/components/form";
 import { useState } from "react";
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import { courseFormSchema } from "@/app/(platform)/courses/course-form-schema";
 import { toast } from "sonner";
-import { createPracticeFormSchema } from "@/app/courses/[courseId]/practices/(create)/create-practice-form-schema";
-import { savePractice } from "@/app/courses/[courseId]/practices/(create)/save-practice";
+import { TextArea } from "@/app/_cross/components/text-area";
 
-export const CreatePracticeDialog = ({ courseId }: { courseId: string }) => {
-  const { user } = useUser();
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-
-  const form = useForm<z.infer<typeof createPracticeFormSchema>>({
-    resolver: zodResolver(createPracticeFormSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-    },
+export const CreateCourseDialog = () => {
+  const form = useForm<z.infer<typeof courseFormSchema>>({
+    resolver: zodResolver(courseFormSchema),
   });
 
-  const onSubmit = async (data: z.infer<typeof createPracticeFormSchema>) => {
-    setLoading(true);
+  const [submitButtonEnabled, setSubmitButtonEnabled] = useState(true);
 
-    if (user) {
-      try {
-        const practice = await savePractice({
-          ...data,
-          courseId,
-        });
+  const onSubmit = (data: z.infer<typeof courseFormSchema>) => {
+    setSubmitButtonEnabled(false);
 
-        toast.success("Trabajo práctico creado con éxito.");
-        router.push(`/courses/${courseId}/practices/${practice.id}`);
-      } catch (error) {
-        setLoading(false);
-        toast.error("Ocurrió un error al crear el trabajo práctico.");
-      }
-    }
+    toast.promise(createCourse(data), {
+      loading: "Creando el curso...",
+      success: "Curso creado exitosamente",
+      error: () => {
+        setSubmitButtonEnabled(true);
+        return "Ocurrió un error al crear el curso. Por favor, intente de nuevo.";
+      },
+    });
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Crear trabajo práctico</Button>
+        <Button>Crear curso</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Crear trabajo práctico</DialogTitle>
+          <DialogTitle>Crear curso</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -96,7 +83,7 @@ export const CreatePracticeDialog = ({ courseId }: { courseId: string }) => {
                   <FormLabel>Descripción</FormLabel>
 
                   <FormControl>
-                    <Input
+                    <TextArea
                       placeholder="Cátedra de algoritmos y estructuras de datos, UTN-FRT"
                       {...field}
                     />
@@ -107,8 +94,8 @@ export const CreatePracticeDialog = ({ courseId }: { courseId: string }) => {
               )}
             />
 
-            <Button type="submit" loading={loading}>
-              Crear trabajo práctico
+            <Button type="submit" disabled={!submitButtonEnabled}>
+              Confirmar
             </Button>
           </form>
         </Form>

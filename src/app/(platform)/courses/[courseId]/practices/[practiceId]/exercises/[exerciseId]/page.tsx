@@ -5,8 +5,8 @@ import {
   UnorderedList,
 } from "@/app/_cross/components/typography";
 import { database } from "@/app/_cross/database";
-import { Solution } from "@/app/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/_components/solution";
-import { TestExamples } from "@/app/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/_components/test-examples";
+import { Solution } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/_components/solution";
+import { TestExamples } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/_components/test-examples";
 import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 

@@ -24,8 +24,8 @@ import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { saveTheory } from "@/app/courses/[courseId]/theories/(create)/save-theory";
-import { createTheoryFormSchema } from "@/app/courses/[courseId]/theories/(create)/create-theory-form-schema";
+import { saveTheory } from "@/app/(platform)/courses/[courseId]/theories/(create)/save-theory";
+import { createTheoryFormSchema } from "@/app/(platform)/courses/[courseId]/theories/(create)/create-theory-form-schema";
 
 export const CreateTheoryDialog = ({ courseId }: { courseId: string }) => {
   const { user } = useUser();
