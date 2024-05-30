@@ -2,7 +2,7 @@ import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { Header2 } from "@/app/_cross/components/typography";
 import { database } from "@/app/_cross/database";
 import { ContentCard } from "@/app/_cross/components/content-card";
-import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-course-dialog";
+import { CreateCourseDialog } from "@/app/courses/(create)/create-course-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { EmptyState } from "@/app/_cross/components/empty-state";
 

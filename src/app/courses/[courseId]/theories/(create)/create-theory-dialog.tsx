@@ -24,37 +24,34 @@ import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { createPracticeFormSchema } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-form-schema";
-import { savePractice } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/save-practice";
+import { saveTheory } from "@/app/courses/[courseId]/theories/(create)/save-theory";
+import { createTheoryFormSchema } from "@/app/courses/[courseId]/theories/(create)/create-theory-form-schema";
 
-export const CreatePracticeDialog = ({ courseId }: { courseId: string }) => {
+export const CreateTheoryDialog = ({ courseId }: { courseId: string }) => {
   const { user } = useUser();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof createPracticeFormSchema>>({
-    resolver: zodResolver(createPracticeFormSchema),
+  const form = useForm<z.infer<typeof createTheoryFormSchema>>({
+    resolver: zodResolver(createTheoryFormSchema),
     defaultValues: {
       name: "",
       description: "",
+      content: "",
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof createPracticeFormSchema>) => {
+  const onSubmit = async (data: z.infer<typeof createTheoryFormSchema>) => {
     setLoading(true);
 
     if (user) {
       try {
-        const practice = await savePractice({
-          ...data,
-          courseId,
-        });
-
-        toast.success("Trabajo práctico creado con éxito.");
-        router.push(`/courses/${courseId}/practices/${practice.id}`);
+        const theory = await saveTheory({ ...data, courseId });
+        toast.success("Unidad teórica creada con éxito.");
+        router.push(`/courses/${courseId}/theories/${theory.id}`);
       } catch (error) {
         setLoading(false);
-        toast.error("Ocurrió un error al crear el trabajo práctico.");
+        toast.error("Ocurrió un error al crear la unidad teórica.");
       }
     }
   };
@@ -62,12 +59,12 @@ export const CreatePracticeDialog = ({ courseId }: { courseId: string }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Crear trabajo práctico</Button>
+        <Button>Crear unidad teórica</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Crear trabajo práctico</DialogTitle>
+          <DialogTitle>Crear unidad teórica</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -80,7 +77,7 @@ export const CreatePracticeDialog = ({ courseId }: { courseId: string }) => {
                   <FormLabel>Nombre</FormLabel>
 
                   <FormControl>
-                    <Input placeholder="AED 1k6 (2024)" {...field} />
+                    <Input placeholder="Funciones" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -97,7 +94,28 @@ export const CreatePracticeDialog = ({ courseId }: { courseId: string }) => {
 
                   <FormControl>
                     <Input
-                      placeholder="Cátedra de algoritmos y estructuras de datos, UTN-FRT"
+                      placeholder="Las funciones son..."
+                      type="textarea"
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="content"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Contenido</FormLabel>
+
+                  <FormControl>
+                    <Input
+                      placeholder="Las funciones son..."
+                      type="textarea"
                       {...field}
                     />
                   </FormControl>
@@ -108,7 +126,7 @@ export const CreatePracticeDialog = ({ courseId }: { courseId: string }) => {
             />
 
             <Button type="submit" loading={loading}>
-              Crear trabajo práctico
+              Crear unidad teórica
             </Button>
           </form>
         </Form>

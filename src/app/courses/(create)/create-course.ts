@@ -3,7 +3,7 @@
 import { database } from "@/app/_cross/database";
 import * as z from "zod";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
-import { courseFormSchema } from "@/app/(main-layout)/courses/course-form-schema";
+import { courseFormSchema } from "@/app/courses/course-form-schema";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 

@@ -19,28 +19,6 @@ const Home = async () => {
 
       {!user && (
         <div className="flex w-[300px] flex-col gap-3">
-          <Button variant="outline" asChild>
-            <SignUpButton
-              mode="modal"
-              unsafeMetadata={{ isProfessor: true }}
-              afterSignUpUrl="/dashboard"
-              afterSignInUrl="/dashboard"
-            >
-              Registrarme como profesor
-            </SignUpButton>
-          </Button>
-
-          <Button variant="outline" asChild>
-            <SignUpButton
-              mode="modal"
-              unsafeMetadata={{ isProfessor: false }}
-              afterSignInUrl="/dashboard"
-              afterSignUpUrl="/dashboard"
-            >
-              Registrarme como alumno
-            </SignUpButton>
-          </Button>
-
           <Button asChild>
             <SignInButton
               mode="modal"

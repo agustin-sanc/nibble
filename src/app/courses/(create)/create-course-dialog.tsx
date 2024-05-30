@@ -9,6 +9,7 @@ import {
 } from "@/app/_cross/components/dialog";
 import { Button } from "@/app/_cross/components/button";
 import { Input } from "@/app/_cross/components/input";
+import { createCourse } from "@/app/courses/(create)/create-course";
 import type * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,45 +22,39 @@ import {
   FormMessage,
 } from "@/app/_cross/components/form";
 import { useState } from "react";
-import { courseFormSchema } from "@/app/(main-layout)/courses/course-form-schema";
+import { courseFormSchema } from "@/app/courses/course-form-schema";
 import { toast } from "sonner";
 import { TextArea } from "@/app/_cross/components/text-area";
-import { Course } from "@prisma/client";
-import { editCourse } from "@/app/(main-layout)/courses/[courseId]/(edit)/edit-course";
 
-export const EditCourseDialog = ({ course }: { course: Course }) => {
-  const [loading, setLoading] = useState(false);
-
+export const CreateCourseDialog = () => {
   const form = useForm<z.infer<typeof courseFormSchema>>({
     resolver: zodResolver(courseFormSchema),
-    defaultValues: {
-      name: course.name,
-      description: course.description,
-    },
   });
 
-  const onSubmit = async (data: z.infer<typeof courseFormSchema>) => {
-    setLoading(true);
+  const [submitButtonEnabled, setSubmitButtonEnabled] = useState(true);
 
-    try {
-      await editCourse({ id: course.id, ...data });
-      toast.success("Curso actualizado con éxito.");
-    } catch (error) {
-      toast.error("Ocurrió un error al actualizar el curso.");
-    }
+  const onSubmit = (data: z.infer<typeof courseFormSchema>) => {
+    setSubmitButtonEnabled(false);
 
-    setLoading(false);
+    toast.promise(createCourse(data), {
+      loading: "Creando el curso...",
+      success: "Curso creado exitosamente",
+      error: () => {
+        setSubmitButtonEnabled(true);
+        return "Ocurrió un error al crear el curso. Por favor, intente de nuevo.";
+      },
+    });
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Editar</Button>
+        <Button>Crear curso</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Editar curso</DialogTitle>
+          <DialogTitle>Crear curso</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -99,8 +94,8 @@ export const EditCourseDialog = ({ course }: { course: Course }) => {
               )}
             />
 
-            <Button type="submit" loading={loading}>
-              Guardar cambios
+            <Button type="submit" disabled={!submitButtonEnabled}>
+              Confirmar
             </Button>
           </form>
         </Form>
