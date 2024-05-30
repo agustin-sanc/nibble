@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import * as z from "zod";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { courseFormSchema } from "@/app/(main-layout)/courses/course-form-schema";
@@ -23,7 +23,7 @@ export const editCourse = async (
 
   validateInput(data);
 
-  const course = await prisma.course.update({
+  const course = await database.course.update({
     where: { id: data.id, ownerId: user.id },
     data,
   });

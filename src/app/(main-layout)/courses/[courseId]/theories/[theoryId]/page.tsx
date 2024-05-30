@@ -1,4 +1,4 @@
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import { MarkdownViewer } from "@/app/_cross/components/markdown-viewer";
 
 const Theory = async ({
@@ -6,7 +6,7 @@ const Theory = async ({
 }: {
   params: { theoryId: string };
 }) => {
-  const theory = await prisma.theory.findUnique({
+  const theory = await database.theory.findUnique({
     where: { id: Number(theoryId) },
   });
 

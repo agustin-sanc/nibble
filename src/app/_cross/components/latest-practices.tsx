@@ -1,6 +1,6 @@
 import { ArrowRight, Layers2 } from "lucide-react";
 import { Button } from "@/app/_cross/components/button";
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import { Header2 } from "@/app/_cross/components/typography";
 import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
@@ -11,7 +11,7 @@ import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 export const LatestPractices = async () => {
   const user = await getCurrentUser();
 
-  const practices = await prisma.practice.findMany({
+  const practices = await database.practice.findMany({
     where: {
       course: {
         ...(user.isProfessor

@@ -1,6 +1,6 @@
 import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { Header2 } from "@/app/_cross/components/typography";
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import { CreateCourseDialog } from "@/app/(main-layout)/courses/(create)/create-course-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
@@ -13,7 +13,7 @@ const Courses = async () => {
 
   const { id: currentUserId, isProfessor: currentUserIsProfessor } = user;
 
-  const courses = await prisma.course.findMany({
+  const courses = await database.course.findMany({
     where: {
       ...(currentUserIsProfessor
         ? { ownerId: currentUserId }

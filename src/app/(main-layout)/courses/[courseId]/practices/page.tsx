@@ -1,6 +1,6 @@
 import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { Header2 } from "@/app/_cross/components/typography";
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import { ContentCard } from "@/app/_cross/components/content-card";
 
 const Practices = async ({
@@ -10,7 +10,7 @@ const Practices = async ({
 }) => {
   if (!courseId) throw new Error("courseId must be defined");
 
-  const practices = await prisma.practice.findMany({
+  const practices = await database.practice.findMany({
     where: { courseId: Number(courseId) },
     include: { exercises: true },
   });

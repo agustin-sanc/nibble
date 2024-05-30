@@ -4,19 +4,19 @@ import {
   Header3,
   UnorderedList,
 } from "@/app/_cross/components/typography";
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import { Solution } from "@/app/(custom-layouts)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/_components/solution";
 import { TestExamples } from "@/app/(custom-layouts)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/_components/test-examples";
 import { ArrowUpRight } from "lucide-react";
 
 type ExercisePageProps = {
-  params: { exerciseId: string; practiceId: string; courseId: string; };
+  params: { exerciseId: string; practiceId: string; courseId: string };
 };
 
 export default async function Exercise({
   params: { exerciseId, practiceId, courseId },
 }: ExercisePageProps) {
-  const exercise = await prisma.exercise.findUnique({
+  const exercise = await database.exercise.findUnique({
     where: { id: Number(exerciseId) },
     include: {
       practice: { include: { theories: true } },

@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import * as z from "zod";
 
 const inputSchema = z.object({
@@ -18,5 +18,5 @@ const validateInput = (input: z.infer<typeof inputSchema>) => {
 
 export const saveTheory = async (input: z.infer<typeof inputSchema>) => {
   validateInput(input);
-  return await prisma.theory.create({ data: input });
+  return await database.theory.create({ data: input });
 };

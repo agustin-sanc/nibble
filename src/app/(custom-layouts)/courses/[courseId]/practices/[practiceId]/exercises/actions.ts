@@ -1,4 +1,4 @@
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import { z } from "zod";
 
 // z.object({
@@ -29,4 +29,4 @@ import { z } from "zod";
 //   });
 
 export const deleteExercise = async (id: number) =>
-  await prisma.exercise.delete({ where: { id } });
+  await database.exercise.delete({ where: { id } });

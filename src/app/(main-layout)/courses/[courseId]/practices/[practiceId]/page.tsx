@@ -1,4 +1,4 @@
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import { Header2, Header3 } from "@/app/_cross/components/typography";
 import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
@@ -6,11 +6,11 @@ import { ContentCard } from "@/app/_cross/components/content-card";
 const Practice = async ({
   params: { practiceId },
 }: {
-  params: { practiceId: string, courseId: string };
+  params: { practiceId: string; courseId: string };
 }) => {
-  const practice = await prisma.practice.findUnique({
+  const practice = await database.practice.findUnique({
     where: { id: Number(practiceId) },
-    include: { exercises: { include: { practice: true }}, theories: true },
+    include: { exercises: { include: { practice: true } }, theories: true },
   });
 
   const hasExercises = practice && practice?.exercises?.length > 0;

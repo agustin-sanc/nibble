@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import * as z from "zod";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { courseFormSchema } from "@/app/(main-layout)/courses/course-form-schema";
@@ -21,7 +21,7 @@ export const createCourse = async (data: z.infer<typeof courseFormSchema>) => {
 
   validateInput(data);
 
-  const course = await prisma.course.create({
+  const course = await database.course.create({
     data: { ...data, ownerId: user.id },
   });
 

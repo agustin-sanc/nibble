@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import * as z from "zod";
 import { createPracticeFormSchema } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-form-schema";
 
@@ -16,5 +16,5 @@ const validateInput = (input: z.infer<typeof inputSchema>) => {
 
 export const savePractice = async (input: z.infer<typeof inputSchema>) => {
   validateInput(input);
-  return await prisma.practice.create({ data: input });
+  return await database.practice.create({ data: input });
 };

@@ -1,6 +1,6 @@
 import { ArrowRight, Library } from "lucide-react";
 import { Button } from "@/app/_cross/components/button";
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import { Header2 } from "@/app/_cross/components/typography";
 import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
@@ -11,7 +11,7 @@ import { EmptyState } from "@/app/_cross/components/empty-state";
 export const LatestTheories = async () => {
   const user = await getCurrentUser();
 
-  const theories = await prisma.theory.findMany({
+  const theories = await database.theory.findMany({
     where: {
       course: {
         ...(user.isProfessor

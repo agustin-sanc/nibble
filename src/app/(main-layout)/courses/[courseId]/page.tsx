@@ -1,4 +1,4 @@
-import { prisma } from "@/app/_cross/prisma";
+import { database } from "@/app/_cross/database";
 import { Header2, Header3 } from "@/app/_cross/components/typography";
 import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
@@ -18,7 +18,7 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
 
   const courseId = Number(params.courseId);
 
-  const course = await prisma.course.findUnique({
+  const course = await database.course.findUnique({
     where: {
       id: courseId,
       ...(user.isProfessor
