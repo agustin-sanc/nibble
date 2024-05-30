@@ -5,7 +5,7 @@ import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
-export const deleteCourse = async (id: number) => {
+export const deleteCourse = async (id: string) => {
   const user = await getCurrentUser();
 
   if (!user) throw new Error("User not found");

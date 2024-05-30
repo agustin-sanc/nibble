@@ -6,12 +6,12 @@ import { ContentCard } from "@/app/_cross/components/content-card";
 const Practices = async ({
   params: { courseId },
 }: {
-  params: { courseId: number };
+  params: { courseId: string };
 }) => {
   if (!courseId) throw new Error("courseId must be defined");
 
   const practices = await database.practice.findMany({
-    where: { courseId: courseId },
+    where: { courseId },
     include: { exercises: true },
   });
 

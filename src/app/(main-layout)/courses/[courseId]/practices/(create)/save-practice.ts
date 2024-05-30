@@ -6,7 +6,7 @@ import { createPracticeFormSchema } from "@/app/(main-layout)/courses/[courseId]
 
 const inputSchema = z.object({
   ...createPracticeFormSchema.shape,
-  courseId: z.number(),
+  courseId: z.string(),
 });
 
 const validateInput = (input: z.infer<typeof inputSchema>) => {

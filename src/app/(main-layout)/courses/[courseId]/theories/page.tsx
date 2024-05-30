@@ -11,7 +11,7 @@ const Theories = async ({
   if (!courseId) throw new Error("courseId must be defined");
 
   const theories = await database.theory.findMany({
-    where: { courseId: Number(courseId) },
+    where: { courseId },
     orderBy: { createdAt: "desc" },
   });
 

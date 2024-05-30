@@ -10,7 +10,7 @@ datasource db {
 }
 
 model Course {
-  id          Int    @id @default(autoincrement())
+  id          String @id @default(cuid())
   name        String
   description String
 
@@ -25,7 +25,7 @@ model Course {
 }
 
 model Theory {
-  id          Int    @id @default(autoincrement())
+  id          String @id @default(cuid())
   name        String
   description String
   content     String
@@ -36,13 +36,13 @@ model Theory {
   practices Practice[] @relation("TheoryToPractice")
 
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId Int
+  courseId String
 
   @@index([name])
 }
 
 model Practice {
-  id          Int    @id @default(autoincrement())
+  id          String @id @default(cuid())
   name        String
   description String
 
@@ -50,7 +50,7 @@ model Practice {
   theories  Theory[]   @relation("TheoryToPractice")
 
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId Int
+  courseId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -59,7 +59,7 @@ model Practice {
 }
 
 model Exercise {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(cuid())
   name        String
   description String
   tags        Tag[]    @relation("ExerciseToTag")
@@ -72,14 +72,14 @@ model Exercise {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  practice   Practice? @relation(fields: [practiceId], references: [id], onDelete: Cascade)
-  practiceId Int?
+  practice   Practice @relation(fields: [practiceId], references: [id], onDelete: Cascade)
+  practiceId String
 
   @@index([name])
 }
 
 model Tag {
-  id        Int        @id @default(autoincrement())
+  id        String     @id @default(cuid())
   name      String     @unique
   exercises Exercise[] @relation("ExerciseToTag")
 
@@ -87,19 +87,19 @@ model Tag {
 }
 
 model BlackBoxTest {
-  id          Int     @id @default(autoincrement())
+  id          String  @id @default(cuid())
   isExample   Boolean @default(false)
   description String?
 
   batchInput  String[]
   batchOutput String[]
 
-  exercise   Exercise? @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
-  exerciseId Int?
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  exerciseId String
 }
 
 model GrayBoxTest {
-  id          Int     @id @default(autoincrement())
+  id          String  @id @default(cuid())
   isExample   Boolean @default(false)
   description String?
 
@@ -107,17 +107,17 @@ model GrayBoxTest {
   functionArgs     String[]
   functionResponse String
 
-  exercise   Exercise? @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
-  exerciseId Int?
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  exerciseId String
 }
 
 model WhiteBoxTest {
-  id          Int     @id @default(autoincrement())
+  id          String  @id @default(cuid())
   isExample   Boolean @default(false)
   description String?
 
   test String
 
-  exercise   Exercise? @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
-  exerciseId Int?
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  exerciseId String
 }

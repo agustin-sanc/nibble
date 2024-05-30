@@ -9,8 +9,6 @@ import { EmptyState } from "@/app/_cross/components/empty-state";
 const Courses = async () => {
   const user = await getCurrentUser();
 
-  if (!user) throw new Error("User not found");
-
   const { id: currentUserId, isProfessor: currentUserIsProfessor } = user;
 
   const courses = await database.course.findMany({

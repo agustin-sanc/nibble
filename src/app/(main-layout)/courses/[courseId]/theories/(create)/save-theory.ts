@@ -7,7 +7,7 @@ const inputSchema = z.object({
   name: z.string(),
   description: z.string(),
   content: z.string(),
-  courseId: z.number(),
+  courseId: z.string(),
 });
 
 const validateInput = (input: z.infer<typeof inputSchema>) => {

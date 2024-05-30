@@ -28,5 +28,5 @@ import { z } from "zod";
 //     data: { name, description },
 //   });
 
-export const deleteExercise = async (id: number) =>
+export const deleteExercise = async (id: string) =>
   await database.exercise.delete({ where: { id } });

@@ -9,7 +9,7 @@ const Practice = async ({
   params: { practiceId: string; courseId: string };
 }) => {
   const practice = await database.practice.findUnique({
-    where: { id: Number(practiceId) },
+    where: { id: practiceId },
     include: { exercises: { include: { practice: true } }, theories: true },
   });
 

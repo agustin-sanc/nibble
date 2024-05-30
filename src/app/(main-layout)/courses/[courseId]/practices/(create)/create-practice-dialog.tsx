@@ -27,7 +27,7 @@ import { toast } from "sonner";
 import { createPracticeFormSchema } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/create-practice-form-schema";
 import { savePractice } from "@/app/(main-layout)/courses/[courseId]/practices/(create)/save-practice";
 
-export const CreatePracticeDialog = ({ courseId }: { courseId: number }) => {
+export const CreatePracticeDialog = ({ courseId }: { courseId: string }) => {
   const { user } = useUser();
   const router = useRouter();
   const [loading, setLoading] = useState(false);

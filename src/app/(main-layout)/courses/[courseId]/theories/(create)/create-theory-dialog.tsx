@@ -27,7 +27,7 @@ import { toast } from "sonner";
 import { saveTheory } from "@/app/(main-layout)/courses/[courseId]/theories/(create)/save-theory";
 import { createTheoryFormSchema } from "@/app/(main-layout)/courses/[courseId]/theories/(create)/create-theory-form-schema";
 
-export const CreateTheoryDialog = ({ courseId }: { courseId: number }) => {
+export const CreateTheoryDialog = ({ courseId }: { courseId: string }) => {
   const { user } = useUser();
   const router = useRouter();
   const [loading, setLoading] = useState(false);

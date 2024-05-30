@@ -8,6 +8,7 @@ import { database } from "@/app/_cross/database";
 import { Solution } from "@/app/(custom-layouts)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/_components/solution";
 import { TestExamples } from "@/app/(custom-layouts)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/_components/test-examples";
 import { ArrowUpRight } from "lucide-react";
+import { notFound } from "next/navigation";
 
 type ExercisePageProps = {
   params: { exerciseId: string; practiceId: string; courseId: string };
@@ -17,7 +18,7 @@ export default async function Exercise({
   params: { exerciseId, practiceId, courseId },
 }: ExercisePageProps) {
   const exercise = await database.exercise.findUnique({
-    where: { id: Number(exerciseId) },
+    where: { id: exerciseId },
     include: {
       practice: { include: { theories: true } },
       blackBoxTests: true,
@@ -26,7 +27,7 @@ export default async function Exercise({
     },
   });
 
-  if (!exercise) return <p>El ejercicio no existe.</p>;
+  if (!exercise) notFound();
 
   const Header = () => (
     <div>

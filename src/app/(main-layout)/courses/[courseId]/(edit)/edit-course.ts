@@ -14,7 +14,7 @@ const validateInput = (data: z.infer<typeof courseFormSchema>) => {
 };
 
 export const editCourse = async (
-  data: { id: number } & z.infer<typeof courseFormSchema>,
+  data: { id: string } & z.infer<typeof courseFormSchema>,
 ) => {
   const user = await getCurrentUser();
 

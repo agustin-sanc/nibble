@@ -8,15 +8,17 @@ import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { EditCourseDialog } from "@/app/(main-layout)/courses/[courseId]/(edit)/edit-course-dialog";
 import { EmptyState } from "@/app/_cross/components/empty-state";
 import { DeleteCourseDialog } from "@/app/(main-layout)/courses/[courseId]/(delete)/delete-course-dialog";
+import { notFound, redirect } from "next/navigation";
 
-const Course = async ({ params }: { params: { courseId: string } }) => {
+const Course = async ({
+  params: { courseId },
+}: {
+  params: { courseId: string };
+}) => {
   const user = await getCurrentUser();
 
-  if (!user) throw new Error("User not found");
-
-  if (isNaN(Number(params.courseId))) return <p>El curso no existe</p>;
-
-  const courseId = Number(params.courseId);
+  if (!user) redirect("/dashboard");
+  if (!courseId) notFound();
 
   const course = await database.course.findUnique({
     where: {
@@ -40,7 +42,7 @@ const Course = async ({ params }: { params: { courseId: string } }) => {
     },
   });
 
-  if (!course) return <p>El curso no existe</p>;
+  if (!course) notFound();
 
   const hasPractices = course.practices?.length > 0;
 
