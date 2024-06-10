@@ -2,29 +2,59 @@ import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { Header2 } from "@/app/_cross/components/typography";
 import { database } from "@/app/_cross/database";
 import { ContentCard } from "@/app/_cross/components/content-card";
+import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
+import { CreatePracticeDialog } from "@/app/(platform)/courses/[courseId]/practices/(create)/create-practice-dialog";
+import { EmptyState } from "@/app/_cross/components/empty-state";
+import { CreateCourseDialog } from "@/app/(platform)/courses/(create)/create-course-dialog";
 
-const Practices = async ({
+const CoursePractices = async ({
   params: { courseId },
 }: {
   params: { courseId: string };
 }) => {
   if (!courseId) throw new Error("courseId must be defined");
 
+  const user = await getCurrentUser();
+  const { id: currentUserId, isProfessor: currentUserIsProfessor } = user;
+
+  const course = await database.course.findUnique({
+    where: {
+      id: courseId,
+      ...(currentUserIsProfessor
+        ? { ownerId: currentUserId }
+        : { studentIds: { has: currentUserId } }),
+    },
+  });
+
+  if (!course) throw new Error("User does not have access to this course");
+
   const practices = await database.practice.findMany({
-    where: { courseId },
+    where: {
+      courseId,
+    },
     include: { exercises: true },
   });
 
-  const existPractices = practices.length > 0;
+  const courseHasPractices = practices.length > 0;
 
   return (
     <>
-      <Header2>Trabajos prácticos</Header2>
+      <div className="flex justify-between">
+        <Header2>Trabajos prácticos</Header2>
+
+        {currentUserIsProfessor && courseHasPractices && (
+          <CreatePracticeDialog courseId={courseId} />
+        )}
+      </div>
 
       <ContentGrid>
-        {!existPractices && <p>No hay trabajos prácticos para mostrar.</p>}
+        {currentUserIsProfessor && !courseHasPractices && (
+          <EmptyState title="No creaste un curso aún.">
+            <CreateCourseDialog />
+          </EmptyState>
+        )}
 
-        {existPractices &&
+        {courseHasPractices &&
           practices?.map((practice) => (
             <ContentCard
               key={practice.id}
@@ -37,4 +67,4 @@ const Practices = async ({
   );
 };
 
-export default Practices;
+export default CoursePractices;
