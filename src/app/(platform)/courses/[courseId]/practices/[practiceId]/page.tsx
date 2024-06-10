@@ -16,8 +16,8 @@ const Practice = async ({
 
   if (!practice) notFound();
 
-  const hasExercises = practice && practice?.exercises?.length > 0;
-  const hasRelatedTheories = practice && practice?.theories?.length > 0;
+  const hasExercises = practice.exercises?.length > 0;
+  const hasRelatedTheories = practice.theories?.length > 0;
 
   return (
     <>
