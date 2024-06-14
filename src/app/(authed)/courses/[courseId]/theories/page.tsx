@@ -3,7 +3,7 @@ import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { database } from "@/app/_cross/database";
 import { ContentCard } from "@/app/_cross/components/content-card";
 
-const Theories = async ({
+const CourseTheoriesPage = async ({
   params: { courseId },
 }: {
   params: { courseId: string };
@@ -33,4 +33,4 @@ const Theories = async ({
   );
 };
 
-export default Theories;
+export default CourseTheoriesPage;
