@@ -3,7 +3,7 @@ import { MotivationalQuotes } from "@/app/_cross/components/motivational-quotes"
 import { LatestPractices } from "@/app/_cross/components/latest-practices";
 import { LatestTheories } from "@/app/_cross/components/latest-theories";
 
-const Dashboard = () => (
+const DashboardPage = () => (
   <>
     <Header1>Bienvenido a Nibble!</Header1>
     <MotivationalQuotes />
@@ -12,4 +12,4 @@ const Dashboard = () => (
   </>
 );
 
-export default Dashboard;
+export default DashboardPage;
