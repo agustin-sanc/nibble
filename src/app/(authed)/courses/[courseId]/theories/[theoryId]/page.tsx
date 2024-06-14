@@ -2,7 +2,7 @@ import { database } from "@/app/_cross/database";
 import { MarkdownViewer } from "@/app/_cross/components/markdown-viewer";
 import { notFound } from "next/navigation";
 
-const Theory = async ({
+const TheoryDetailPage = async ({
   params: { theoryId },
 }: {
   params: { theoryId: string };
@@ -16,4 +16,4 @@ const Theory = async ({
   return <MarkdownViewer source={theory.content} />;
 };
 
-export default Theory;
+export default TheoryDetailPage;
