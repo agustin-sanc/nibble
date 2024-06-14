@@ -14,7 +14,7 @@ type ExercisePageProps = {
   params: { exerciseId: string; practiceId: string; courseId: string };
 };
 
-export default async function Exercise({
+export default async function ExerciseDetailPage({
   params: { exerciseId, practiceId, courseId },
 }: ExercisePageProps) {
   const exercise = await database.exercise.findUnique({
@@ -49,7 +49,7 @@ export default async function Exercise({
 
     return (
       theories.length > 0 && (
-        <div>
+        <>
           <Header3>Teoría recomendada</Header3>
 
           <UnorderedList>
@@ -66,7 +66,7 @@ export default async function Exercise({
               </li>
             ))}
           </UnorderedList>
-        </div>
+        </>
       )
     );
   };
