@@ -12,7 +12,7 @@ const Home = async () => {
       <div className="flex w-[300px] flex-col gap-3">
         {user ? (
           <Button asChild>
-            <a href="/dashboard">Ir al dashboard</a>
+            <a href="/dashboard">Ir a la plataforma</a>
           </Button>
         ) : (
           <Button asChild>
