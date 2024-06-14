@@ -11,7 +11,7 @@ import {
 } from "@/app/_cross/components/dialog";
 import { Button } from "@/app/_cross/components/button";
 import { toast } from "sonner";
-import { deletePractice } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/(delete)/delete-practice";
+import { deletePractice } from "@/app/(authed)/courses/[courseId]/practices/[practiceId]/(delete-practice)/delete-practice";
 
 export const DeletePracticeDialog = ({
   practiceId,

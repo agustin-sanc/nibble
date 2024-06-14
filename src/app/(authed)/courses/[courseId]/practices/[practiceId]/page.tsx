@@ -3,6 +3,9 @@ import { Header2, Header3 } from "@/app/_cross/components/typography";
 import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import { notFound } from "next/navigation";
+import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
+import { DeletePracticeDialog } from "@/app/(authed)/courses/[courseId]/practices/[practiceId]/(delete-practice)/delete-practice-dialog";
+import { EditPracticeDialog } from "@/app/(authed)/courses/[courseId]/practices/[practiceId]/(edit-practice)/edit-practice-dialog";
 
 const Practice = async ({
   params: { practiceId },
@@ -16,12 +19,30 @@ const Practice = async ({
 
   if (!practice) notFound();
 
+  const user = await getCurrentUser();
+
+  const course = await database.course.findUnique({
+    where: { id: practice.courseId },
+  });
+
+  // TODO: Add verification for user access to the practice.
+
   const hasExercises = practice.exercises?.length > 0;
   const hasRelatedTheories = practice.theories?.length > 0;
 
   return (
     <>
-      <Header2>{practice.name}</Header2>
+      <div className="flex items-center justify-between">
+        <Header2>{practice.name}</Header2>
+
+        {user.isProfessor && (
+          <div className="flex gap-2">
+            <EditPracticeDialog practice={practice} />
+            <DeletePracticeDialog practiceId={practiceId} />
+          </div>
+        )}
+      </div>
+
       <p>{practice.description}</p>
 
       <Header3>Ejercicios</Header3>

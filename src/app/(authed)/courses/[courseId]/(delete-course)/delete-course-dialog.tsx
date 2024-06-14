@@ -11,7 +11,7 @@ import {
 } from "@/app/_cross/components/dialog";
 import { Button } from "@/app/_cross/components/button";
 import { toast } from "sonner";
-import { deleteCourse } from "@/app/(platform)/courses/[courseId]/(delete)/delete-course";
+import { deleteCourse } from "@/app/(authed)/courses/[courseId]/(delete-course)/delete-course";
 
 export const DeleteCourseDialog = ({ courseId }: { courseId: string }) => {
   const onConfirm = () =>

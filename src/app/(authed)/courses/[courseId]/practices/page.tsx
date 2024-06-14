@@ -3,9 +3,9 @@ import { Header2 } from "@/app/_cross/components/typography";
 import { database } from "@/app/_cross/database";
 import { ContentCard } from "@/app/_cross/components/content-card";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
-import { CreatePracticeDialog } from "@/app/(platform)/courses/[courseId]/practices/(create)/create-practice-dialog";
+import { CreatePracticeDialog } from "@/app/(authed)/courses/[courseId]/practices/(create-practice)/create-practice-dialog";
 import { EmptyState } from "@/app/_cross/components/empty-state";
-import { CreateCourseDialog } from "@/app/(platform)/courses/(create)/create-course-dialog";
+import { CreateCourseDialog } from "@/app/(authed)/courses/(create-course)/create-course-dialog";
 
 const CoursePractices = async ({
   params: { courseId },

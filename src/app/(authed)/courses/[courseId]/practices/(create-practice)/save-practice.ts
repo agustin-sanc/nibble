@@ -2,7 +2,7 @@
 
 import { database } from "@/app/_cross/database";
 import * as z from "zod";
-import { createPracticeFormSchema } from "@/app/(platform)/courses/[courseId]/practices/(create)/create-practice-form-schema";
+import { createPracticeFormSchema } from "@/app/(authed)/courses/[courseId]/practices/(create-practice)/create-practice-form-schema";
 
 const inputSchema = z.object({
   ...createPracticeFormSchema.shape,

@@ -2,12 +2,12 @@ import { database } from "@/app/_cross/database";
 import { Header2, Header3 } from "@/app/_cross/components/typography";
 import { ContentGrid } from "@/app/_cross/components/content-grid";
 import { ContentCard } from "@/app/_cross/components/content-card";
-import { CreatePracticeDialog } from "@/app/(platform)/courses/[courseId]/practices/(create)/create-practice-dialog";
-import { CreateTheoryDialog } from "@/app/(platform)/courses/[courseId]/theories/(create)/create-theory-dialog";
+import { CreatePracticeDialog } from "@/app/(authed)/courses/[courseId]/practices/(create-practice)/create-practice-dialog";
+import { CreateTheoryDialog } from "@/app/(authed)/courses/[courseId]/theories/(create)/create-theory-dialog";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
-import { EditCourseDialog } from "@/app/(platform)/courses/[courseId]/(edit)/edit-course-dialog";
+import { EditCourseDialog } from "@/app/(authed)/courses/[courseId]/(edit-course)/edit-course-dialog";
 import { EmptyState } from "@/app/_cross/components/empty-state";
-import { DeleteCourseDialog } from "@/app/(platform)/courses/[courseId]/(delete)/delete-course-dialog";
+import { DeleteCourseDialog } from "@/app/(authed)/courses/[courseId]/(delete-course)/delete-course-dialog";
 import { notFound, redirect } from "next/navigation";
 
 const Course = async ({
