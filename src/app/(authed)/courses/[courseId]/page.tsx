@@ -10,7 +10,7 @@ import { EmptyState } from "@/app/_cross/components/empty-state";
 import { DeleteCourseDialog } from "@/app/(authed)/courses/[courseId]/(delete-course)/delete-course-dialog";
 import { notFound, redirect } from "next/navigation";
 
-const Course = async ({
+const CourseDetailPage = async ({
   params: { courseId },
 }: {
   params: { courseId: string };
@@ -125,4 +125,4 @@ const Course = async ({
   );
 };
 
-export default Course;
+export default CourseDetailPage;
