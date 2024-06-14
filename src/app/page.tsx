@@ -2,7 +2,7 @@ import { Header1 } from "@/app/_cross/components/typography";
 import { Button } from "@/app/_cross/components/button";
 import { currentUser, SignInButton, SignUpButton } from "@clerk/nextjs";
 
-const NibbleLandingPage = async () => {
+const PresentationPage = async () => {
   const user = await currentUser();
 
   return (
@@ -32,4 +32,4 @@ const NibbleLandingPage = async () => {
   );
 };
 
-export default NibbleLandingPage;
+export default PresentationPage;
