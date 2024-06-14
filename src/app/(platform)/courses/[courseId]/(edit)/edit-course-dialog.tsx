@@ -28,7 +28,7 @@ import { Course } from "@prisma/client";
 import { editCourse } from "@/app/(platform)/courses/[courseId]/(edit)/edit-course";
 
 export const EditCourseDialog = ({ course }: { course: Course }) => {
-  const [loading, setLoading] = useState(false);
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
   const form = useForm<z.infer<typeof courseFormSchema>>({
     resolver: zodResolver(courseFormSchema),
@@ -38,17 +38,26 @@ export const EditCourseDialog = ({ course }: { course: Course }) => {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof courseFormSchema>) => {
-    setLoading(true);
+  const onSubmit = (data: z.infer<typeof courseFormSchema>) => {
+    setSubmitButtonDisabled(true);
 
-    try {
-      await editCourse({ id: course.id, ...data });
-      toast.success("Curso actualizado con éxito.");
-    } catch (error) {
-      toast.error("Ocurrió un error al actualizar el curso.");
-    }
+    toast.promise(
+      // TODO: Review if it is okay that this function is async
+      async () => {
+        await editCourse({
+          id: course.id,
+          ...data,
+        });
 
-    setLoading(false);
+        // TODO: Review if this location is correct for this state update
+        setSubmitButtonDisabled(false);
+      },
+      {
+        loading: "Guardando los cambios...",
+        success: "Cambios guardados exitosamente.",
+        error: "No pudimos guardar los cambios, intenta nuevamente.",
+      },
+    );
   };
 
   return (
@@ -99,7 +108,7 @@ export const EditCourseDialog = ({ course }: { course: Course }) => {
               )}
             />
 
-            <Button type="submit" loading={loading}>
+            <Button type="submit" loading={submitButtonDisabled}>
               Guardar cambios
             </Button>
           </form>
