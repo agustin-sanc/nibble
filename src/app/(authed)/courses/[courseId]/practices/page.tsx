@@ -7,7 +7,7 @@ import { CreatePracticeDialog } from "@/app/(authed)/courses/[courseId]/practice
 import { EmptyState } from "@/app/_cross/components/empty-state";
 import { CreateCourseDialog } from "@/app/(authed)/courses/(create-course)/create-course-dialog";
 
-const CoursePractices = async ({
+const CoursePracticesPage = async ({
   params: { courseId },
 }: {
   params: { courseId: string };
@@ -67,4 +67,4 @@ const CoursePractices = async ({
   );
 };
 
-export default CoursePractices;
+export default CoursePracticesPage;
