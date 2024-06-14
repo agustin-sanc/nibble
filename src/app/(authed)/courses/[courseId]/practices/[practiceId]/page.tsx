@@ -7,7 +7,7 @@ import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { DeletePracticeDialog } from "@/app/(authed)/courses/[courseId]/practices/[practiceId]/(delete-practice)/delete-practice-dialog";
 import { EditPracticeDialog } from "@/app/(authed)/courses/[courseId]/practices/[practiceId]/(edit-practice)/edit-practice-dialog";
 
-const Practice = async ({
+const PracticeDetailPage = async ({
   params: { practiceId },
 }: {
   params: { practiceId: string; courseId: string };
@@ -74,4 +74,4 @@ const Practice = async ({
   );
 };
 
-export default Practice;
+export default PracticeDetailPage;
