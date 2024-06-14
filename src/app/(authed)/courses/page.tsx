@@ -6,7 +6,7 @@ import { CreateCourseDialog } from "@/app/(authed)/courses/(create-course)/creat
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { EmptyState } from "@/app/_cross/components/empty-state";
 
-const Courses = async () => {
+const CoursesPage = async () => {
   const user = await getCurrentUser();
 
   const { id: currentUserId, isProfessor: currentUserIsProfessor } = user;
@@ -49,4 +49,4 @@ const Courses = async () => {
   );
 };
 
-export default Courses;
+export default CoursesPage;
