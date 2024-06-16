@@ -68,7 +68,7 @@ export const EditPracticeDialog = ({ practice }: { practice: Practice }) => {
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Editar curso</DialogTitle>
+          <DialogTitle>Editar trabajo práctico</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -81,7 +81,7 @@ export const EditPracticeDialog = ({ practice }: { practice: Practice }) => {
                   <FormLabel>Nombre</FormLabel>
 
                   <FormControl>
-                    <Input placeholder="AED 1k6 (2024)" {...field} />
+                    <Input placeholder="Funciones" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -98,7 +98,7 @@ export const EditPracticeDialog = ({ practice }: { practice: Practice }) => {
 
                   <FormControl>
                     <TextArea
-                      placeholder="Cátedra de algoritmos y estructuras de datos, UTN-FRT"
+                      placeholder="Introducción a las funciones"
                       {...field}
                     />
                   </FormControl>
