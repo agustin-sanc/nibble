@@ -21,24 +21,24 @@ import {
   FormMessage,
 } from "@/app/_cross/components/form";
 import { useState } from "react";
-import { courseFormSchema } from "@/app/(platform)/courses/course-form-schema";
 import { toast } from "sonner";
 import { TextArea } from "@/app/_cross/components/text-area";
 import type { Practice } from "@prisma/client";
 import { editPractice } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/(edit-practice)/edit-practice";
+import { practiceFormSchema } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/practice-form-schema";
 
 export const EditPracticeDialog = ({ practice }: { practice: Practice }) => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-  const form = useForm<z.infer<typeof courseFormSchema>>({
-    resolver: zodResolver(courseFormSchema),
+  const form = useForm<z.infer<typeof practiceFormSchema>>({
+    resolver: zodResolver(practiceFormSchema),
     defaultValues: {
       name: practice.name,
       description: practice.description,
     },
   });
 
-  const onSubmit = (data: z.infer<typeof courseFormSchema>) => {
+  const onSubmit = (data: z.infer<typeof practiceFormSchema>) => {
     setSubmitButtonDisabled(true);
 
     toast.promise(

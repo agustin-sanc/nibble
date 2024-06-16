@@ -24,23 +24,23 @@ import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { createPracticeFormSchema } from "@/app/(platform)/courses/[courseId]/practices/(create-practice)/create-practice-form-schema";
 import { savePractice } from "@/app/(platform)/courses/[courseId]/practices/(create-practice)/save-practice";
+import { practiceFormSchema } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/practice-form-schema";
 
 export const CreatePracticeDialog = ({ courseId }: { courseId: string }) => {
   const { user } = useUser();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof createPracticeFormSchema>>({
-    resolver: zodResolver(createPracticeFormSchema),
+  const form = useForm<z.infer<typeof practiceFormSchema>>({
+    resolver: zodResolver(practiceFormSchema),
     defaultValues: {
       name: "",
       description: "",
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof createPracticeFormSchema>) => {
+  const onSubmit = async (data: z.infer<typeof practiceFormSchema>) => {
     setLoading(true);
 
     if (user) {
