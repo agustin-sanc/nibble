@@ -2,10 +2,10 @@
 
 import { database } from "@/app/_cross/database";
 import * as z from "zod";
-import { createPracticeFormSchema } from "@/app/(platform)/courses/[courseId]/practices/(create-practice)/create-practice-form-schema";
+import { practiceFormSchema } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/practice-form-schema";
 
 const inputSchema = z.object({
-  ...createPracticeFormSchema.shape,
+  ...practiceFormSchema.shape,
   courseId: z.string(),
 });
 
