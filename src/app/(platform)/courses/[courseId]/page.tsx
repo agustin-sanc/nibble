@@ -9,6 +9,16 @@ import { EditCourseDialog } from "@/app/(platform)/courses/[courseId]/(edit-cour
 import { EmptyState } from "@/app/_cross/components/empty-state";
 import { DeleteCourseDialog } from "@/app/(platform)/courses/[courseId]/(delete-course)/delete-course-dialog";
 import { notFound, redirect } from "next/navigation";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/app/_cross/components/table";
+import { AddMemberDialog } from "./members/(add-member)/add-member-dialog";
+import { getUserList } from "@/app/_cross/auth/get-user-list";
 
 const CourseDetailPage = async ({
   params: { courseId },
@@ -104,6 +114,67 @@ const CourseDetailPage = async ({
     </>
   );
 
+  const hasMembers = course.studentIds.length > 0;
+
+  const allUsers = await getUserList();
+  const members = hasMembers
+    ? allUsers.filter((user) => course.studentIds.includes(user.id))
+    : [];
+
+  const possibleMembers = allUsers.filter(
+    (user) => !course.studentIds.includes(user.id),
+  );
+
+  const Members = () => (
+    <>
+      <div className="flex flex-row items-center justify-between">
+        <Header3>Miembros</Header3>
+
+        {user.isProfessor && hasMembers && (
+          <AddMemberDialog
+            courseId={course.id}
+            possibleMembers={possibleMembers}
+          />
+        )}
+      </div>
+
+      {!hasMembers && (
+        <EmptyState title="Este curso no tiene miembros aún.">
+          {user.isProfessor && (
+            <AddMemberDialog
+              courseId={course.id}
+              possibleMembers={possibleMembers}
+            />
+          )}
+        </EmptyState>
+      )}
+      {hasMembers && (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[100px]">Id</TableHead>
+              <TableHead>Email</TableHead>
+              <TableHead>Nombre completo</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {members.map((member) => {
+              return (
+                <TableRow key={member.id}>
+                  <TableCell className="font-medium">{member.id}</TableCell>
+                  <TableCell>{member.email ?? "-"}</TableCell>
+                  <TableCell>
+                    {member.firstName} {member.lastName}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      )}
+    </>
+  );
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -121,6 +192,7 @@ const CourseDetailPage = async ({
 
       <Practices />
       <Theories />
+      <Members />
     </>
   );
 };

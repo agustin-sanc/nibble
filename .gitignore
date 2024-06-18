@@ -23,6 +23,7 @@ next-env.d.ts
 # misc
 .DS_Store
 *.pem
+.timetracker
 
 # debug
 npm-debug.log*
@@ -44,3 +45,4 @@ yarn-error.log*
 
 # jetbrains
 .idea
+

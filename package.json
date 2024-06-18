@@ -1,7 +1,6 @@
 {
   "name": "nibble",
   "version": "0.1.0",
-  "packageManager": "pnpm@8.6.11",
   "private": true,
   "engines": {
     "node": ">=18.16.0"
@@ -51,6 +50,7 @@
     "@vercel/postgres": "^0.8.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "eslint-plugin-unused-imports": "^4.0.0",
     "lucide-react": "^0.292.0",
     "next": "^14.0.0",
     "next-themes": "^0.2.1",
