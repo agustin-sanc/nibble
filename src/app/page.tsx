@@ -1,6 +1,7 @@
 import { Header1 } from "@/app/_cross/components/typography";
 import { Button } from "@/app/_cross/components/button";
-import { currentUser, SignInButton, SignUpButton } from "@clerk/nextjs";
+import { currentUser, SignInButton } from "@clerk/nextjs";
+
 
 const PresentationPage = async () => {
   const user = await currentUser();
