@@ -46,7 +46,7 @@ export const AddStudentDialog = ({
 
   const areStudentsAvailable = availableStudents.length > 0;
 
-  const onSubmit = async (data: z.infer<typeof addStudentSchema>) => {
+  const onSubmit = (data: z.infer<typeof addStudentSchema>) => {
     setLoading(true);
 
     toast.promise(
