@@ -140,7 +140,7 @@ const CourseDetailPage = async ({
       </div>
 
       {!hasStudents && (
-        <EmptyState title="Este curso no tiene miembros aún.">
+        <EmptyState title="Este curso no tiene alumnos aún.">
           {user.isProfessor && (
             <AddStudentDialog
               courseId={course.id}
