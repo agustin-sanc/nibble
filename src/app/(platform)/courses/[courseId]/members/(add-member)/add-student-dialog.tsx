@@ -97,6 +97,7 @@ export const AddStudentDialog = ({
                         <SelectValue placeholder="Seleccionar un alumno" />
                       </SelectTrigger>
                     </FormControl>
+
                     <SelectContent>
                       {availableStudents.map((student) => (
                         <SelectItem key={student.id} value={student.id}>
@@ -109,6 +110,7 @@ export const AddStudentDialog = ({
                 </FormItem>
               )}
             />
+
             <Button type="submit" loading={loading}>
               Confirmar
             </Button>
