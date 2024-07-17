@@ -110,7 +110,7 @@ export const AddStudentDialog = ({
               )}
             />
             <Button type="submit" loading={loading}>
-              Agregar
+              Confirmar
             </Button>
           </form>
         </Form>
