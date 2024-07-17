@@ -115,8 +115,8 @@ const CourseDetailPage = async ({
   );
 
   const hasMembers = course.studentIds.length > 0;
-
   const allUsers = await getUserList();
+
   const members = hasMembers
     ? allUsers.filter((user) => course.studentIds.includes(user.id))
     : [];
@@ -148,27 +148,26 @@ const CourseDetailPage = async ({
           )}
         </EmptyState>
       )}
+
       {hasMembers && (
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">Id</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Nombre completo</TableHead>
             </TableRow>
           </TableHeader>
+
           <TableBody>
-            {members.map((member) => {
-              return (
-                <TableRow key={member.id}>
-                  <TableCell className="font-medium">{member.id}</TableCell>
-                  <TableCell>{member.email ?? "-"}</TableCell>
-                  <TableCell>
-                    {member.firstName} {member.lastName}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {members.map((member) => (
+              <TableRow key={member.id}>
+                <TableCell>{member.email ?? "-"}</TableCell>
+
+                <TableCell>
+                  {member.firstName} {member.lastName}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       )}
@@ -188,7 +187,9 @@ const CourseDetailPage = async ({
         )}
       </div>
 
-      <p>{course.description}</p>
+      <p className="my-4 w-full rounded bg-gray-100 p-4">
+        {course.description}
+      </p>
 
       <Practices />
       <Theories />
