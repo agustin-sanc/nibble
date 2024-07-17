@@ -7,11 +7,6 @@ import { esES } from "@clerk/localizations";
 import { ReactQueryProvider } from "@/app/_cross/react-query-provider";
 import React, { type ReactNode } from "react";
 import { Toaster } from "@/app/_cross/components/toaster";
-import { SidePanel } from "@/app/_cross/components/side-panel";
-import SidePanelItem from "@/app/_cross/components/side-panel-item";
-import { Home, Users } from "lucide-react";
-import { ModeToggle } from "@/app/_cross/components/mode-toggle";
-import { ScrollArea } from "@/app/_cross/components/scroll-area";
 
 const inter = Inter({
   subsets: ["latin"],
