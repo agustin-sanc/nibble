@@ -17,7 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/app/_cross/components/table";
-import { AddMemberDialog } from "./members/(add-member)/add-member-dialog";
+import { AddStudentDialog } from "./members/(add-member)/add-student-dialog";
 import { getUserList } from "@/app/_cross/auth/get-user-list";
 
 const CourseDetailPage = async ({
@@ -114,42 +114,43 @@ const CourseDetailPage = async ({
     </>
   );
 
-  const hasMembers = course.studentIds.length > 0;
+  const hasStudents = course.studentIds.length > 0;
   const allUsers = await getUserList();
+  const allStudents = allUsers.filter((user) => !user.isProfessor);
 
-  const members = hasMembers
+  const courseStudents = hasStudents
     ? allUsers.filter((user) => course.studentIds.includes(user.id))
     : [];
 
-  const possibleMembers = allUsers.filter(
+  const availableStudents = allStudents.filter(
     (user) => !course.studentIds.includes(user.id),
   );
 
-  const Members = () => (
+  const Students = () => (
     <>
       <div className="flex flex-row items-center justify-between">
-        <Header3>Miembros</Header3>
+        <Header3>Alumnos</Header3>
 
-        {user.isProfessor && hasMembers && (
-          <AddMemberDialog
+        {user.isProfessor && hasStudents && (
+          <AddStudentDialog
             courseId={course.id}
-            possibleMembers={possibleMembers}
+            availableStudents={availableStudents}
           />
         )}
       </div>
 
-      {!hasMembers && (
+      {!hasStudents && (
         <EmptyState title="Este curso no tiene miembros aún.">
           {user.isProfessor && (
-            <AddMemberDialog
+            <AddStudentDialog
               courseId={course.id}
-              possibleMembers={possibleMembers}
+              availableStudents={availableStudents}
             />
           )}
         </EmptyState>
       )}
 
-      {hasMembers && (
+      {hasStudents && (
         <Table>
           <TableHeader>
             <TableRow>
@@ -159,12 +160,12 @@ const CourseDetailPage = async ({
           </TableHeader>
 
           <TableBody>
-            {members.map((member) => (
-              <TableRow key={member.id}>
-                <TableCell>{member.email ?? "-"}</TableCell>
+            {courseStudents.map((student) => (
+              <TableRow key={student.id}>
+                <TableCell>{student.email ?? "-"}</TableCell>
 
                 <TableCell>
-                  {member.firstName} {member.lastName}
+                  {student.firstName} {student.lastName}
                 </TableCell>
               </TableRow>
             ))}
@@ -193,7 +194,7 @@ const CourseDetailPage = async ({
 
       <Practices />
       <Theories />
-      <Members />
+      <Students />
     </>
   );
 };

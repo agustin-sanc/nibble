@@ -31,24 +31,24 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type z } from "zod";
 import { useState } from "react";
-import { addMemberSchema } from "./add-member-schema";
+import { addStudentSchema } from "./add-student-schema";
 
-export const AddMemberDialog = ({
+export const AddStudentDialog = ({
   courseId,
-  possibleMembers,
+  availableStudents,
 }: {
   courseId: string;
-  possibleMembers: Awaited<ReturnType<typeof getUserList>>;
+  availableStudents: Awaited<ReturnType<typeof getUserList>>;
 }) => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof addMemberSchema>>({
-    resolver: zodResolver(addMemberSchema),
+  const form = useForm<z.infer<typeof addStudentSchema>>({
+    resolver: zodResolver(addStudentSchema),
   });
 
-  const onSubmit = async (data: z.infer<typeof addMemberSchema>) => {
+  const onSubmit = async (data: z.infer<typeof addStudentSchema>) => {
     setLoading(true);
 
     if (user) {
@@ -58,11 +58,11 @@ export const AddMemberDialog = ({
           courseId,
         });
 
-        toast.success("Miembro agregado con éxito.");
+        toast.success("Alumno agregado con éxito.");
         router.push(`/courses/${courseId}`);
       } catch (error) {
         setLoading(false);
-        toast.error("Ocurrió un error al agregar el miembro seleccionado.");
+        toast.error("Ocurrió un error al agregar el alumno.");
       }
     }
   };
@@ -70,12 +70,12 @@ export const AddMemberDialog = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Agregar miembro</Button>
+        <Button>Agregar alumno</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Agregar miembro</DialogTitle>
+          <DialogTitle>Agregar alumno</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -94,11 +94,11 @@ export const AddMemberDialog = ({
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar un usuario" />
+                        <SelectValue placeholder="Seleccionar un alumno" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {possibleMembers.map((student) => (
+                      {availableStudents.map((student) => (
                         <SelectItem key={student.id} value={student.id}>
                           {student.firstName} {student.lastName}
                         </SelectItem>
