@@ -8,10 +8,8 @@ import {
   DialogTrigger,
 } from "@/app/_cross/components/dialog";
 import { Button } from "@/app/_cross/components/button";
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { addMember } from "./add-member";
+import { addStudent } from "./add-student";
 import { type getUserList } from "@/app/_cross/auth/get-user-list";
 import {
   Select,
@@ -40,31 +38,31 @@ export const AddStudentDialog = ({
   courseId: string;
   availableStudents: Awaited<ReturnType<typeof getUserList>>;
 }) => {
-  const { user } = useUser();
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof addStudentSchema>>({
     resolver: zodResolver(addStudentSchema),
   });
 
+  const areStudentsAvailable = availableStudents.length > 0;
+
   const onSubmit = async (data: z.infer<typeof addStudentSchema>) => {
     setLoading(true);
 
-    if (user) {
-      try {
-        await addMember({
-          userId: data.userId,
-          courseId,
-        });
-
-        toast.success("Alumno agregado con éxito.");
-        router.push(`/courses/${courseId}`);
-      } catch (error) {
-        setLoading(false);
-        toast.error("Ocurrió un error al agregar el alumno.");
-      }
-    }
+    toast.promise(
+      addStudent({
+        userId: data.userId,
+        courseId,
+      }),
+      {
+        loading: "Agregando alumno...",
+        success: "Alumno agregado con éxito.",
+        error: () => {
+          setLoading(false);
+          return "Ocurrió un error al agregar el alumno.";
+        },
+      },
+    );
   };
 
   return (
@@ -91,10 +89,17 @@ export const AddStudentDialog = ({
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+                    disabled={!areStudentsAvailable}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar un alumno" />
+                        <SelectValue
+                          placeholder={
+                            areStudentsAvailable
+                              ? "Seleccionar un alumno"
+                              : "No hay alumnos disponibles"
+                          }
+                        />
                       </SelectTrigger>
                     </FormControl>
 
@@ -106,12 +111,17 @@ export const AddStudentDialog = ({
                       ))}
                     </SelectContent>
                   </Select>
+
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit" loading={loading}>
+            <Button
+              type="submit"
+              loading={loading}
+              disabled={!areStudentsAvailable}
+            >
               Confirmar
             </Button>
           </form>
