@@ -56,7 +56,10 @@ export const AddStudentDialog = ({
       }),
       {
         loading: "Agregando alumno...",
-        success: "Alumno agregado con éxito.",
+        success: () => {
+          setLoading(false);
+          return "Alumno agregado con éxito.";
+        },
         error: () => {
           setLoading(false);
           return "Ocurrió un error al agregar el alumno.";
