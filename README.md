@@ -13,6 +13,7 @@ Nibble is divided in two subsystems: the evaluator and the web platform that stu
 This is the repository for the web platform.
 
 ## Web platform tech stack
+
 - [Next.js](https://nextjs.org)
 - [Prisma](https://prisma.io)
 - [PostgreSQL](https://postgresql.org)
@@ -23,6 +24,7 @@ This is the repository for the web platform.
 ## How to run the project
 
 ### 1. Setup database
+
 Run the following command to create the PostgreSQL database using Docker.
 
 ```
@@ -30,6 +32,7 @@ docker run --name nibble -e POSTGRES_PASSWORD=1234 -e POSTGRES_DB=nibble -d -p 5
 ```
 
 ### 2. Setup code project
+
 - Clone this repo into your local machine
 - Go to the root folder in your terminal
 - Generate the `.env` file running the following command `cp .env.example .env`
@@ -38,7 +41,7 @@ docker run --name nibble -e POSTGRES_PASSWORD=1234 -e POSTGRES_DB=nibble -d -p 5
 - Install [pnpm](https://pnpm.io/) globally, if you don't have it already
 - Run `pnpm install` to install dependencies
 - Run `pnpm db:push` to push database schema
-- Run `pnpm db:seed` to seed database 
+- Run `pnpm db:seed` to seed database
 - Run `pnpm dev` to start app
 
 ## Additional notes

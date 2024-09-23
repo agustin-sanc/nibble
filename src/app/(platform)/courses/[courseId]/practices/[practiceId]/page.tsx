@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { DeletePracticeDialog } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/(delete-practice)/delete-practice-dialog";
 import { EditPracticeDialog } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/(edit-practice)/edit-practice-dialog";
+import { CreateExerciseDialog } from "./exercises/(create-exercise)/create-exercise-dialog";
 
 const PracticeDetailPage = async ({
   params: { practiceId },
@@ -45,7 +46,13 @@ const PracticeDetailPage = async ({
 
       <p>{practice.description}</p>
 
-      <Header3>Ejercicios</Header3>
+      <div className="flex flex-row justify-between items-center">
+        <Header3>Ejercicios</Header3>
+        {user.isProfessor && (
+          <CreateExerciseDialog practiceId={practiceId} />
+        )}
+      </div>
+
       {!hasExercises && <p>No hay ejercicios aún.</p>}
 
       {hasExercises && (
