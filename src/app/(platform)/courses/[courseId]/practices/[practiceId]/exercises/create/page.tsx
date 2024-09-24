@@ -62,46 +62,46 @@ const Page = ({
 
   return (
     <div>
-        <Header2>Crear ejercicio</Header2>
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nombre</FormLabel>
+      <Header2>Crear ejercicio</Header2>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nombre</FormLabel>
 
-              <FormControl>
-                <Input placeholder="Nombre del ejercicio" {...field} />
-              </FormControl>
+                <FormControl>
+                  <Input placeholder="Nombre del ejercicio" {...field} />
+                </FormControl>
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Descripción</FormLabel>
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Descripción</FormLabel>
 
-              <FormControl>
-                <Input placeholder="Descripción del ejercicio" {...field} />
-              </FormControl>
+                <FormControl>
+                  <Input placeholder="Descripción del ejercicio" {...field} />
+                </FormControl>
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <Button type="submit" loading={loading}>
-          Confirmar
-        </Button>
-      </form>
-    </Form>
+          <Button type="submit" loading={loading}>
+            Confirmar
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 };
