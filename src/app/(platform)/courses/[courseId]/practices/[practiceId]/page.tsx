@@ -9,7 +9,7 @@ import { EditPracticeDialog } from "@/app/(platform)/courses/[courseId]/practice
 import { CreateExerciseDialog } from "./exercises/(create-exercise)/create-exercise-dialog";
 
 const PracticeDetailPage = async ({
-  params: { practiceId },
+  params: { practiceId, courseId },
 }: {
   params: { practiceId: string; courseId: string };
 }) => {
@@ -22,9 +22,9 @@ const PracticeDetailPage = async ({
 
   const user = await getCurrentUser();
 
-  const course = await database.course.findUnique({
-    where: { id: practice.courseId },
-  });
+  // const course = await database.course.findUnique({
+  //   where: { id: practice.courseId },
+  // });
 
   // TODO: Add verification for user access to the practice.
 
@@ -46,10 +46,10 @@ const PracticeDetailPage = async ({
 
       <p>{practice.description}</p>
 
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row items-center justify-between">
         <Header3>Ejercicios</Header3>
         {user.isProfessor && (
-          <CreateExerciseDialog practiceId={practiceId} />
+          <CreateExerciseDialog practiceId={practiceId} courseId={courseId} />
         )}
       </div>
 

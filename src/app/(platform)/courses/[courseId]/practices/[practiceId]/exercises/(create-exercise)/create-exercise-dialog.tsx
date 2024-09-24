@@ -27,8 +27,10 @@ import { exerciseFormSchema } from "../exercise-form-schema";
 import { saveExercise } from "./save-exercise";
 
 export const CreateExerciseDialog = ({
+  courseId,
   practiceId,
 }: {
+  courseId: string;
   practiceId: string;
 }) => {
   const { user } = useUser();
@@ -49,6 +51,7 @@ export const CreateExerciseDialog = ({
       toast.promise(
         saveExercise({
           ...data,
+          courseId,
           practiceId,
         }),
         {
