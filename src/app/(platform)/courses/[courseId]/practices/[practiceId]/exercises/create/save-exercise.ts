@@ -18,9 +18,33 @@ const validateInput = (input: z.infer<typeof inputSchema>) => {
 
 export const saveExercise = async ({
   courseId,
+  practiceId,
   ...data
 }: z.infer<typeof inputSchema>) => {
-  validateInput({ ...data, courseId });
-  await database.exercise.create({ data });
-  redirect(`/courses/${courseId}/practices/${data.practiceId}`);
+  validateInput({ ...data, courseId, practiceId });
+
+  await database.exercise.create({
+    data: {
+      ...data,
+      practiceId,
+      tags: {
+        connectOrCreate:
+          data.tags?.map((tag) => ({
+            where: { name: tag },
+            create: { name: tag },
+          })) || [],
+      },
+      blackBoxTests: {
+        create: data.blackBoxTests || [],
+      },
+      grayBoxTests: {
+        create: data.grayBoxTests || [],
+      },
+      whiteBoxTests: {
+        create: data.whiteBoxTests || [],
+      },
+    },
+  });
+
+  redirect(`/courses/${courseId}/practices/${practiceId}`);
 };
