@@ -4,6 +4,7 @@ import { database } from "@/app/_cross/database";
 import * as z from "zod";
 import { exerciseFormSchema } from "../exercise-form-schema";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const inputSchema = z.object({
   ...exerciseFormSchema.shape,
@@ -22,6 +23,5 @@ export const saveExercise = async ({
 }: z.infer<typeof inputSchema>) => {
   validateInput({ ...data, courseId });
   const exercise = await database.exercise.create({ data });
-  revalidatePath(`/courses/${courseId}/practices/${data.practiceId}`);
-  return exercise;
+  redirect(`/courses/${courseId}/practices/${data.practiceId}`);
 };

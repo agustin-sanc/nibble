@@ -6,7 +6,9 @@ import { notFound } from "next/navigation";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { DeletePracticeDialog } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/(delete-practice)/delete-practice-dialog";
 import { EditPracticeDialog } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/(edit-practice)/edit-practice-dialog";
-import { CreateExerciseDialog } from "./exercises/(create-exercise)/create-exercise-dialog";
+import Link from "next/link";
+import { Button } from "@/app/_cross/components/button";
+import { PlusIcon } from "lucide-react";
 
 const PracticeDetailPage = async ({
   params: { practiceId, courseId },
@@ -49,7 +51,14 @@ const PracticeDetailPage = async ({
       <div className="flex flex-row items-center justify-between">
         <Header3>Ejercicios</Header3>
         {user.isProfessor && (
-          <CreateExerciseDialog practiceId={practiceId} courseId={courseId} />
+          <Link
+            href={`/courses/${courseId}/practices/${practiceId}/exercises/create`}
+          >
+            <Button>
+              <PlusIcon />
+              Crear ejercicio
+            </Button>
+          </Link>
         )}
       </div>
 
