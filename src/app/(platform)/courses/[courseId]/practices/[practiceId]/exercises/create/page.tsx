@@ -137,13 +137,16 @@ const Page = ({
             <Header3>Tests de caja negra</Header3>
 
             {form.watch("blackBoxTests")?.map((_, index) => (
-              <div key={index} className="space-y-4 border rounded-md p-4 my-4 relative">
-                <div className="font-semibold mb-2">Test {index + 1}</div>
+              <div
+                key={index}
+                className="relative my-4 space-y-4 rounded-md border p-4"
+              >
+                <div className="mb-2 font-semibold">Test {index + 1}</div>
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="absolute top-2 right-2"
+                  className="absolute right-2 top-2"
                   onClick={() => removeBlackBoxTest(index)}
                 >
                   <X className="h-4 w-4" />
@@ -154,15 +157,16 @@ const Page = ({
                   name={`blackBoxTests.${index}.isExample`}
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                      <div className="space-y-1 leading-none">
+                        <FormLabel>¿Se muestra como ejemplo?</FormLabel>
+                      </div>
+
                       <FormControl>
                         <Checkbox
                           checked={field.value}
                           onCheckedChange={field.onChange}
                         />
                       </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel>Es ejemplo</FormLabel>
-                      </div>
                     </FormItem>
                   )}
                 />
@@ -218,7 +222,7 @@ const Page = ({
                 ])
               }
             >
-                Agregar nuevo test de caja negra
+              Agregar test de caja negra
             </Button>
           </div>
 

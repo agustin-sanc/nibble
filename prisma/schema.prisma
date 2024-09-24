@@ -104,11 +104,39 @@ model GrayBoxTest {
   description String?
 
   functionName     String
-  functionArgs     String[]
-  functionResponse String
+  functionArgs     FunctionArgument[]
+
+  functionResponse   FunctionResponse @relation(fields: [functionResponseId], references: [id], onDelete: Cascade)
+  functionResponseId String @unique
 
   exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   exerciseId String
+}
+
+model FunctionArgument {
+  id    String           @id @default(cuid())
+  value String
+  type  FunctionArgType
+
+  grayBoxTest   GrayBoxTest @relation(fields: [grayBoxTestId], references: [id], onDelete: Cascade)
+  grayBoxTestId String
+
+  @@index([grayBoxTestId])
+}
+
+model FunctionResponse {
+  id    String           @id @default(cuid())
+  value String
+  type  FunctionArgType
+
+  grayBoxTest GrayBoxTest?
+}
+
+enum FunctionArgType {
+  STRING
+  NUMBER
+  BOOLEAN
+  ARRAY
 }
 
 model WhiteBoxTest {

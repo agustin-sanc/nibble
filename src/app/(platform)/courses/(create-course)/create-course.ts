@@ -1,7 +1,7 @@
 "use server";
 
 import { database } from "@/app/_cross/database";
-import * as z from "zod";
+import type * as z from "zod";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { courseFormSchema } from "@/app/(platform)/courses/course-form-schema";
 import { redirect } from "next/navigation";
