@@ -1,9 +1,6 @@
 "use client";
 
 import { Button } from "@/app/_cross/components/button";
-import { useState } from "react";
-import Editor from "@monaco-editor/react";
-import { useTheme } from "next-themes";
 import {
   Select,
   SelectContent,
@@ -12,17 +9,41 @@ import {
   SelectValue,
 } from "@/app/_cross/components/select";
 import { Header3 } from "@/app/_cross/components/typography";
+import Editor from "@monaco-editor/react";
+import { useTheme } from "next-themes";
+import { FC, useCallback, useState } from "react";
+import { toast } from "sonner";
+import { submitSolution } from "./actions";
 
-export const Solution = () => {
+interface SolutionProps {
+  problemId: string;
+  testCases: any[];
+}
+
+export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
   const { theme } = useTheme();
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState<"cpp" | "python">("cpp");
 
-  const submitSolution = () => {
-    const encodedCode = btoa(code);
+  const handleSubmit = useCallback(async () => {
+    const toastId = toast.loading("Enviando solución...");
+    try {
+      const response = await submitSolution({
+        solution: btoa(code),
+        language,
+        problemId,
+        testCases,
+      });
 
-    console.log("Send solution to evaluator server");
-  };
+      if (response.data.passed) {
+        toast.success("¡Solución correcta!", { id: toastId });
+      } else {
+        toast.error("La solución no es correcta", { id: toastId });
+      }
+    } catch (error) {
+      toast.error("Ocurrió un error al evaluar la solución", { id: toastId });
+    }
+  }, [code, language, problemId, testCases]);
 
   return (
     <div className="flex w-[50%] flex-col gap-3">
@@ -55,7 +76,7 @@ export const Solution = () => {
           </SelectContent>
         </Select>
 
-        <Button onClick={submitSolution}>Evaluar solución</Button>
+        <Button onClick={handleSubmit}>Evaluar solución</Button>
       </div>
     </div>
   );

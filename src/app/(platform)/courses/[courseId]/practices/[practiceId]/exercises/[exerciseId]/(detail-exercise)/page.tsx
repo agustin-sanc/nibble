@@ -1,13 +1,13 @@
-import Link from "next/link";
+import { Solution } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/solution";
+import { TestExamples } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/test-examples";
 import {
   Header2,
   Header3,
   UnorderedList,
 } from "@/app/_cross/components/typography";
 import { database } from "@/app/_cross/database";
-import { Solution } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/solution";
-import { TestExamples } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/test-examples";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 type ExercisePageProps = {
@@ -94,7 +94,14 @@ export default async function ExerciseDetailPage({
 
       <div className="flex flex-row gap-10">
         <Problem />
-        <Solution />
+        <Solution
+          problemId={exercise.id}
+          testCases={[
+            ...exercise.blackBoxTests,
+            ...exercise.whiteBoxTests,
+            ...exercise.grayBoxTests,
+          ]}
+        />
       </div>
     </div>
   );
