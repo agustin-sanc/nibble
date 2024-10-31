@@ -6,9 +6,10 @@ import { notFound } from "next/navigation";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { DeletePracticeDialog } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/(delete-practice)/delete-practice-dialog";
 import { EditPracticeDialog } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/(edit-practice)/edit-practice-dialog";
+import { LinkTheoryDialog } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/(link-theory)/link-theory-dialog";
 import Link from "next/link";
 import { Button } from "@/app/_cross/components/button";
-import { PlusIcon } from "lucide-react";
+import { EmptyState } from "@/app/_cross/components/empty-state"; // Añadir esta importación
 
 const PracticeDetailPage = async ({
   params: { practiceId, courseId },
@@ -33,6 +34,17 @@ const PracticeDetailPage = async ({
   const hasExercises = practice.exercises?.length > 0;
   const hasRelatedTheories = practice.theories?.length > 0;
 
+  const availableTheories = await database.theory.findMany({
+    where: {
+      courseId: practice.courseId,
+      NOT: {
+        id: {
+          in: practice.theories.map(theory => theory.id)
+        }
+      }
+    },
+  });
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -55,16 +67,17 @@ const PracticeDetailPage = async ({
             href={`/courses/${courseId}/practices/${practiceId}/exercises/create`}
           >
             <Button>
-              <PlusIcon />
               Crear ejercicio
             </Button>
           </Link>
         )}
       </div>
 
-      {!hasExercises && <p>No hay ejercicios aún.</p>}
-
-      {hasExercises && (
+      {!hasExercises ? (
+        <EmptyState
+          title="No hay ejercicios aún."
+        />
+      ) : (
         <ContentGrid>
           {practice.exercises.map((exercise) => (
             <ContentCard
@@ -76,12 +89,22 @@ const PracticeDetailPage = async ({
         </ContentGrid>
       )}
 
-      <Header3>Teoría relacionada</Header3>
-      {!hasRelatedTheories && <p>No hay teoría relacionada.</p>}
+      <div className="flex flex-row items-center justify-between">
+        <Header3>Teoría relacionada</Header3>
 
-      {hasRelatedTheories && (
+        {user.isProfessor && (
+          <LinkTheoryDialog practiceId={practiceId} availableTheories={availableTheories} />
+        )}
+      </div>
+
+      {!hasRelatedTheories ? (
+        <EmptyState
+          title="No hay teoría relacionada aún."
+        />
+      ) : (
         <ContentGrid>
           {practice.theories.map((theory) => (
+            // TODO: Allow to remove related theory.
             <ContentCard key={theory.id} type="theory" theory={theory} />
           ))}
         </ContentGrid>
