@@ -7,7 +7,7 @@ async function main() {
     data: {
       name: "AED: 1k6 (2024)",
       description: "Cátedra de algoritmos y estructuras de datos, UTN-FRT.",
-      ownerId: "user_2Xre7xN7YsgdtkfsWsGyzsP0NIk",
+      ownerId: "user_2jwJqSBQCTIYlcvrXBoHxm73p12",
       studentIds: ["user_2XmUmwYgRF2yPH0DvYj7WgIAE8G"],
     },
   });
