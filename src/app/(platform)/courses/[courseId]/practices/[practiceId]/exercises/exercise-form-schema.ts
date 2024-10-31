@@ -7,12 +7,24 @@ const blackBoxTestSchema = z.object({
   batchOutput: z.array(z.string()),
 });
 
+const functionArgTypeSchema = z.enum(["STRING", "NUMBER", "BOOLEAN", "ARRAY"]);
+
+const functionArgumentSchema = z.object({
+  value: z.string(),
+  type: functionArgTypeSchema,
+});
+
+const functionResponseSchema = z.object({
+  value: z.string(),
+  type: functionArgTypeSchema,
+});
+
 const grayBoxTestSchema = z.object({
   isExample: z.boolean().default(false),
   description: z.string().optional(),
   functionName: z.string(),
-  functionArgs: z.array(z.string()),
-  functionResponse: z.string(),
+  functionArgs: z.array(functionArgumentSchema),
+  functionResponse: functionResponseSchema,
 });
 
 const whiteBoxTestSchema = z.object({
@@ -41,3 +53,5 @@ export const exerciseFormSchema = z.object({
 });
 
 export type ExerciseFormSchema = z.infer<typeof exerciseFormSchema>;
+export type FunctionArgument = z.infer<typeof functionArgumentSchema>;
+export type FunctionResponse = z.infer<typeof functionResponseSchema>;
