@@ -21,7 +21,9 @@ export const saveExercise = async ({
   practiceId,
   ...data
 }: z.infer<typeof inputSchema>) => {
-  validateInput({ ...data, courseId, practiceId });
+  console.log({ data, practiceId, courseId });
+  // validateInput({ ...data, courseId, practiceId });
+  console.log("validated");
 
   await database.exercise.create({
     data: {
@@ -32,19 +34,43 @@ export const saveExercise = async ({
           data.tags?.map((tag) => ({
             where: { name: tag },
             create: { name: tag },
-          })) || [],
+          })) ?? [],
       },
       blackBoxTests: {
-        create: data.blackBoxTests || [],
+        create: data.blackBoxTests ?? [],
       },
       grayBoxTests: {
-        create: data.grayBoxTests || [],
+        create: data.grayBoxTests?.map(test => ({
+          isExample: test.isExample,
+          functionName: test.functionName,
+          functionResponse: {
+            create: {
+              type: test.functionResponse.type,
+              value: test.functionResponse.value
+            }
+          },
+          description: test.description,
+          functionArgs: {
+            create: test.functionArgs.map(arg => ({
+              type: arg.type,
+              value: arg.value
+            }))
+          }
+        })) ?? [],
       },
       whiteBoxTests: {
-        create: data.whiteBoxTests || [],
+        create: data.whiteBoxTests ?? [],
       },
     },
   });
+
+  // const processedData = {
+  //   ...data,
+  //   grayBoxTests: data.grayBoxTests.map(test => ({
+  //     ...test,
+  //     functionArgs: test.functionArgs.split(' ').map(arg => ({ value: arg, type: 'STRING' }))
+  //   }))
+  // };
 
   redirect(`/courses/${courseId}/practices/${practiceId}`);
 };
