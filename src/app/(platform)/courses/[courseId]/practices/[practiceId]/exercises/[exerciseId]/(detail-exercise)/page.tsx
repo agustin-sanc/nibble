@@ -23,7 +23,12 @@ export default async function ExerciseDetailPage({
       practice: { include: { theories: true } },
       blackBoxTests: true,
       whiteBoxTests: true,
-      grayBoxTests: true,
+      grayBoxTests: {
+        include: {
+          functionArgs: true,
+          functionResponse: true,
+        },
+      },
     },
   });
 
