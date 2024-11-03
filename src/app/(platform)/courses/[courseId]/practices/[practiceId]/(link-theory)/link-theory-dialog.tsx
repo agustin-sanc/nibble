@@ -1,19 +1,34 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/app/_cross/components/dialog';
-import { Button } from '@/app/_cross/components/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/_cross/components/select';
-import { linkTheoryToPractice } from './link-theory-action';
-import { useRouter } from 'next/navigation';
-import type { Theory } from '@prisma/client';
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/app/_cross/components/dialog";
+import { Button } from "@/app/_cross/components/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/app/_cross/components/select";
+import { linkTheoryToPractice } from "./link-theory-action";
+import { useRouter } from "next/navigation";
+import type { Theory } from "@prisma/client";
 
 type LinkTheoryDialogProps = {
   practiceId: string;
   availableTheories: Theory[];
 };
 
-export function LinkTheoryDialog({ practiceId, availableTheories }: LinkTheoryDialogProps) {
+export function LinkTheoryDialog({
+  practiceId,
+  availableTheories,
+}: LinkTheoryDialogProps) {
   const [open, setOpen] = useState(false);
   const [selectedTheory, setSelectedTheory] = useState<string | undefined>();
   const router = useRouter();

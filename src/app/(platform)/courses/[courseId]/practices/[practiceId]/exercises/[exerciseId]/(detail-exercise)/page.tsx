@@ -1,5 +1,6 @@
 import { Solution } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/solution";
 import { TestExamples } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/test-examples";
+import { Button } from "@/app/_cross/components/button";
 import {
   Header2,
   Header3,
@@ -36,12 +37,20 @@ export default async function ExerciseDetailPage({
 
   const Header = () => (
     <div>
-      <Link
-        href={`/courses/${courseId}/practices/${practiceId}`}
-        className="text-xs hover:underline"
-      >
-        &lt; Volver al trabajo práctico
-      </Link>
+      <div className="flex flex-row items-center justify-between gap-2">
+        <Link
+          href={`/courses/${courseId}/practices/${practiceId}`}
+          className="text-xs hover:underline"
+        >
+          &lt; Volver al trabajo práctico
+        </Link>
+
+        <>
+          <Button variant="outline">Editar ejercicio</Button>
+
+          <Button variant="outline">Eliminar ejercicio</Button>
+        </>
+      </div>
 
       <div className="mt-5 flex flex-row items-center justify-between">
         <Header2>{exercise.name}</Header2>
@@ -99,14 +108,17 @@ export default async function ExerciseDetailPage({
 
       <div className="flex flex-row gap-10">
         <Problem />
-        <Solution
-          problemId={exercise.id}
-          testCases={[
-            ...exercise.blackBoxTests,
-            ...exercise.whiteBoxTests,
-            ...exercise.grayBoxTests,
-          ]}
-        />
+
+        {userIsProfessor && (
+          <Solution
+            problemId={exercise.id}
+            testCases={[
+              ...exercise.blackBoxTests,
+              ...exercise.whiteBoxTests,
+              ...exercise.grayBoxTests,
+            ]}
+          />
+        )}
       </div>
     </div>
   );

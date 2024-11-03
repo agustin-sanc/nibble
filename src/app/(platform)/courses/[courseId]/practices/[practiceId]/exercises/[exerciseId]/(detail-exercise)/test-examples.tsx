@@ -76,7 +76,8 @@ export const TestExamples = ({ examples }: TestExamplesProps) => {
       <div className="flex w-1/3 flex-col gap-2">
         <p className="font-semibold">Respuesta esperada</p>
         <div className="rounded border p-2">
-          <Code>{`${test.functionResponse?.value} (${test.functionResponse?.type.toLowerCase()})`}</Code>
+          <Code>{`${test.functionResponse
+            ?.value} (${test.functionResponse?.type.toLowerCase()})`}</Code>
         </div>
         {test.description && (
           <>
@@ -129,9 +130,12 @@ export const TestExamples = ({ examples }: TestExamplesProps) => {
             </AccordionTrigger>
 
             <AccordionContent className="flex gap-4">
-              {isBlackBoxTest(example) && showBlackBoxTest(example as BlackBoxTest)}
-              {isGrayBoxTest(example) && showGrayBoxTest(example as GrayBoxTest)}
-              {isWhiteBoxTest(example) && showWhiteBoxTest(example as WhiteBoxTest)}
+              {isBlackBoxTest(example) &&
+                showBlackBoxTest(example as BlackBoxTest)}
+              {isGrayBoxTest(example) &&
+                showGrayBoxTest(example as GrayBoxTest)}
+              {isWhiteBoxTest(example) &&
+                showWhiteBoxTest(example as WhiteBoxTest)}
             </AccordionContent>
           </AccordionItem>
         ))}

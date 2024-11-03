@@ -22,18 +22,25 @@ import { Header2, Header3 } from "@/app/_cross/components/typography";
 import { TextArea } from "@/app/_cross/components/text-area";
 import { Checkbox } from "@/app/_cross/components/check-box";
 import { X } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/_cross/components/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/app/_cross/components/select";
 
 const Page = ({
-  params: { courseId,
-  practiceId, }
-}: { params: {
-  courseId: string;
-  practiceId: string;
-}}) => {
+  params: { courseId, practiceId },
+}: {
+  params: {
+    courseId: string;
+    practiceId: string;
+  };
+}) => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
-  const [tagsInput, setTagsInput] = useState('');
+  const [tagsInput, setTagsInput] = useState("");
 
   const form = useForm<z.infer<typeof exerciseFormSchema>>({
     resolver: zodResolver(exerciseFormSchema),
@@ -106,8 +113,8 @@ const Page = ({
   };
 
   const handleTagsBlur = () => {
-    const tagsArray = tagsInput.split(' ').filter(tag => tag.trim() !== '');
-    form.setValue('tags', tagsArray);
+    const tagsArray = tagsInput.split(" ").filter((tag) => tag.trim() !== "");
+    form.setValue("tags", tagsArray);
   };
 
   return (
@@ -139,7 +146,10 @@ const Page = ({
                 <FormLabel>Descripción</FormLabel>
 
                 <FormControl>
-                  <TextArea placeholder="Descripción del ejercicio" {...field} />
+                  <TextArea
+                    placeholder="Descripción del ejercicio"
+                    {...field}
+                  />
                 </FormControl>
 
                 <FormMessage />
@@ -175,7 +185,7 @@ const Page = ({
                 className="relative my-4 space-y-4 rounded-md border p-4"
               >
                 <div className="mb-2 font-semibold">Test {index + 1}</div>
-                
+
                 <Button
                   type="button"
                   variant="ghost"
@@ -225,11 +235,11 @@ const Page = ({
                     <FormItem>
                       <FormLabel>Entrada (una entrada por línea)</FormLabel>
                       <FormControl>
-                        <TextArea 
+                        <TextArea
                           {...field}
-                          value={field.value?.join('\n') || ''}
+                          value={field.value?.join("\n") || ""}
                           onChange={(e) => {
-                            const lines = e.target.value.split('\n');
+                            const lines = e.target.value.split("\n");
                             field.onChange(lines);
                           }}
                         />
@@ -246,11 +256,11 @@ const Page = ({
                     <FormItem>
                       <FormLabel>Salida (una salida por línea)</FormLabel>
                       <FormControl>
-                        <TextArea 
+                        <TextArea
                           {...field}
-                          value={field.value?.join('\n') || ''}
+                          value={field.value?.join("\n") || ""}
                           onChange={(e) => {
-                            const lines = e.target.value.split('\n');
+                            const lines = e.target.value.split("\n");
                             field.onChange(lines);
                           }}
                         />
@@ -269,7 +279,12 @@ const Page = ({
               onClick={() =>
                 form.setValue("blackBoxTests", [
                   ...(form.watch("blackBoxTests") ?? []),
-                  { isExample: false, description: "", batchInput: [], batchOutput: [] },
+                  {
+                    isExample: false,
+                    description: "",
+                    batchInput: [],
+                    batchOutput: [],
+                  },
                 ])
               }
             >
@@ -288,7 +303,7 @@ const Page = ({
                 className="relative my-4 space-y-4 rounded-md border p-4"
               >
                 <div className="mb-2 font-semibold">Test {testIndex + 1}</div>
-                
+
                 <Button
                   type="button"
                   variant="ghost"
@@ -346,50 +361,63 @@ const Page = ({
 
                 <div>
                   <FormLabel>Argumentos de la función</FormLabel>
-                  {form.watch(`grayBoxTests.${testIndex}.functionArgs`)?.map((_, argIndex) => (
-                    <div key={argIndex} className="flex items-center space-x-2 mt-2">
-                      <FormField
-                        control={form.control}
-                        name={`grayBoxTests.${testIndex}.functionArgs.${argIndex}.value`}
-                        render={({ field }) => (
-                          <FormItem className="flex-grow">
-                            <FormControl>
-                              <Input {...field} placeholder="Valor del argumento" />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name={`grayBoxTests.${testIndex}.functionArgs.${argIndex}.type`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Tipo" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                <SelectItem value="STRING">String</SelectItem>
-                                <SelectItem value="NUMBER">Number</SelectItem>
-                                <SelectItem value="BOOLEAN">Boolean</SelectItem>
-                                <SelectItem value="ARRAY">Array</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </FormItem>
-                        )}
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => removeFunctionArg(testIndex, argIndex)}
+                  {form
+                    .watch(`grayBoxTests.${testIndex}.functionArgs`)
+                    ?.map((_, argIndex) => (
+                      <div
+                        key={argIndex}
+                        className="mt-2 flex items-center space-x-2"
                       >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  ))}
+                        <FormField
+                          control={form.control}
+                          name={`grayBoxTests.${testIndex}.functionArgs.${argIndex}.value`}
+                          render={({ field }) => (
+                            <FormItem className="flex-grow">
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  placeholder="Valor del argumento"
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`grayBoxTests.${testIndex}.functionArgs.${argIndex}.type`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Tipo" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="STRING">String</SelectItem>
+                                  <SelectItem value="NUMBER">Number</SelectItem>
+                                  <SelectItem value="BOOLEAN">
+                                    Boolean
+                                  </SelectItem>
+                                  <SelectItem value="ARRAY">Array</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </FormItem>
+                          )}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => removeFunctionArg(testIndex, argIndex)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
                   <Button
                     type="button"
                     variant="outline"
@@ -420,7 +448,10 @@ const Page = ({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Tipo de respuesta</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Selecciona un tipo" />
@@ -437,7 +468,6 @@ const Page = ({
                     </FormItem>
                   )}
                 />
-
               </div>
             ))}
 
@@ -448,11 +478,11 @@ const Page = ({
               onClick={() =>
                 form.setValue("grayBoxTests", [
                   ...(form.watch("grayBoxTests") ?? []),
-                  { 
-                    isExample: false, 
-                    functionName: "", 
-                    functionArgs: [], 
-                    functionResponse: { value: "", type: "STRING" } 
+                  {
+                    isExample: false,
+                    functionName: "",
+                    functionArgs: [],
+                    functionResponse: { value: "", type: "STRING" },
                   },
                 ])
               }
@@ -471,7 +501,7 @@ const Page = ({
                 className="relative my-4 space-y-4 rounded-md border p-4"
               >
                 <div className="mb-2 font-semibold">Test {index + 1}</div>
-                
+
                 <Button
                   type="button"
                   variant="ghost"
@@ -521,7 +551,10 @@ const Page = ({
                     <FormItem>
                       <FormLabel>Código del test</FormLabel>
                       <FormControl>
-                        <TextArea {...field} placeholder="Escribe aquí el código del test" />
+                        <TextArea
+                          {...field}
+                          placeholder="Escribe aquí el código del test"
+                        />
                       </FormControl>
                     </FormItem>
                   )}

@@ -40,23 +40,24 @@ export const saveExercise = async ({
         create: data.blackBoxTests ?? [],
       },
       grayBoxTests: {
-        create: data.grayBoxTests?.map(test => ({
-          isExample: test.isExample,
-          functionName: test.functionName,
-          functionResponse: {
-            create: {
-              type: test.functionResponse.type,
-              value: test.functionResponse.value
-            }
-          },
-          description: test.description,
-          functionArgs: {
-            create: test.functionArgs.map(arg => ({
-              type: arg.type,
-              value: arg.value
-            }))
-          }
-        })) ?? [],
+        create:
+          data.grayBoxTests?.map((test) => ({
+            isExample: test.isExample,
+            functionName: test.functionName,
+            functionResponse: {
+              create: {
+                type: test.functionResponse.type,
+                value: test.functionResponse.value,
+              },
+            },
+            description: test.description,
+            functionArgs: {
+              create: test.functionArgs.map((arg) => ({
+                type: arg.type,
+                value: arg.value,
+              })),
+            },
+          })) ?? [],
       },
       whiteBoxTests: {
         create: data.whiteBoxTests ?? [],

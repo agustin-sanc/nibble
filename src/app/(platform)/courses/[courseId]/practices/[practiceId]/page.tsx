@@ -39,9 +39,9 @@ const PracticeDetailPage = async ({
       courseId: practice.courseId,
       NOT: {
         id: {
-          in: practice.theories.map(theory => theory.id)
-        }
-      }
+          in: practice.theories.map((theory) => theory.id),
+        },
+      },
     },
   });
 
@@ -66,17 +66,13 @@ const PracticeDetailPage = async ({
           <Link
             href={`/courses/${courseId}/practices/${practiceId}/exercises/create`}
           >
-            <Button>
-              Crear ejercicio
-            </Button>
+            <Button>Crear ejercicio</Button>
           </Link>
         )}
       </div>
 
       {!hasExercises ? (
-        <EmptyState
-          title="No hay ejercicios aún."
-        />
+        <EmptyState title="No hay ejercicios aún." />
       ) : (
         <ContentGrid>
           {practice.exercises.map((exercise) => (
@@ -93,14 +89,15 @@ const PracticeDetailPage = async ({
         <Header3>Teoría relacionada</Header3>
 
         {user.isProfessor && (
-          <LinkTheoryDialog practiceId={practiceId} availableTheories={availableTheories} />
+          <LinkTheoryDialog
+            practiceId={practiceId}
+            availableTheories={availableTheories}
+          />
         )}
       </div>
 
       {!hasRelatedTheories ? (
-        <EmptyState
-          title="No hay teoría relacionada aún."
-        />
+        <EmptyState title="No hay teoría relacionada aún." />
       ) : (
         <ContentGrid>
           {practice.theories.map((theory) => (
