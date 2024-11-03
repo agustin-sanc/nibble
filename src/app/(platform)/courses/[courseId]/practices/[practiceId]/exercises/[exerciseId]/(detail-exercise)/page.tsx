@@ -10,6 +10,8 @@ import { database } from "@/app/_cross/database";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
+import { DeleteExerciseDialog } from "../(delete-exercise)/delete-exercise-dialog";
 
 type ExercisePageProps = {
   params: { exerciseId: string; practiceId: string; courseId: string };
@@ -35,6 +37,9 @@ export default async function ExerciseDetailPage({
 
   if (!exercise) notFound();
 
+  const user = await getCurrentUser();
+  const { isProfessor: currentUserIsProfessor } = user;
+
   const Header = () => (
     <div>
       <div className="flex flex-row items-center justify-between gap-2">
@@ -45,11 +50,10 @@ export default async function ExerciseDetailPage({
           &lt; Volver al trabajo práctico
         </Link>
 
-        <>
+        <div className="flex flex-row items-center gap-2">
           <Button variant="outline">Editar ejercicio</Button>
-
-          <Button variant="outline">Eliminar ejercicio</Button>
-        </>
+          <DeleteExerciseDialog exerciseId={exerciseId} />
+        </div>
       </div>
 
       <div className="mt-5 flex flex-row items-center justify-between">
@@ -86,7 +90,7 @@ export default async function ExerciseDetailPage({
   };
 
   const Problem = () => (
-    <div className="w-[50%]">
+    <div>
       <Header3>Descripción</Header3>
       <p className="mt-4">{exercise.description}</p>
 
@@ -109,7 +113,7 @@ export default async function ExerciseDetailPage({
       <div className="flex flex-row gap-10">
         <Problem />
 
-        {userIsProfessor && (
+        {!currentUserIsProfessor && (
           <Solution
             problemId={exercise.id}
             testCases={[
