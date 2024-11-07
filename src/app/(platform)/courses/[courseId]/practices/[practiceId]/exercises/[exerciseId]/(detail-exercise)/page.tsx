@@ -52,10 +52,12 @@ export default async function ExerciseDetailPage({
         </Link>
 
         <div className="flex flex-row items-center gap-2">
-          <EditExerciseDialog exercise={{
-            ...exercise,
-            tags: exercise.tags.map(tag => tag.name)
-          }} />
+          <EditExerciseDialog
+            exercise={{
+              ...exercise,
+              tags: exercise.tags.map((tag) => tag.name),
+            }}
+          />
           <DeleteExerciseDialog exerciseId={exerciseId} />
         </div>
       </div>

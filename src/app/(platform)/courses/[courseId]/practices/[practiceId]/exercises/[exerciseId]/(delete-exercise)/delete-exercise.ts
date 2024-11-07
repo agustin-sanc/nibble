@@ -42,10 +42,10 @@ export const deleteExercise = async (id: string) => {
   });
 
   revalidatePath(
-    `/courses/${exercise.practice.course.id}/practices/${exercise.practice.id}`
+    `/courses/${exercise.practice.course.id}/practices/${exercise.practice.id}`,
   );
-  
+
   redirect(
-    `/courses/${exercise.practice.course.id}/practices/${exercise.practice.id}`
+    `/courses/${exercise.practice.course.id}/practices/${exercise.practice.id}`,
   );
 };

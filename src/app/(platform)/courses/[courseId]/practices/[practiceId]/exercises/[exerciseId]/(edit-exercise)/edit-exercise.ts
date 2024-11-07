@@ -27,40 +27,41 @@ export const editExercise = async (
     data: {
       ...data,
       tags: {
-        set: data.tags?.map(tag => ({ name: tag })) ?? []
+        set: data.tags?.map((tag) => ({ name: tag })) ?? [],
       },
       blackBoxTests: {
         deleteMany: {},
         createMany: {
-          data: data.blackBoxTests ?? []
-        }
+          data: data.blackBoxTests ?? [],
+        },
       },
       grayBoxTests: {
         deleteMany: {},
-        create: data.grayBoxTests?.map(test => ({
-          isExample: test.isExample,
-          functionName: test.functionName,
-          functionResponse: {
-            create: {
-              type: test.functionResponse.type,
-              value: test.functionResponse.value,
+        create:
+          data.grayBoxTests?.map((test) => ({
+            isExample: test.isExample,
+            functionName: test.functionName,
+            functionResponse: {
+              create: {
+                type: test.functionResponse.type,
+                value: test.functionResponse.value,
+              },
             },
-          },
-          description: test.description,
-          functionArgs: {
-            create: test.functionArgs.map(arg => ({
-              type: arg.type,
-              value: arg.value,
-            })),
-          },
-        })) ?? [],
+            description: test.description,
+            functionArgs: {
+              create: test.functionArgs.map((arg) => ({
+                type: arg.type,
+                value: arg.value,
+              })),
+            },
+          })) ?? [],
       },
       whiteBoxTests: {
         deleteMany: {},
         createMany: {
-          data: data.whiteBoxTests ?? []
-        }
-      }
+          data: data.whiteBoxTests ?? [],
+        },
+      },
     },
     include: {
       practice: {
@@ -73,9 +74,11 @@ export const editExercise = async (
 
   if (!exercise) notFound();
 
-  revalidatePath(`/courses/${exercise.practiceId}/practices/${exercise.practiceId}`);
+  revalidatePath(
+    `/courses/${exercise.practiceId}/practices/${exercise.practiceId}`,
+  );
 
   revalidatePath(
-    `/courses/${exercise.practice.course.id}/practices/${exercise.practiceId}/exercises/${exercise.id}`
+    `/courses/${exercise.practice.course.id}/practices/${exercise.practiceId}/exercises/${exercise.id}`,
   );
 };

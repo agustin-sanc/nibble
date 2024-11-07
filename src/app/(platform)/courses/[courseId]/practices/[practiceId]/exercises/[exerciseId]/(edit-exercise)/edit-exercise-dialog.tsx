@@ -23,7 +23,12 @@ import {
 import { useState } from "react";
 import { toast } from "sonner";
 import { TextArea } from "@/app/_cross/components/text-area";
-import type { Exercise, BlackBoxTest, GrayBoxTest, WhiteBoxTest } from "@prisma/client";
+import type {
+  Exercise,
+  BlackBoxTest,
+  GrayBoxTest,
+  WhiteBoxTest,
+} from "@prisma/client";
 import { editExercise } from "./edit-exercise";
 import { exerciseFormSchema } from "../../exercise-form-schema";
 import { Checkbox } from "@/app/_cross/components/check-box";
@@ -40,14 +45,24 @@ import { Header3 } from "@/app/_cross/components/typography";
 type ExerciseWithTests = Exercise & {
   blackBoxTests: BlackBoxTest[];
   grayBoxTests: (GrayBoxTest & {
-    functionArgs: { type: "STRING" | "NUMBER" | "BOOLEAN" | "ARRAY"; value: string; }[];
-    functionResponse: { type: "STRING" | "NUMBER" | "BOOLEAN" | "ARRAY"; value: string; };
+    functionArgs: {
+      type: "STRING" | "NUMBER" | "BOOLEAN" | "ARRAY";
+      value: string;
+    }[];
+    functionResponse: {
+      type: "STRING" | "NUMBER" | "BOOLEAN" | "ARRAY";
+      value: string;
+    };
   })[];
   whiteBoxTests: WhiteBoxTest[];
   tags: string[] | undefined;
 };
 
-export const EditExerciseDialog = ({ exercise }: { exercise: ExerciseWithTests }) => {
+export const EditExerciseDialog = ({
+  exercise,
+}: {
+  exercise: ExerciseWithTests;
+}) => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const [tagsInput, setTagsInput] = useState(exercise.tags?.join(" "));
 
@@ -57,20 +72,20 @@ export const EditExerciseDialog = ({ exercise }: { exercise: ExerciseWithTests }
       name: exercise.name,
       description: exercise.description ?? undefined,
       tags: exercise.tags,
-      blackBoxTests: exercise.blackBoxTests.map(test => ({
+      blackBoxTests: exercise.blackBoxTests.map((test) => ({
         isExample: test.isExample,
         description: test.description ?? undefined,
         batchInput: test.batchInput,
         batchOutput: test.batchOutput,
       })),
-      grayBoxTests: exercise.grayBoxTests.map(test => ({
+      grayBoxTests: exercise.grayBoxTests.map((test) => ({
         isExample: test.isExample,
         description: test.description ?? undefined,
         functionName: test.functionName,
         functionArgs: test.functionArgs,
-        functionResponse: test.functionResponse
+        functionResponse: test.functionResponse,
       })),
-      whiteBoxTests: exercise.whiteBoxTests.map(test => ({
+      whiteBoxTests: exercise.whiteBoxTests.map((test) => ({
         isExample: test.isExample,
         description: test.description ?? undefined,
         test: test.test,
@@ -119,7 +134,9 @@ export const EditExerciseDialog = ({ exercise }: { exercise: ExerciseWithTests }
   };
 
   const handleTagsBlur = () => {
-    const tagsArray = tagsInput.split(" ").filter((tag: string) => tag.trim() !== "");
+    const tagsArray = tagsInput
+      .split(" ")
+      .filter((tag: string) => tag.trim() !== "");
     form.setValue("tags", tagsArray);
   };
 
@@ -419,9 +436,15 @@ export const EditExerciseDialog = ({ exercise }: { exercise: ExerciseWithTests }
                                     </SelectTrigger>
                                   </FormControl>
                                   <SelectContent>
-                                    <SelectItem value="STRING">String</SelectItem>
-                                    <SelectItem value="NUMBER">Number</SelectItem>
-                                    <SelectItem value="BOOLEAN">Boolean</SelectItem>
+                                    <SelectItem value="STRING">
+                                      String
+                                    </SelectItem>
+                                    <SelectItem value="NUMBER">
+                                      Number
+                                    </SelectItem>
+                                    <SelectItem value="BOOLEAN">
+                                      Boolean
+                                    </SelectItem>
                                     <SelectItem value="ARRAY">Array</SelectItem>
                                   </SelectContent>
                                 </Select>
@@ -432,7 +455,9 @@ export const EditExerciseDialog = ({ exercise }: { exercise: ExerciseWithTests }
                             type="button"
                             variant="ghost"
                             size="icon"
-                            onClick={() => removeFunctionArg(testIndex, argIndex)}
+                            onClick={() =>
+                              removeFunctionArg(testIndex, argIndex)
+                            }
                           >
                             <X className="h-4 w-4" />
                           </Button>
@@ -595,7 +620,11 @@ export const EditExerciseDialog = ({ exercise }: { exercise: ExerciseWithTests }
               </Button>
             </div>
 
-            <Button type="submit" loading={submitButtonDisabled} className="w-full">
+            <Button
+              type="submit"
+              loading={submitButtonDisabled}
+              className="w-full"
+            >
               Guardar cambios
             </Button>
           </form>
