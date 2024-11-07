@@ -37,12 +37,23 @@ export const editExercise = async (
       },
       grayBoxTests: {
         deleteMany: {},
-        createMany: {
-          data: data.grayBoxTests?.map(test => ({
-            ...test,
-            functionResponseId: test.functionResponse.value
-          })) ?? []
-        }
+        create: data.grayBoxTests?.map(test => ({
+          isExample: test.isExample,
+          functionName: test.functionName,
+          functionResponse: {
+            create: {
+              type: test.functionResponse.type,
+              value: test.functionResponse.value,
+            },
+          },
+          description: test.description,
+          functionArgs: {
+            create: test.functionArgs.map(arg => ({
+              type: arg.type,
+              value: arg.value,
+            })),
+          },
+        })) ?? [],
       },
       whiteBoxTests: {
         deleteMany: {},
