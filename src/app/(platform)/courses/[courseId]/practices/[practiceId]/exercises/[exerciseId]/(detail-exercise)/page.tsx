@@ -26,6 +26,7 @@ export default async function ExerciseDetailPage({
       practice: { include: { theories: true } },
       blackBoxTests: true,
       whiteBoxTests: true,
+      tags: true,
       grayBoxTests: {
         include: {
           functionArgs: true,
