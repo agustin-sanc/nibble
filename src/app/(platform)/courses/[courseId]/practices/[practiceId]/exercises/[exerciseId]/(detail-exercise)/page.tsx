@@ -1,6 +1,5 @@
 import { Solution } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/solution";
 import { TestExamples } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/test-examples";
-import { Button } from "@/app/_cross/components/button";
 import {
   Header2,
   Header3,
@@ -12,6 +11,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { DeleteExerciseDialog } from "../(delete-exercise)/delete-exercise-dialog";
+import { EditExerciseDialog } from "../(edit-exercise)/edit-exercise-dialog";
 
 type ExercisePageProps = {
   params: { exerciseId: string; practiceId: string; courseId: string };
@@ -51,7 +51,7 @@ export default async function ExerciseDetailPage({
         </Link>
 
         <div className="flex flex-row items-center gap-2">
-          <Button variant="outline">Editar ejercicio</Button>
+          <EditExerciseDialog exercise={exercise} />
           <DeleteExerciseDialog exerciseId={exerciseId} />
         </div>
       </div>
