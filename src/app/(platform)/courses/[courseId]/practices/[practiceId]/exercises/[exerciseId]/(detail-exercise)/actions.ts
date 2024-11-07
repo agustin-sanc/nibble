@@ -21,6 +21,7 @@ export async function submitSolution(data: {
         },
       },
     );
+    
     return {
       status: result.status,
       data: (await result.json()) as {
