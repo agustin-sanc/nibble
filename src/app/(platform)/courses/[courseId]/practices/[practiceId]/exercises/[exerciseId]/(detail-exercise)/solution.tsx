@@ -51,7 +51,7 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
 
       <Editor
         height="400px"
-        language={language}
+        language={language === "c++" ? "cpp" : "python"}
         theme={theme === "light" ? "vs-light" : "vs-dark"}
         value={code}
         onChange={(value) => setCode(value ?? "")}
