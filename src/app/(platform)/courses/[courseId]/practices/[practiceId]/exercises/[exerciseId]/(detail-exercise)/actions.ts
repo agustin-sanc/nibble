@@ -12,7 +12,7 @@ export async function submitSolution(data: {
 
   try {
     const result = await fetch(
-      process.env.NEXT_PUBLIC_EVALUATOR_API_URL || "",
+      process.env.NEXT_PUBLIC_EVALUATOR_API_URL ?? "",
       {
         method: "POST",
         body: JSON.stringify({ ...data, studentId: user.id }),
