@@ -11,8 +11,6 @@ export async function submitSolution(data: {
 }) {
   const user = await getCurrentUser();
 
-  console.log({ data });
-
   try {
     const result = await fetch(
       process.env.NEXT_PUBLIC_EVALUATOR_API_URL ?? "",
