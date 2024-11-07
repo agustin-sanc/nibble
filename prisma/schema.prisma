@@ -64,6 +64,7 @@ model Exercise {
   description String
   tags        Tag[]    @relation("ExerciseToTag")
   solvedBy    String[]
+  solutions   Solution[]
 
   blackBoxTests BlackBoxTest[]
   grayBoxTests  GrayBoxTest[]
@@ -148,4 +149,20 @@ model WhiteBoxTest {
 
   exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   exerciseId String
+}
+
+model Solution {
+  id        String   @id @default(cuid())
+  code      String
+  score     Float
+  userId    String
+  
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  exerciseId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([exerciseId])
+  @@index([userId])
 }
