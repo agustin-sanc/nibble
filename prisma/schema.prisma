@@ -154,7 +154,7 @@ model WhiteBoxTest {
 model Solution {
   id        String   @id @default(cuid())
   code      String
-  score     Float
+  passed    Boolean
   userId    String
   
   exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)

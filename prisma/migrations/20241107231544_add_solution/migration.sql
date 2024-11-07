@@ -2,7 +2,7 @@
 CREATE TABLE "Solution" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
-    "score" DOUBLE PRECISION NOT NULL,
+    "passed" BOOLEAN NOT NULL,
     "userId" TEXT NOT NULL,
     "exerciseId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

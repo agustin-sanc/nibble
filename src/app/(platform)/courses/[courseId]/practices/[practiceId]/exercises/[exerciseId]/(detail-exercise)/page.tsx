@@ -127,9 +127,11 @@ export default async function ExerciseDetailPage({
       <Header />
 
       <div className="flex flex-row gap-10">
-        <Problem />
+        <div className="w-[500px]">
+          <Problem />
+        </div>
 
-        {!currentUserIsProfessor && (
+        <div className="flex-1">
           <Solution
             problemId={exercise.id}
             testCases={[
@@ -138,7 +140,7 @@ export default async function ExerciseDetailPage({
               ...exercise.grayBoxTests,
             ]}
           />
-        )}
+        </div>
       </div>
     </div>
   );

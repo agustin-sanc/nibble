@@ -1,14 +1,17 @@
 "use server";
 
+import { database } from "@/app/_cross/database";
 import { getCurrentUser } from "../../../../../../../../_cross/auth/get-current-user";
 
 export async function submitSolution(data: {
   solution: string;
-  language: "cpp" | "python";
+  language: "c++" | "python";
   problemId: string;
   testCases: any[];
 }) {
   const user = await getCurrentUser();
+
+  console.log({ data });
 
   try {
     const result = await fetch(
@@ -21,12 +24,25 @@ export async function submitSolution(data: {
         },
       },
     );
-    
+
+    const resultData = (await result.json()) as {
+      passed: boolean;
+    };
+
+    console.dir(resultData, { depth: null });
+
+    await database.solution.create({
+      data: {
+        code: data.solution,
+        userId: user.id,
+        exerciseId: data.problemId,
+        passed: resultData.passed,
+      },
+    });
+
     return {
       status: result.status,
-      data: (await result.json()) as {
-        passed: boolean;
-      },
+      data: resultData,
     };
   } catch (error) {
     throw new Error("Ocurrió un error al evaluar la solución");

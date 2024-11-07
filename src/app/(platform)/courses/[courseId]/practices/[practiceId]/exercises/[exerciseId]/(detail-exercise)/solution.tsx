@@ -23,7 +23,7 @@ interface SolutionProps {
 export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
   const { theme } = useTheme();
   const [code, setCode] = useState("");
-  const [language, setLanguage] = useState<"cpp" | "python">("cpp");
+  const [language, setLanguage] = useState<"c++" | "python">("c++");
 
   const handleSubmit = useCallback(async () => {
     const toastId = toast.loading("Enviando solución...");
@@ -46,7 +46,7 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
   }, [code, language, problemId, testCases]);
 
   return (
-    <div className="flex w-[50%] flex-col gap-3">
+    <div className="flex flex-col gap-3">
       <Header3>Solución</Header3>
 
       <Editor
@@ -61,7 +61,7 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
         <Select
           defaultValue={language}
           onValueChange={(value) =>
-            value === "cpp" || value === "python"
+            value === "c++" || value === "python"
               ? setLanguage(value)
               : console.error("Invalid language")
           }
@@ -71,7 +71,7 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
           </SelectTrigger>
 
           <SelectContent>
-            <SelectItem value="cpp">C++</SelectItem>
+            <SelectItem value="c++">C++</SelectItem>
             <SelectItem value="python">Python</SelectItem>
           </SelectContent>
         </Select>
