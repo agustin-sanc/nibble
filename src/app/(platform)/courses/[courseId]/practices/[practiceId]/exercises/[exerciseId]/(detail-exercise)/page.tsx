@@ -12,6 +12,7 @@ import { notFound } from "next/navigation";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { DeleteExerciseDialog } from "../(delete-exercise)/delete-exercise-dialog";
 import { EditExerciseDialog } from "../(edit-exercise)/edit-exercise-dialog";
+import { SolutionsTable } from "./solutions-table";
 
 type ExercisePageProps = {
   params: { exerciseId: string; practiceId: string; courseId: string };
@@ -109,6 +110,15 @@ export default async function ExerciseDetailPage({
       />
 
       <RelatedTheories />
+
+      <div className="mt-8">
+        <Header3>Soluciones enviadas</Header3>
+        <SolutionsTable 
+          exerciseId={exercise.id}
+          userId={currentUserIsProfessor ? undefined : user.id}
+          isProfessor={currentUserIsProfessor}
+        />
+      </div>
     </div>
   );
 
