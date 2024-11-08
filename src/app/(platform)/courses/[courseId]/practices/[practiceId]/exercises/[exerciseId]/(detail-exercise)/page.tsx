@@ -137,7 +137,7 @@ export default async function ExerciseDetailPage({
             testCases={[
               ...exercise.blackBoxTests.map(test => ({ ...test, type: "BLACK_BOX" })),
               ...exercise.whiteBoxTests.map(test => ({ ...test, testCode: btoa(test.test), type: "WHITE_BOX" })),
-              ...exercise.grayBoxTests.map(test => ({ ...test, type: "GRAY_BOX" })),
+              ...exercise.grayBoxTests.map(test => ({ ...test, type: "GRAY_BOX", functionArgs: test.functionArgs.map(arg => arg.value), functionResponse: test.functionResponse.value })),
             ]}
           />
         </div>
