@@ -138,6 +138,8 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
     }
   };
 
+  console.dir({ report, studentsEvaluation }, { depth: null });
+
   const practicesData = Object.entries(report.practices).map(([practiceId, stats]) => ({
     practiceId,
     ...stats
