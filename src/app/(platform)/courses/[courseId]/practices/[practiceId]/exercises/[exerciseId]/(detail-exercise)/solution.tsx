@@ -27,6 +27,7 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
 
   const handleSubmit = useCallback(async () => {
     const toastId = toast.loading("Enviando solución...");
+
     try {
       const response = await submitSolution({
         solution: btoa(code),
