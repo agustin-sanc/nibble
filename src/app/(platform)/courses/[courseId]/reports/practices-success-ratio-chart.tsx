@@ -48,8 +48,8 @@ export function PracticesSuccessRatioChart({ data }: { data: PracticeData[] }) {
             data={data}
             layout="vertical"
             margin={{
-              right: 16,
-              left: 16,
+              right: 2,
+              left: 0,
               top: 10,
               bottom: 0
             }}

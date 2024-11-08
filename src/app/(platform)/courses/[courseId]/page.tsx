@@ -185,7 +185,7 @@ const CourseDetailPage = async ({
         {user.isProfessor && (
           <div className="flex gap-2">
             <Link href={`/courses/${course.id}/reports`}>
-              <Button>Reportes</Button>
+              <Button>Estadísticas</Button>
             </Link>
 
             <EditCourseDialog course={course} />
