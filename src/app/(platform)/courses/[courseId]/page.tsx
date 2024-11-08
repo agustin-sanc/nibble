@@ -20,6 +20,7 @@ import {
 import { AddStudentDialog } from "./members/(add-member)/add-student-dialog";
 import { getUserList } from "@/app/_cross/auth/get-user-list";
 import { Button } from "@/app/_cross/components/button";
+import Link from "next/link";
 
 const CourseDetailPage = async ({
   params: { courseId },
@@ -183,7 +184,10 @@ const CourseDetailPage = async ({
 
         {user.isProfessor && (
           <div className="flex gap-2">
-            <Button>Reportes</Button>
+            <Link href={`/courses/${course.id}/reports`}>
+              <Button>Reportes</Button>
+            </Link>
+
             <EditCourseDialog course={course} />
             <DeleteCourseDialog courseId={course.id} />
           </div>
