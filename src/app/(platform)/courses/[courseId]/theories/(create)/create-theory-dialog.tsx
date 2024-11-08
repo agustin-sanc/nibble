@@ -1,5 +1,8 @@
 "use client";
 
+import { createTheoryFormSchema } from "@/app/(platform)/courses/[courseId]/theories/(create)/create-theory-form-schema";
+import { saveTheory } from "@/app/(platform)/courses/[courseId]/theories/(create)/save-theory";
+import { Button } from "@/app/_cross/components/button";
 import {
   Dialog,
   DialogContent,
@@ -7,11 +10,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/app/_cross/components/dialog";
-import { Button } from "@/app/_cross/components/button";
-import { Input } from "@/app/_cross/components/input";
-import type * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -20,17 +18,22 @@ import {
   FormLabel,
   FormMessage,
 } from "@/app/_cross/components/form";
-import { useState } from "react";
+import { Input } from "@/app/_cross/components/input";
 import { useUser } from "@clerk/nextjs";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Editor } from "@monaco-editor/react";
+import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { saveTheory } from "@/app/(platform)/courses/[courseId]/theories/(create)/save-theory";
-import { createTheoryFormSchema } from "@/app/(platform)/courses/[courseId]/theories/(create)/create-theory-form-schema";
+import type * as z from "zod";
 
 export const CreateTheoryDialog = ({ courseId }: { courseId: string }) => {
   const { user } = useUser();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { theme } = useTheme();
 
   const form = useForm<z.infer<typeof createTheoryFormSchema>>({
     resolver: zodResolver(createTheoryFormSchema),
@@ -111,12 +114,13 @@ export const CreateTheoryDialog = ({ courseId }: { courseId: string }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Contenido</FormLabel>
-
                   <FormControl>
-                    <Input
-                      placeholder="Las funciones son..."
-                      type="textarea"
-                      {...field}
+                    <Editor
+                      height="400px"
+                      language={"markdown"}
+                      theme={theme === "light" ? "vs-light" : "vs-dark"}
+                      value={field.value}
+                      onChange={(value) => field.onChange(value ?? "")}
                     />
                   </FormControl>
 

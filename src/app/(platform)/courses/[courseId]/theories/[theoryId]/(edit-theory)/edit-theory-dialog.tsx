@@ -1,5 +1,7 @@
 "use client";
 
+import { editTheory } from "@/app/(platform)/courses/[courseId]/theories/[theoryId]/(edit-theory)/edit-theory";
+import { Button } from "@/app/_cross/components/button";
 import {
   Dialog,
   DialogContent,
@@ -7,11 +9,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/app/_cross/components/dialog";
-import { Button } from "@/app/_cross/components/button";
-import { Input } from "@/app/_cross/components/input";
-import type * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -20,32 +17,39 @@ import {
   FormLabel,
   FormMessage,
 } from "@/app/_cross/components/form";
-import { useState } from "react";
-import { courseFormSchema } from "@/app/(platform)/courses/course-form-schema";
-import { toast } from "sonner";
+import { Input } from "@/app/_cross/components/input";
 import { TextArea } from "@/app/_cross/components/text-area";
-import type { Practice } from "@prisma/client";
-import { editTheory } from "@/app/(platform)/courses/[courseId]/theories/[theoryId]/(edit-theory)/edit-theory";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Editor } from "@monaco-editor/react";
+import { type Theory } from "@prisma/client";
+import { useTheme } from "next-themes";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import type * as z from "zod";
+import { createTheoryFormSchema } from "../../(create)/create-theory-form-schema";
 
-export const EditTheoryDialog = ({ practice }: { practice: Practice }) => {
+export const EditTheoryDialog = ({ theory }: { theory: Theory }) => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  const { theme } = useTheme();
 
-  const form = useForm<z.infer<typeof courseFormSchema>>({
-    resolver: zodResolver(courseFormSchema),
+  const form = useForm<z.infer<typeof createTheoryFormSchema>>({
+    resolver: zodResolver(createTheoryFormSchema),
     defaultValues: {
-      name: practice.name,
-      description: practice.description,
+      name: theory.name,
+      description: theory.description,
+      content: theory.content,
     },
   });
 
-  const onSubmit = (data: z.infer<typeof courseFormSchema>) => {
+  const onSubmit = (data: z.infer<typeof createTheoryFormSchema>) => {
     setSubmitButtonDisabled(true);
 
     toast.promise(
       // TODO: Review if it is okay that this function is async
       async () => {
         await editTheory({
-          id: practice.id,
+          id: theory.id,
           ...data,
         });
 
@@ -103,6 +107,26 @@ export const EditTheoryDialog = ({ practice }: { practice: Practice }) => {
                     />
                   </FormControl>
 
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="content"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Contenido</FormLabel>
+                  <FormControl>
+                    <Editor
+                      height="400px"
+                      language={"markdown"}
+                      theme={theme === "light" ? "vs-light" : "vs-dark"}
+                      value={field.value}
+                      onChange={(value) => field.onChange(value ?? "")}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

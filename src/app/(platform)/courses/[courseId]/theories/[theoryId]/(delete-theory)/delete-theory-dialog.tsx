@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/app/_cross/components/button";
 import {
   Dialog,
   DialogClose,
@@ -9,17 +10,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/app/_cross/components/dialog";
-import { Button } from "@/app/_cross/components/button";
 import { toast } from "sonner";
-import { deletePractice } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/(delete-practice)/delete-practice";
+import { deleteTheory } from "./delete-theory";
 
 // TODO: Check if we can have this component once and pass the action via props.
-export const DeleteTheoryDialog = ({ practiceId }: { practiceId: string }) => {
+export const DeleteTheoryDialog = ({ theoryId }: { theoryId: string }) => {
   const onConfirm = () =>
-    toast.promise(deletePractice(practiceId), {
-      loading: "Eliminando el trabajo práctico...",
-      success: "Trabajo práctico eliminado exitosamente.",
-      error: "No se pudo eliminar el trabajo práctico.",
+    toast.promise(deleteTheory(theoryId), {
+      loading: "Eliminando la unidad teórica...",
+      success: "Unidad teórica eliminada exitosamente.",
+      error: "No se pudo eliminar la unidad teórica.",
     });
 
   return (
@@ -33,14 +33,14 @@ export const DeleteTheoryDialog = ({ practiceId }: { practiceId: string }) => {
           <DialogTitle>¿Estás seguro?</DialogTitle>
 
           <DialogDescription>
-            Esta acción no puede ser deshecha. Esto eliminará permanentemente el
-            trabajo práctico.
+            Esta acción no puede ser deshecha. Esto eliminará permanentemente la
+            unidad teórica.
           </DialogDescription>
         </DialogHeader>
 
         <DialogClose asChild>
           <Button onClick={onConfirm} variant="destructive">
-            Sí, confirmo que deseo eliminar el trabajo práctico.
+            Sí, confirmo que deseo eliminar la unidad teórica.
           </Button>
         </DialogClose>
       </DialogContent>
