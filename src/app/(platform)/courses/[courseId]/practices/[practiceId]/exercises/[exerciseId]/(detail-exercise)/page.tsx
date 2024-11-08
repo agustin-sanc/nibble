@@ -136,7 +136,7 @@ export default async function ExerciseDetailPage({
             problemId={exercise.id}
             testCases={[
               ...exercise.blackBoxTests.map(test => ({ ...test, type: "BLACK_BOX" })),
-              ...exercise.whiteBoxTests.map(test => ({ ...test, type: "WHITE_BOX" })),
+              ...exercise.whiteBoxTests.map(test => ({ ...test, testCode: btoa(test.test), type: "WHITE_BOX" })),
               ...exercise.grayBoxTests.map(test => ({ ...test, type: "GRAY_BOX" })),
             ]}
           />
