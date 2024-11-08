@@ -50,6 +50,7 @@ export const exerciseFormSchema = z.object({
   blackBoxTests: z.array(blackBoxTestSchema).optional(),
   grayBoxTests: z.array(grayBoxTestSchema).optional(),
   whiteBoxTests: z.array(whiteBoxTestSchema).optional(),
+  difficulty: z.number().min(1).max(10),
 });
 
 export type ExerciseFormSchema = z.infer<typeof exerciseFormSchema>;

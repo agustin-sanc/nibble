@@ -113,7 +113,7 @@ export default async function ExerciseDetailPage({
 
       <div className="mt-8">
         <Header3>Soluciones enviadas</Header3>
-        <SolutionsTable 
+        <SolutionsTable
           exerciseId={exercise.id}
           userId={currentUserIsProfessor ? undefined : user.id}
           isProfessor={currentUserIsProfessor}
@@ -135,9 +135,21 @@ export default async function ExerciseDetailPage({
           <Solution
             problemId={exercise.id}
             testCases={[
-              ...exercise.blackBoxTests.map(test => ({ ...test, type: "BLACK_BOX" })),
-              ...exercise.whiteBoxTests.map(test => ({ ...test, testCode: btoa(test.test), type: "WHITE_BOX" })),
-              ...exercise.grayBoxTests.map(test => ({ ...test, type: "GRAY_BOX", functionArgs: test.functionArgs.map(arg => arg.value), functionResponse: test.functionResponse.value })),
+              ...exercise.blackBoxTests.map((test) => ({
+                ...test,
+                type: "BLACK_BOX",
+              })),
+              ...exercise.whiteBoxTests.map((test) => ({
+                ...test,
+                testCode: btoa(test.test),
+                type: "WHITE_BOX",
+              })),
+              ...exercise.grayBoxTests.map((test) => ({
+                ...test,
+                type: "GRAY_BOX",
+                functionArgs: test.functionArgs.map((arg) => arg.value),
+                functionResponse: test.functionResponse.value,
+              })),
             ]}
           />
         </div>

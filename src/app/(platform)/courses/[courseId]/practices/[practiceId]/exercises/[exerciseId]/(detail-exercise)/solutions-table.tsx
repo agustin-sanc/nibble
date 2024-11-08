@@ -6,19 +6,25 @@ type SolutionsTableProps = {
   isProfessor: boolean;
 };
 
-export async function SolutionsTable({ exerciseId, userId, isProfessor }: SolutionsTableProps) {
+export async function SolutionsTable({
+  exerciseId,
+  userId,
+  isProfessor,
+}: SolutionsTableProps) {
   const solutions = await database.solution.findMany({
     where: {
       exerciseId,
       ...(isProfessor ? {} : { userId }),
     },
     orderBy: {
-      createdAt: 'desc'
-    }
+      createdAt: "desc",
+    },
   });
 
   if (solutions.length === 0) {
-    return <p className="text-sm text-gray-500">No hay soluciones enviadas aún.</p>;
+    return (
+      <p className="text-sm text-gray-500">No hay soluciones enviadas aún.</p>
+    );
   }
 
   return (

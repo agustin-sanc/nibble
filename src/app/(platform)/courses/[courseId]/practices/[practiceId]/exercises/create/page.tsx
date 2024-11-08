@@ -48,6 +48,7 @@ const Page = ({
       name: "",
       description: "",
       tags: [],
+      difficulty: 1,
       blackBoxTests: [],
       grayBoxTests: [],
       whiteBoxTests: [],
@@ -169,6 +170,29 @@ const Page = ({
                     value={tagsInput}
                     onChange={handleTagsChange}
                     onBlur={handleTagsBlur}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="difficulty"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Dificultad (1-10)</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    min={1}
+                    max={10}
+                    placeholder="Nivel de dificultad"
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(parseInt(e.target.value) || 1)
+                    }
                   />
                 </FormControl>
                 <FormMessage />

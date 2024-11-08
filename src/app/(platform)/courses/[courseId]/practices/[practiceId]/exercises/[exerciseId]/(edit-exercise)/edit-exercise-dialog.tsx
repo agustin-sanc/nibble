@@ -71,6 +71,7 @@ export const EditExerciseDialog = ({
     defaultValues: {
       name: exercise.name,
       description: exercise.description ?? undefined,
+      difficulty: exercise.difficulty,
       tags: exercise.tags,
       blackBoxTests: exercise.blackBoxTests.map((test) => ({
         isExample: test.isExample,
@@ -212,6 +213,29 @@ export const EditExerciseDialog = ({
                       value={tagsInput}
                       onChange={handleTagsChange}
                       onBlur={handleTagsBlur}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="difficulty"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Dificultad (1-10)</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      min={1}
+                      max={10}
+                      placeholder="Nivel de dificultad"
+                      {...field}
+                      onChange={(e) =>
+                        field.onChange(parseInt(e.target.value) || 1)
+                      }
                     />
                   </FormControl>
                   <FormMessage />
