@@ -13,7 +13,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
     },
   });
 
-  const reportData = await fetch("http://localhost:8082/api/report", {
+  const report = await fetch("http://localhost:8082/api/report", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -54,11 +54,11 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
       <Header2>Reportes</Header2>
 
       <Header3>Reporte general del curso</Header3>
-      <p>Porcentaje de trabajos prácticos resueltos: {reportData.succeded_practices_ratio}</p>
-      <p>Porcentaje de ejercicios resueltos: {reportData.succeded_excercises_ratio}</p>
+      <p>Porcentaje de trabajos prácticos resueltos: {report.succeded_practices_ratio}</p>
+      <p>Porcentaje de ejercicios resueltos: {report.succeded_excercises_ratio}</p>
 
       <Header3>Reporte por trabajo práctico</Header3>
-      {Object.entries(reportData.practices).map(([practiceId, stats]) => (
+      {Object.entries(report.practices).map(([practiceId, stats]) => (
         <div key={practiceId}>
           <p>Trabajo práctico {practiceId}:</p>
           <ul>
@@ -70,7 +70,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
       ))}
 
       <Header3>Reporte por etiquetas</Header3>
-      {Object.entries(reportData.tags).map(([tag, stats]) => (
+      {Object.entries(report.tags).map(([tag, stats]) => (
         <div key={tag}>
           <p>Etiqueta {tag}:</p>
           <ul>
@@ -82,7 +82,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
       ))}
 
       <Header3>Reporte por dificultad</Header3>
-      {Object.entries(reportData.difficulties).map(([difficulty, stats]) => (
+      {Object.entries(report.difficulties).map(([difficulty, stats]) => (
         <div key={difficulty}>
           <p>Dificultad {difficulty}:</p>
           <ul>
