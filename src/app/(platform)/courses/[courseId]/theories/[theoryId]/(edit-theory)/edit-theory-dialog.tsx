@@ -72,7 +72,7 @@ export const EditTheoryDialog = ({ theory }: { theory: Theory }) => {
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Editar curso</DialogTitle>
+          <DialogTitle>Editar unidad teórica</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
