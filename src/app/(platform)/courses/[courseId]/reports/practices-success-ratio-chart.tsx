@@ -1,6 +1,5 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
 
 import {
@@ -35,9 +34,9 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function SucceededRatioChart({ data }: { data: PracticeData[] }) {
+export function PracticesSuccessRatioChart({ data }: { data: PracticeData[] }) {
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>Ratio de éxito por práctica</CardTitle>
         <CardDescription>Porcentaje de ejercicios resueltos correctamente</CardDescription>
@@ -51,8 +50,8 @@ export function SucceededRatioChart({ data }: { data: PracticeData[] }) {
             margin={{
               right: 16,
               left: 16,
-              top: 16,
-              bottom: 16
+              top: 10,
+              bottom: 0
             }}
           >
             <CartesianGrid horizontal={false} />
@@ -96,7 +95,7 @@ export function SucceededRatioChart({ data }: { data: PracticeData[] }) {
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
+      <CardFooter className="pt-2">
         <div className="leading-none text-muted-foreground">
           Mostrando el ratio de éxito para cada práctica
         </div>

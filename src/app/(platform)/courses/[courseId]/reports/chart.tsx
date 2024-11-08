@@ -33,22 +33,22 @@ export function Component({ data }: ChartProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Estadísticas por Trabajo Práctico</CardTitle>
+        <CardTitle>Intentos exitosos y fallidos por trabajo práctico</CardTitle>
         <CardDescription>
           Comparación de intentos exitosos y fallidos por trabajo práctico
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-[400px] w-full">
+        <div className="w-full">
           <BarChart
-            width={800}
-            height={400}
+            width={400}
+            height={200}
             data={chartData}
             margin={{
-              top: 20,
+              top: 10,
               right: 30,
               left: 20,
-              bottom: 5,
+              bottom: 0,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
@@ -76,7 +76,7 @@ export function Component({ data }: ChartProps) {
           </BarChart>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="pt-2">
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
