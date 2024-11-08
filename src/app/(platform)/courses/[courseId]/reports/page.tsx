@@ -83,7 +83,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
   }).then((res) => res?.json()) as {
     general_excercise_difficulty: number;
     course_resolve_capacity: number;
-    student_evaluations: Record<string, {
+    students_evaluations: Record<string, {
       resolution_score: number;
       resolution_capacity: number;
     }>;
@@ -202,7 +202,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
         <div className="mt-6">
           <Header3>Evaluación por estudiante</Header3>
           <div className="mt-4 grid gap-4">
-            {Object.entries(studentsEvaluation.student_evaluations).map(([studentId, evaluation]) => (
+            {Object.entries(studentsEvaluation.students_evaluations).map(([studentId, evaluation]) => (
               <div key={studentId} className="p-4 bg-white rounded-lg shadow">
                 <p className="font-semibold">Estudiante ID: {studentId}</p>
                 <div className="grid grid-cols-2 gap-4 mt-2">
