@@ -1,15 +1,16 @@
 import { Solution } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/solution";
 import { TestExamples } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/test-examples";
+import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import {
   Header2,
   Header3,
   UnorderedList,
 } from "@/app/_cross/components/typography";
 import { database } from "@/app/_cross/database";
+import { clerkClient } from "@clerk/nextjs";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { DeleteExerciseDialog } from "../(delete-exercise)/delete-exercise-dialog";
 import { EditExerciseDialog } from "../(edit-exercise)/edit-exercise-dialog";
 import { SolutionsTable } from "./solutions-table";
@@ -40,6 +41,7 @@ export default async function ExerciseDetailPage({
   if (!exercise) notFound();
 
   const user = await getCurrentUser();
+
   const { isProfessor: currentUserIsProfessor } = user;
 
   const Header = () => (
@@ -96,6 +98,37 @@ export default async function ExerciseDetailPage({
     );
   };
 
+  const solutions = await database.solution.findMany({
+    where: {
+      exerciseId,
+      ...(currentUserIsProfessor ? {} : { userId: user.id }),
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const userIds = [...new Set(solutions.map((solution) => solution.userId))];
+
+  const users = await clerkClient.users.getUserList({
+    userId: userIds,
+  });
+
+  const solutionsWithUserInfo = solutions.map((solution) => {
+    const userInfo = users.find((user) => user.id === solution.userId);
+    return {
+      ...solution,
+      user: userInfo
+        ? {
+            id: userInfo.id,
+            firstName: userInfo.firstName,
+            lastName: userInfo.lastName,
+            email: userInfo.emailAddresses[0]?.emailAddress,
+          }
+        : undefined,
+    };
+  });
+
   const Problem = () => (
     <div>
       <Header3>Descripción</Header3>
@@ -114,8 +147,7 @@ export default async function ExerciseDetailPage({
       <div className="mt-8">
         <Header3>Soluciones enviadas</Header3>
         <SolutionsTable
-          exerciseId={exercise.id}
-          userId={currentUserIsProfessor ? undefined : user.id}
+          solutions={currentUserIsProfessor ? solutionsWithUserInfo : solutions}
           isProfessor={currentUserIsProfessor}
         />
       </div>

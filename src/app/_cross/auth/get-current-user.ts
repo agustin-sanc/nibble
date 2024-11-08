@@ -1,4 +1,5 @@
 import { currentUser } from "@clerk/nextjs";
+
 import { redirect } from "next/navigation";
 
 export const getCurrentUser = async () => {
