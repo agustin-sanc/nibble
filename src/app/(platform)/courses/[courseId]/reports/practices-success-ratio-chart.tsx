@@ -38,7 +38,7 @@ export function PracticesSuccessRatioChart({ data }: { data: PracticeData[] }) {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Ratio de éxito por práctica</CardTitle>
+        <CardTitle>Ratio de éxito por trabajo práctico</CardTitle>
         <CardDescription>Porcentaje de ejercicios resueltos correctamente</CardDescription>
       </CardHeader>
       <CardContent>
