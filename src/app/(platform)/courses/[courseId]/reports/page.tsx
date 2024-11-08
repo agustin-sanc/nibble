@@ -181,7 +181,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
       </div>
 
       <div className="mt-8">
-        <Header3>Evaluación General</Header3>
+        <Header3>Evaluación general</Header3>
         <div className="grid grid-cols-2 gap-4 mt-4">
           <div className="p-4 bg-white rounded-lg shadow">
             <p className="text-gray-600">Dificultad general de ejercicios</p>
@@ -194,7 +194,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
         </div>
 
         <div className="mt-6">
-          <Header3>Evaluación por Estudiante</Header3>
+          <Header3>Evaluación por estudiante</Header3>
           <div className="mt-4 grid gap-4">
             {Object.entries(studentsEvaluation.student_evaluations).map(([studentId, evaluation]) => (
               <div key={studentId} className="p-4 bg-white rounded-lg shadow">
