@@ -1,6 +1,7 @@
 import { Header2, Header3 } from "@/app/_cross/components/typography";
 import { database } from "@/app/_cross/database";
 import { Component as Chart } from "./chart";
+import { SucceededRatioChart } from "./succeeded-ratio-chart";
 
 async function CourseReportsPage({ params }: { params: { courseId: string } }) {
   const practices = await database.practice.findMany({
@@ -54,12 +55,17 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
     succeded_practices_ratio: 0.75,
     succeded_excercises_ratio: 0.68,
     practices: {
-      "practice1": {
+      "TP1": {
         succeded_attempts: 25,
         failed_attempts: 10,
         succeded_ratio: 0.71
       },
-      "practice2": {
+      "TP2": {
+        succeded_attempts: 30,
+        failed_attempts: 5,
+        succeded_ratio: 0.86
+      },
+      "TP3": {
         succeded_attempts: 30,
         failed_attempts: 5,
         succeded_ratio: 0.86
@@ -105,6 +111,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
       <p>Porcentaje de ejercicios resueltos: {report.succeded_excercises_ratio}</p>
 
       <Chart data={practicesData} />
+      <SucceededRatioChart data={practicesData} />
 
       <Header3>Reporte por etiquetas</Header3>
       {Object.entries(report.tags).map(([tag, stats]) => (
