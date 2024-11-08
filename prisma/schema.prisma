@@ -62,6 +62,7 @@ model Exercise {
   id          String   @id @default(cuid())
   name        String
   description String
+  difficulty Int
   tags        Tag[]    @relation("ExerciseToTag")
   solvedBy    String[]
   solutions   Solution[]
@@ -156,7 +157,7 @@ model Solution {
   code      String
   passed    Boolean
   userId    String
-  
+
   exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   exerciseId String
 
