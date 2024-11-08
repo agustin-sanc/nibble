@@ -24,7 +24,7 @@ export const DeleteCourseDialog = ({ courseId }: { courseId: string }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Eliminar</Button>
+        <Button variant="destructive">Eliminar</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
