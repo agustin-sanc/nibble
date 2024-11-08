@@ -1,5 +1,6 @@
 import { Header2, Header3 } from "@/app/_cross/components/typography";
 import { database } from "@/app/_cross/database";
+import { Component as Chart } from "./chart";
 
 async function CourseReportsPage({ params }: { params: { courseId: string } }) {
   const practices = await database.practice.findMany({
@@ -25,7 +26,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
         excercises: practice.exercises.map((exercise) => ({
           id: exercise.id,
           tags: exercise.tags.map((tag) => tag.name),
-          difficulty: exercise.difficulty,
+          difficulty: exercise.difficulty as number,
         })),
       })),
     }),
@@ -49,6 +50,11 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
     }>;
   };
 
+  const practicesData = Object.entries(report.practices).map(([practiceId, stats]) => ({
+    practiceId,
+    ...stats
+  }));
+
   return (
     <>
       <Header2>Reportes</Header2>
@@ -57,17 +63,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
       <p>Porcentaje de trabajos prácticos resueltos: {report.succeded_practices_ratio}</p>
       <p>Porcentaje de ejercicios resueltos: {report.succeded_excercises_ratio}</p>
 
-      <Header3>Reporte por trabajo práctico</Header3>
-      {Object.entries(report.practices).map(([practiceId, stats]) => (
-        <div key={practiceId}>
-          <p>Trabajo práctico {practiceId}:</p>
-          <ul>
-            <li>Intentos exitosos: {stats.succeded_attempts}</li>
-            <li>Intentos fallidos: {stats.failed_attempts}</li>
-            <li>Ratio de éxito: {stats.succeded_ratio}</li>
-          </ul>
-        </div>
-      ))}
+      <Chart data={practicesData} />
 
       <Header3>Reporte por etiquetas</Header3>
       {Object.entries(report.tags).map(([tag, stats]) => (
