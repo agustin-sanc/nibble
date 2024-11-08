@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/app/_cross/components/button";
+import { Checkbox } from "@/app/_cross/components/check-box";
 import {
   Dialog,
   DialogContent,
@@ -7,11 +9,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/app/_cross/components/dialog";
-import { Button } from "@/app/_cross/components/button";
-import { Input } from "@/app/_cross/components/input";
-import type * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -20,19 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/app/_cross/components/form";
-import { useState } from "react";
-import { toast } from "sonner";
-import { TextArea } from "@/app/_cross/components/text-area";
-import type {
-  Exercise,
-  BlackBoxTest,
-  GrayBoxTest,
-  WhiteBoxTest,
-} from "@prisma/client";
-import { editExercise } from "./edit-exercise";
-import { exerciseFormSchema } from "../../exercise-form-schema";
-import { Checkbox } from "@/app/_cross/components/check-box";
-import { X } from "lucide-react";
+import { Input } from "@/app/_cross/components/input";
 import {
   Select,
   SelectContent,
@@ -40,7 +25,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/app/_cross/components/select";
+import { TextArea } from "@/app/_cross/components/text-area";
 import { Header3 } from "@/app/_cross/components/typography";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type {
+  BlackBoxTest,
+  Exercise,
+  GrayBoxTest,
+  WhiteBoxTest,
+} from "@prisma/client";
+import { X } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import type * as z from "zod";
+import { exerciseFormSchema } from "../../exercise-form-schema";
+import { editExercise } from "./edit-exercise";
 
 type ExerciseWithTests = Exercise & {
   blackBoxTests: BlackBoxTest[];
@@ -136,14 +136,13 @@ export const EditExerciseDialog = ({
 
   const handleTagsBlur = () => {
     const tagsArray = tagsInput
-      .split(" ")
+      ?.split(" ")
       .filter((tag: string) => tag.trim() !== "");
     form.setValue("tags", tagsArray);
   };
 
   const onSubmit = (data: z.infer<typeof exerciseFormSchema>) => {
     setSubmitButtonDisabled(true);
-
     toast.promise(
       editExercise({
         id: exercise.id,

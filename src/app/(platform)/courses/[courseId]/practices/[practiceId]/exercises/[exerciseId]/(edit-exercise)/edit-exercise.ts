@@ -1,10 +1,10 @@
 "use server";
 
-import { database } from "@/app/_cross/database";
-import * as z from "zod";
 import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
-import { notFound } from "next/navigation";
+import { database } from "@/app/_cross/database";
 import { revalidatePath } from "next/cache";
+import { notFound } from "next/navigation";
+import * as z from "zod";
 import { exerciseFormSchema } from "../../exercise-form-schema";
 
 const validateInput = (data: z.infer<typeof exerciseFormSchema>) => {
@@ -22,12 +22,18 @@ export const editExercise = async (
 
   validateInput(data);
 
+  const tags = data.tags?.map((tag) => ({ name: tag })) ?? [];
+
   const exercise = await database.exercise.update({
     where: { id: data.id, practice: { course: { ownerId: user.id } } },
     data: {
       ...data,
       tags: {
-        set: data.tags?.map((tag) => ({ name: tag })) ?? [],
+        set: [],
+        connectOrCreate: tags.map((tag) => ({
+          where: { name: tag.name },
+          create: { name: tag.name },
+        })),
       },
       blackBoxTests: {
         deleteMany: {},

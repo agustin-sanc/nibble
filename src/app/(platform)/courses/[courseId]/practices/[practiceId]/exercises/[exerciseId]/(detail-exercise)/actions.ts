@@ -25,6 +25,11 @@ export async function submitSolution(data: {
 
     const resultData = (await result.json()) as {
       passed: boolean;
+      testResults?: {
+        testNumber: number;
+        testStatus: string;
+        testType: string;
+      }[];
     };
 
     console.dir(resultData, { depth: null });

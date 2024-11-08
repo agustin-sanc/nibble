@@ -24,6 +24,13 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
   const { theme } = useTheme();
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState<"c++" | "python">("c++");
+  const [error, setError] = useState<
+    {
+      testNumber: number;
+      testStatus: string;
+      testType: string;
+    }[]
+  >([]);
 
   const handleSubmit = useCallback(async () => {
     const toastId = toast.loading("Enviando solución...");
@@ -35,11 +42,11 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
         problemId,
         testCases,
       });
-
       if (response.data.passed) {
         toast.success("¡Solución correcta!", { id: toastId });
       } else {
         toast.error("La solución no es correcta", { id: toastId });
+        setError(response.data?.testResults?.map((r) => r) ?? []);
       }
     } catch (error) {
       toast.error("Ocurrió un error al evaluar la solución", { id: toastId });
@@ -79,6 +86,26 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
 
         <Button onClick={handleSubmit}>Evaluar solución</Button>
       </div>
+      {!!error.length && (
+        <div className="flex flex-col font-bold">
+          Retroalimentación:{" "}
+          <div className="flex flex-col gap-1 text-sm font-light">
+            {error.map((e, i) => (
+              <div key={i} className="mt-2">
+                <div>
+                  Caso de prueba {e.testNumber} -{" "}
+                  {e.testType === "BLACK_BOX"
+                    ? "Caja Negra"
+                    : e.testType === "WHITE_BOX"
+                    ? "Caja Blanca"
+                    : "Caja Gris"}
+                </div>
+                <div className="text-red-500">Estado: {e.testStatus}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { Solution } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/solution";
 import { TestExamples } from "@/app/(platform)/courses/[courseId]/practices/[practiceId]/exercises/[exerciseId]/(detail-exercise)/test-examples";
+import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import {
   Header2,
   Header3,
@@ -9,7 +10,6 @@ import { database } from "@/app/_cross/database";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCurrentUser } from "@/app/_cross/auth/get-current-user";
 import { DeleteExerciseDialog } from "../(delete-exercise)/delete-exercise-dialog";
 import { EditExerciseDialog } from "../(edit-exercise)/edit-exercise-dialog";
 import { SolutionsTable } from "./solutions-table";
@@ -96,6 +96,22 @@ export default async function ExerciseDetailPage({
     );
   };
 
+  let solutions: any[] = [];
+
+  const getSolutions = async () => {
+    return await database.solution.findMany({
+      where: {
+        exerciseId,
+        ...(currentUserIsProfessor ? {} : { userId: user.id }),
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  };
+
+  solutions = await getSolutions();
+
   const Problem = () => (
     <div>
       <Header3>Descripción</Header3>
@@ -114,8 +130,7 @@ export default async function ExerciseDetailPage({
       <div className="mt-8">
         <Header3>Soluciones enviadas</Header3>
         <SolutionsTable
-          exerciseId={exercise.id}
-          userId={currentUserIsProfessor ? undefined : user.id}
+          solutions={solutions}
           isProfessor={currentUserIsProfessor}
         />
       </div>
