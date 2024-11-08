@@ -96,6 +96,7 @@ Las variables son esenciales para almacenar y manipular datos en los programas. 
       description:
         "Dados dos números enteros, devolver la suma de ambos números.",
       practiceId: variablesPractice.id,
+      difficulty: 8,
       blackBoxTests: {
         create: [
           {
