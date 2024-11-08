@@ -7,6 +7,12 @@ type SolutionsTableProps = {
     createdAt: Date;
     passed: boolean;
     userId: string;
+    user?: {
+      id: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+    };
   }[];
 };
 
@@ -42,7 +48,13 @@ export async function SolutionsTable({
                   "dd/MM/yyyy HH:mm:ss",
                 )}
               </td>
-              {isProfessor && <td className="py-2">{solution.userId}</td>}
+              {isProfessor && (
+                <td className="py-2">
+                  {solution.user
+                    ? solution.user.firstName + " " + solution.user.lastName
+                    : solution.userId}
+                </td>
+              )}
               <td
                 className="py-2"
                 style={{

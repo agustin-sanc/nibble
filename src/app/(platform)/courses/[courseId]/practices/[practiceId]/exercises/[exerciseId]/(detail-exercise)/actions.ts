@@ -1,6 +1,7 @@
 "use server";
 
 import { database } from "@/app/_cross/database";
+import { revalidatePath } from "next/cache";
 import { getCurrentUser } from "../../../../../../../../_cross/auth/get-current-user";
 
 export async function submitSolution(data: {
@@ -8,6 +9,8 @@ export async function submitSolution(data: {
   language: "c++" | "python";
   problemId: string;
   testCases: any[];
+  courseId: string;
+  practiceId: string;
 }) {
   const user = await getCurrentUser();
 
@@ -42,6 +45,10 @@ export async function submitSolution(data: {
         passed: resultData.passed,
       },
     });
+
+    revalidatePath(
+      `/courses/${data.courseId}/practices/${data.practiceId}/exercises/${data.problemId}`,
+    );
 
     return {
       status: result.status,

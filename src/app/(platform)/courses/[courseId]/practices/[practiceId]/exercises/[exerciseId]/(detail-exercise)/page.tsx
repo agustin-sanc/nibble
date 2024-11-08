@@ -7,6 +7,7 @@ import {
   UnorderedList,
 } from "@/app/_cross/components/typography";
 import { database } from "@/app/_cross/database";
+import { clerkClient } from "@clerk/nextjs";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -40,6 +41,7 @@ export default async function ExerciseDetailPage({
   if (!exercise) notFound();
 
   const user = await getCurrentUser();
+
   const { isProfessor: currentUserIsProfessor } = user;
 
   const Header = () => (
@@ -96,21 +98,36 @@ export default async function ExerciseDetailPage({
     );
   };
 
-  let solutions: any[] = [];
+  const solutions = await database.solution.findMany({
+    where: {
+      exerciseId,
+      ...(currentUserIsProfessor ? {} : { userId: user.id }),
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
-  const getSolutions = async () => {
-    return await database.solution.findMany({
-      where: {
-        exerciseId,
-        ...(currentUserIsProfessor ? {} : { userId: user.id }),
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-  };
+  const userIds = [...new Set(solutions.map((solution) => solution.userId))];
 
-  solutions = await getSolutions();
+  const users = await clerkClient.users.getUserList({
+    userId: userIds,
+  });
+
+  const solutionsWithUserInfo = solutions.map((solution) => {
+    const userInfo = users.find((user) => user.id === solution.userId);
+    return {
+      ...solution,
+      user: userInfo
+        ? {
+            id: userInfo.id,
+            firstName: userInfo.firstName,
+            lastName: userInfo.lastName,
+            email: userInfo.emailAddresses[0]?.emailAddress,
+          }
+        : undefined,
+    };
+  });
 
   const Problem = () => (
     <div>
@@ -130,7 +147,7 @@ export default async function ExerciseDetailPage({
       <div className="mt-8">
         <Header3>Soluciones enviadas</Header3>
         <SolutionsTable
-          solutions={solutions}
+          solutions={currentUserIsProfessor ? solutionsWithUserInfo : solutions}
           isProfessor={currentUserIsProfessor}
         />
       </div>

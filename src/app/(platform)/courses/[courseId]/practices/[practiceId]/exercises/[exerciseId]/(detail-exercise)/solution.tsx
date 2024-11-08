@@ -11,6 +11,7 @@ import {
 import { Header3 } from "@/app/_cross/components/typography";
 import Editor from "@monaco-editor/react";
 import { useTheme } from "next-themes";
+import { useParams } from "next/navigation";
 import { FC, useCallback, useState } from "react";
 import { toast } from "sonner";
 import { submitSolution } from "./actions";
@@ -22,6 +23,7 @@ interface SolutionProps {
 
 export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
   const { theme } = useTheme();
+  const params = useParams<{ courseId: string; practiceId: string }>();
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState<"c++" | "python">("c++");
   const [error, setError] = useState<
@@ -41,6 +43,8 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
         language,
         problemId,
         testCases,
+        courseId: params.courseId,
+        practiceId: params.practiceId,
       });
       if (response.data.passed) {
         toast.success("¡Solución correcta!", { id: toastId });
