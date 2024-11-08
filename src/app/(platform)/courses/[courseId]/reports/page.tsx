@@ -37,7 +37,10 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
         })),
       })),
     }),
-  }).then((res) => res.json()) as {
+  }).catch((err) => {
+    console.error(err);
+    return null;
+  }).then((res) => res?.json()) as {
     succeded_practices_ratio: number;
     succeded_excercises_ratio: number;
     practices: Record<string, {
@@ -74,7 +77,10 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
         })),
       })),
     }),
-  }).then((res) => res.json()) as {
+  }).catch((err) => {
+    console.error(err);
+    return null;
+  }).then((res) => res?.json()) as {
     general_excercise_difficulty: number;
     course_resolve_capacity: number;
     student_evaluations: Record<string, {
