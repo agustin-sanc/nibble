@@ -135,9 +135,9 @@ export default async function ExerciseDetailPage({
           <Solution
             problemId={exercise.id}
             testCases={[
-              ...exercise.blackBoxTests,
-              ...exercise.whiteBoxTests,
-              ...exercise.grayBoxTests,
+              ...exercise.blackBoxTests.map(test => ({ ...test, type: "BLACK_BOX" })),
+              ...exercise.whiteBoxTests.map(test => ({ ...test, type: "WHITE_BOX" })),
+              ...exercise.grayBoxTests.map(test => ({ ...test, type: "GRAY_BOX" })),
             ]}
           />
         </div>
