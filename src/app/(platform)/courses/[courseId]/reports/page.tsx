@@ -61,42 +61,42 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
   };
 
 
-  // const studentsEvaluation = await fetch("http://localhost:8082/api/evaluation", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     studentIds: course.studentIds,
-  //     practices: practices.map((practice) => ({
-  //       id: practice.id,
-  //       excercises: practice.exercises.map((exercise) => ({
-  //         id: exercise.id,
-  //         tags: exercise.tags.map((tag) => tag.name),
-  //         difficulty: exercise.difficulty as number,
-  //       })),
-  //     })),
-  //   }),
-  // }).catch((err) => {
-  //   console.error(err);
-  //   return null;
-  // }).then((res) => res?.json()) as {
-  //   general_excercise_difficulty: number;
-  //   course_resolve_capacity: number;
-  //   student_evaluations: Record<string, {
-  //     resolution_score: number;
-  //     resolution_capacity: number;
-  //   }>;
-  // };
-
-  const studentsEvaluation = {
-    general_excercise_difficulty: 1.5,
-    course_resolve_capacity: 0.75,
-    student_evaluations: {
-      "1": { resolution_score: 0.8, resolution_capacity: 0.9 },
-      "2": { resolution_score: 0.6, resolution_capacity: 0.7 },
+  const studentsEvaluation = await fetch("http://localhost:8082/api/evaluation", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      student_ids: course.studentIds,
+      practices: practices.map((practice) => ({
+        id: practice.id,
+        excercises: practice.exercises.map((exercise) => ({
+          id: exercise.id,
+          tags: exercise.tags.map((tag) => tag.name),
+          difficulty: exercise.difficulty as number,
+        })),
+      })),
+    }),
+  }).catch((err) => {
+    console.error(err);
+    return null;
+  }).then((res) => res?.json()) as {
+    general_excercise_difficulty: number;
+    course_resolve_capacity: number;
+    student_evaluations: Record<string, {
+      resolution_score: number;
+      resolution_capacity: number;
+    }>;
   };
+
+  // const studentsEvaluation = {
+  //   general_excercise_difficulty: 1.5,
+  //   course_resolve_capacity: 0.75,
+  //   student_evaluations: {
+  //     "1": { resolution_score: 0.8, resolution_capacity: 0.9 },
+  //     "2": { resolution_score: 0.6, resolution_capacity: 0.7 },
+  //   },
+  // };
 
   // const report = {
   //   succeded_practices_ratio: 0.75,
