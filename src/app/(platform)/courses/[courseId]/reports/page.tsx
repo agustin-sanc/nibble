@@ -15,87 +15,87 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
     },
   });
 
-  // const report = await fetch("http://localhost:8082/api/report", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     courseId: params.courseId,
-  //     practices: practices.map((practice) => ({
-  //       id: practice.id,
-  //       excercises: practice.exercises.map((exercise) => ({
-  //         id: exercise.id,
-  //         tags: exercise.tags.map((tag) => tag.name),
-  //         difficulty: exercise.difficulty as number,
-  //       })),
-  //     })),
-  //   }),
-  // }).then((res) => res.json()) as {
-  //   succeded_practices_ratio: number;
-  //   succeded_excercises_ratio: number;
-  //   practices: Record<string, {
-  //     succeded_attempts: number;
-  //     failed_attempts: number;
-  //     succeded_ratio: number;
-  //   }>;
-  //   tags: Record<string, {
-  //     succeded_attempts: number;
-  //     failed_attempts: number;
-  //     succeded_ratio: number;
-  //   }>;
-  //   difficulties: Record<string, {
-  //     succeded_attempts: number;
-  //     failed_attempts: number;
-  //     succeded_ratio: number;
-  //   }>;
-  // };
-
-  const report = {
-    succeded_practices_ratio: 0.75,
-    succeded_excercises_ratio: 0.68,
-    practices: {
-      "TP1": {
-        succeded_attempts: 25,
-        failed_attempts: 10,
-        succeded_ratio: 0.71
-      },
-      "TP2": {
-        succeded_attempts: 30,
-        failed_attempts: 5,
-        succeded_ratio: 0.86
-      },
-      "TP3": {
-        succeded_attempts: 30,
-        failed_attempts: 5,
-        succeded_ratio: 0.86
-      }
+  const report = await fetch("http://localhost:8082/api/report", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    tags: {
-      "recursion": {
-        succeded_attempts: 45,
-        failed_attempts: 15,
-        succeded_ratio: 0.75
-      },
-      "loops": {
-        succeded_attempts: 60,
-        failed_attempts: 20,
-        succeded_ratio: 0.75
-      }
-    },
-    difficulties: {
-      "1": {
-        succeded_attempts: 40,
-        failed_attempts: 10,
-        succeded_ratio: 0.80
-      },
-      "2": {
-        succeded_attempts: 30,
-        failed_attempts: 15,
-        succeded_ratio: 0.67
-      }
-    }
+    body: JSON.stringify({
+      courseId: params.courseId,
+      practices: practices.map((practice) => ({
+        id: practice.id,
+        excercises: practice.exercises.map((exercise) => ({
+          id: exercise.id,
+          tags: exercise.tags.map((tag) => tag.name),
+          difficulty: exercise.difficulty as number,
+        })),
+      })),
+    }),
+  }).then((res) => res.json()) as {
+    succeded_practices_ratio: number;
+    succeded_excercises_ratio: number;
+    practices: Record<string, {
+      succeded_attempts: number;
+      failed_attempts: number;
+      succeded_ratio: number;
+    }>;
+    tags: Record<string, {
+      succeded_attempts: number;
+      failed_attempts: number;
+      succeded_ratio: number;
+    }>;
+    difficulties: Record<string, {
+      succeded_attempts: number;
+      failed_attempts: number;
+      succeded_ratio: number;
+    }>;
   };
+
+  // const report = {
+  //   succeded_practices_ratio: 0.75,
+  //   succeded_excercises_ratio: 0.68,
+  //   practices: {
+  //     "TP1": {
+  //       succeded_attempts: 25,
+  //       failed_attempts: 10,
+  //       succeded_ratio: 0.71
+  //     },
+  //     "TP2": {
+  //       succeded_attempts: 30,
+  //       failed_attempts: 5,
+  //       succeded_ratio: 0.86
+  //     },
+  //     "TP3": {
+  //       succeded_attempts: 30,
+  //       failed_attempts: 5,
+  //       succeded_ratio: 0.86
+  //     }
+  //   },
+  //   tags: {
+  //     "recursion": {
+  //       succeded_attempts: 45,
+  //       failed_attempts: 15,
+  //       succeded_ratio: 0.75
+  //     },
+  //     "loops": {
+  //       succeded_attempts: 60,
+  //       failed_attempts: 20,
+  //       succeded_ratio: 0.75
+  //     }
+  //   },
+  //   difficulties: {
+  //     "1": {
+  //       succeded_attempts: 40,
+  //       failed_attempts: 10,
+  //       succeded_ratio: 0.80
+  //     },
+  //     "2": {
+  //       succeded_attempts: 30,
+  //       failed_attempts: 15,
+  //       succeded_ratio: 0.67
+  //     }
+  //   }
+  // };
 
   const practicesData = Object.entries(report.practices).map(([practiceId, stats]) => ({
     practiceId,
