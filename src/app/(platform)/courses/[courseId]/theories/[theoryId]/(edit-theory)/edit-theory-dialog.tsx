@@ -20,8 +20,8 @@ import {
 import { Input } from "@/app/_cross/components/input";
 import { TextArea } from "@/app/_cross/components/text-area";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Editor } from "@monaco-editor/react";
 import { type Theory } from "@prisma/client";
+import MdEditor from "@uiw/react-md-editor";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -70,7 +70,7 @@ export const EditTheoryDialog = ({ theory }: { theory: Theory }) => {
         <Button>Editar</Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="min-w-[75%]">
         <DialogHeader>
           <DialogTitle>Editar unidad teórica</DialogTitle>
         </DialogHeader>
@@ -119,13 +119,16 @@ export const EditTheoryDialog = ({ theory }: { theory: Theory }) => {
                 <FormItem>
                   <FormLabel>Contenido</FormLabel>
                   <FormControl>
-                    <Editor
-                      height="400px"
-                      language={"markdown"}
-                      theme={theme === "light" ? "vs-light" : "vs-dark"}
-                      value={field.value}
-                      onChange={(value) => field.onChange(value ?? "")}
-                    />
+                    <div
+                      className="relative flex h-full w-full"
+                      data-color-mode={theme === "light" ? "light" : "dark"}
+                    >
+                      <MdEditor
+                        className="w-full"
+                        value={field.value}
+                        onChange={(value) => field.onChange(value ?? "")}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -14,6 +14,7 @@ import { useTheme } from "next-themes";
 import { useParams } from "next/navigation";
 import { FC, useCallback, useState } from "react";
 import { toast } from "sonner";
+import { cn } from "../../../../../../../../_cross/utils/cn";
 import { submitSolution } from "./actions";
 
 interface SolutionProps {
@@ -48,6 +49,7 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
       });
       if (response.data.passed) {
         toast.success("¡Solución correcta!", { id: toastId });
+        setError([]);
       } else {
         toast.error("La solución no es correcta", { id: toastId });
         setError(response.data?.testResults?.map((r) => r) ?? []);
@@ -104,7 +106,18 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
                     ? "Caja Blanca"
                     : "Caja Gris"}
                 </div>
-                <div className="text-red-500">Estado: {e.testStatus}</div>
+                <div>
+                  Estado:{" "}
+                  <span
+                    className={cn([
+                      e.testStatus === "PASSED"
+                        ? "text-green-400"
+                        : "text-red-500",
+                    ])}
+                  >
+                    {e.testStatus}
+                  </span>
+                </div>
               </div>
             ))}
           </div>

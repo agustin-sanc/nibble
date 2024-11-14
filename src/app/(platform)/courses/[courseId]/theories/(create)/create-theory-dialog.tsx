@@ -21,7 +21,7 @@ import {
 import { Input } from "@/app/_cross/components/input";
 import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Editor } from "@monaco-editor/react";
+import MDEditor from "@uiw/react-md-editor";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -65,7 +65,7 @@ export const CreateTheoryDialog = ({ courseId }: { courseId: string }) => {
         <Button>Crear unidad teórica</Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="min-w-[75%]">
         <DialogHeader>
           <DialogTitle>Crear unidad teórica</DialogTitle>
         </DialogHeader>
@@ -115,13 +115,16 @@ export const CreateTheoryDialog = ({ courseId }: { courseId: string }) => {
                 <FormItem>
                   <FormLabel>Contenido</FormLabel>
                   <FormControl>
-                    <Editor
-                      height="400px"
-                      language={"markdown"}
-                      theme={theme === "light" ? "vs-light" : "vs-dark"}
-                      value={field.value}
-                      onChange={(value) => field.onChange(value ?? "")}
-                    />
+                    <div
+                      className="relative flex h-full w-full"
+                      data-color-mode={theme === "light" ? "light" : "dark"}
+                    >
+                      <MDEditor
+                        className="w-full"
+                        value={field.value}
+                        onChange={(value) => field.onChange(value ?? "")}
+                      />
+                    </div>
                   </FormControl>
 
                   <FormMessage />
