@@ -1,8 +1,10 @@
 import { Header2, Header3 } from "@/app/_cross/components/typography";
 import { database } from "@/app/_cross/database";
 import { clerkClient } from "@clerk/nextjs";
+import { cn } from "../../../../_cross/utils/cn";
 import { Component as Chart } from "./chart";
 import { DifficultiesSuccessRatioChart } from "./difficulties-success-ratio-chart";
+import DownloadButton from "./download-button";
 import { PracticesSuccessRatioChart } from "./practices-success-ratio-chart";
 import { RatioChart } from "./ratio-chart";
 import { TagsSuccessRatioChart } from "./tags-success-ratio-chart";
@@ -176,6 +178,11 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
     userId: course.studentIds,
   });
 
+  const simpleStudentsEvaluation = JSON.parse(
+    JSON.stringify(studentsEvaluation),
+  );
+  const simpleUsers = JSON.parse(JSON.stringify(users));
+
   return (
     <>
       <Header2>Reporte del curso</Header2>
@@ -235,28 +242,64 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
         </div>
 
         <div className="mt-6">
-          <Header3>Evaluación por estudiante</Header3>
+          <div className="flex items-center justify-between">
+            <Header3>Evaluación por estudiante</Header3>
+            <DownloadButton
+              studentsEvaluation={simpleStudentsEvaluation}
+              users={simpleUsers}
+            />
+          </div>
           <div className="mt-4 grid gap-4">
             {Object.entries(studentsEvaluation.students_evaluations).map(
               ([studentId, evaluation]) => (
-                <div key={studentId} className="rounded-lg bg-white p-4 shadow">
+                <div
+                  key={studentId}
+                  className={cn([
+                    "rounded-lg p-4 shadow",
+                    evaluation.resolution_capacity > 50
+                      ? "bg-transparent"
+                      : "bg-red-50",
+                  ])}
+                >
                   <p className="font-semibold">
                     Estudiante:{" "}
-                    {users.find((user) => user.id === studentId)?.firstName +
-                      " " +
-                      users.find((user) => user.id === studentId)?.lastName}
+                    {users.find((user) => user.id === studentId)?.id
+                      ? users.find((user) => user.id === studentId)?.firstName +
+                        " " +
+                        users.find((user) => user.id === studentId)?.lastName
+                      : "Sin nombre"}
+                    <p className="text-sm font-extralight text-gray-600">
+                      {
+                        users.find((user) => user.id === studentId)
+                          ?.emailAddresses[0]?.emailAddress
+                      }
+                    </p>
                   </p>
 
-                  <div className="mt-2 grid grid-cols-2 gap-4">
+                  <div className={cn(["mt-2 grid grid-cols-2 gap-4"])}>
                     <div>
                       <p className="text-gray-600">Puntaje de resolución</p>
-                      <p className="text-xl">
+                      <p
+                        className={cn([
+                          "text-xl",
+                          evaluation.resolution_score > 50
+                            ? "text-gray-500"
+                            : "text-red-500",
+                        ])}
+                      >
                         {evaluation.resolution_score?.toFixed(2)}
                       </p>
                     </div>
                     <div>
                       <p className="text-gray-600">Capacidad de resolución</p>
-                      <p className="text-xl">
+                      <p
+                        className={cn([
+                          "text-xl",
+                          evaluation.resolution_capacity > 50
+                            ? "text-gray-500"
+                            : "text-red-500",
+                        ])}
+                      >
                         {evaluation.resolution_capacity?.toFixed(2)}
                       </p>
                     </div>
