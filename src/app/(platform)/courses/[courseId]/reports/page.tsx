@@ -1,10 +1,11 @@
 import { Header2, Header3 } from "@/app/_cross/components/typography";
 import { database } from "@/app/_cross/database";
+import { clerkClient } from "@clerk/nextjs";
 import { Component as Chart } from "./chart";
-import { PracticesSuccessRatioChart } from "./practices-success-ratio-chart";
-import { TagsSuccessRatioChart } from "./tags-success-ratio-chart";
 import { DifficultiesSuccessRatioChart } from "./difficulties-success-ratio-chart";
+import { PracticesSuccessRatioChart } from "./practices-success-ratio-chart";
 import { RatioChart } from "./ratio-chart";
+import { TagsSuccessRatioChart } from "./tags-success-ratio-chart";
 
 async function CourseReportsPage({ params }: { params: { courseId: string } }) {
   const course = await database.course.findUniqueOrThrow({
@@ -22,7 +23,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
     },
   });
 
-  const report = await fetch("http://localhost:8082/api/report", {
+  const report = (await fetch("http://localhost:8082/api/report", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -37,56 +38,74 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
         })),
       })),
     }),
-  }).catch((err) => {
-    console.error(err);
-    return null;
-  }).then((res) => res?.json()) as {
+  })
+    .catch((err) => {
+      console.error(err);
+      return null;
+    })
+    .then((res) => res?.json())) as {
     succeded_practices_ratio: number;
     succeded_excercises_ratio: number;
-    practices: Record<string, {
-      succeded_attempts: number;
-      failed_attempts: number;
-      succeded_ratio: number;
-    }>;
-    tags: Record<string, {
-      succeded_attempts: number;
-      failed_attempts: number;
-      succeded_ratio: number;
-    }>;
-    difficulties: Record<string, {
-      succeded_attempts: number;
-      failed_attempts: number;
-      succeded_ratio: number;
-    }>;
+    practices: Record<
+      string,
+      {
+        succeded_attempts: number;
+        failed_attempts: number;
+        succeded_ratio: number;
+      }
+    >;
+    tags: Record<
+      string,
+      {
+        succeded_attempts: number;
+        failed_attempts: number;
+        succeded_ratio: number;
+      }
+    >;
+    difficulties: Record<
+      string,
+      {
+        succeded_attempts: number;
+        failed_attempts: number;
+        succeded_ratio: number;
+      }
+    >;
   };
 
-
-  const studentsEvaluation = await fetch("http://localhost:8082/api/evaluation", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      student_ids: course.studentIds,
-      practices: practices.map((practice) => ({
-        id: practice.id,
-        excercises: practice.exercises.map((exercise) => ({
-          id: exercise.id,
-          tags: exercise.tags.map((tag) => tag.name),
-          difficulty: exercise.difficulty as number,
+  const studentsEvaluation = (await fetch(
+    "http://localhost:8082/api/evaluation",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        student_ids: course.studentIds,
+        practices: practices.map((practice) => ({
+          id: practice.id,
+          excercises: practice.exercises.map((exercise) => ({
+            id: exercise.id,
+            tags: exercise.tags.map((tag) => tag.name),
+            difficulty: exercise.difficulty as number,
+          })),
         })),
-      })),
-    }),
-  }).catch((err) => {
-    console.error(err);
-    return null;
-  }).then((res) => res?.json()) as {
+      }),
+    },
+  )
+    .catch((err) => {
+      console.error(err);
+      return null;
+    })
+    .then((res) => res?.json())) as {
     general_excercise_difficulty: number;
     course_resolve_capacity: number;
-    students_evaluations: Record<string, {
-      resolution_score: number;
-      resolution_capacity: number;
-    }>;
+    students_evaluations: Record<
+      string,
+      {
+        resolution_score: number;
+        resolution_capacity: number;
+      }
+    >;
   };
 
   // const studentsEvaluation = {
@@ -146,81 +165,108 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
 
   console.dir({ report, studentsEvaluation }, { depth: null });
 
-  const practicesData = Object.entries(report.practices).map(([practiceId, stats]) => ({
-    practiceId,
-    ...stats
-  }));
+  const practicesData = Object.entries(report.practices).map(
+    ([practiceId, stats]) => ({
+      practiceId,
+      ...stats,
+    }),
+  );
+
+  const users = await clerkClient.users.getUserList({
+    userId: course.studentIds,
+  });
 
   return (
     <>
       <Header2>Reporte del curso</Header2>
 
-      <div className="grid grid-cols-2 gap-4 mt-4">
-        <RatioChart 
+      <div className="mt-4 grid grid-cols-2 gap-4">
+        <RatioChart
           value={report.succeded_practices_ratio}
           title="Trabajos Prácticos"
           description="Porcentaje de trabajos prácticos resueltos"
         />
 
-        <RatioChart 
+        <RatioChart
           value={report.succeded_excercises_ratio}
           title="Ejercicios"
           description="Porcentaje de ejercicios resueltos"
         />
       </div>
 
-      <div className="flex flex-row gap-4 mt-4">
+      <div className="mt-4 flex flex-row gap-4">
         <Chart data={practicesData} />
         <PracticesSuccessRatioChart data={practicesData} />
       </div>
 
-      <div className="flex flex-row gap-4 mt-4">
-        <TagsSuccessRatioChart data={Object.entries(report.tags).map(([tag, stats]) => ({
-          tag,
-          ...stats
-        }))} />
+      <div className="mt-4 flex flex-row gap-4">
+        <TagsSuccessRatioChart
+          data={Object.entries(report.tags).map(([tag, stats]) => ({
+            tag,
+            ...stats,
+          }))}
+        />
 
-        <DifficultiesSuccessRatioChart data={Object.entries(report.difficulties).map(([difficulty, stats]) => ({
-          difficulty,
-          ...stats
-        }))} />
+        <DifficultiesSuccessRatioChart
+          data={Object.entries(report.difficulties).map(
+            ([difficulty, stats]) => ({
+              difficulty,
+              ...stats,
+            }),
+          )}
+        />
       </div>
 
       <div className="mt-8">
         <Header3>Evaluación general</Header3>
-        <div className="grid grid-cols-2 gap-4 mt-4">
-          <div className="p-4 bg-white rounded-lg shadow">
+        <div className="mt-4 grid grid-cols-2 gap-4">
+          <div className="rounded-lg bg-white p-4 shadow">
             <p className="text-gray-600">Dificultad general de ejercicios</p>
-            <p className="text-2xl font-bold">{studentsEvaluation.general_excercise_difficulty?.toFixed(2)}</p>
+            <p className="text-2xl font-bold">
+              {studentsEvaluation.general_excercise_difficulty?.toFixed(2)}
+            </p>
           </div>
-          <div className="p-4 bg-white rounded-lg shadow">
+          <div className="rounded-lg bg-white p-4 shadow">
             <p className="text-gray-600">Capacidad de resolución del curso</p>
-            <p className="text-2xl font-bold">{studentsEvaluation.course_resolve_capacity?.toFixed(2)}</p>
+            <p className="text-2xl font-bold">
+              {studentsEvaluation.course_resolve_capacity?.toFixed(2)}
+            </p>
           </div>
         </div>
 
         <div className="mt-6">
           <Header3>Evaluación por estudiante</Header3>
           <div className="mt-4 grid gap-4">
-            {Object.entries(studentsEvaluation.students_evaluations).map(([studentId, evaluation]) => (
-              <div key={studentId} className="p-4 bg-white rounded-lg shadow">
-                <p className="font-semibold">Estudiante ID: {studentId}</p>
-                <div className="grid grid-cols-2 gap-4 mt-2">
-                  <div>
-                    <p className="text-gray-600">Puntaje de resolución</p>
-                    <p className="text-xl">{evaluation.resolution_score?.toFixed(2)}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Capacidad de resolución</p>
-                    <p className="text-xl">{evaluation.resolution_capacity?.toFixed(2)}</p>
+            {Object.entries(studentsEvaluation.students_evaluations).map(
+              ([studentId, evaluation]) => (
+                <div key={studentId} className="rounded-lg bg-white p-4 shadow">
+                  <p className="font-semibold">
+                    Estudiante:{" "}
+                    {users.find((user) => user.id === studentId)?.firstName +
+                      " " +
+                      users.find((user) => user.id === studentId)?.lastName}
+                  </p>
+
+                  <div className="mt-2 grid grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-gray-600">Puntaje de resolución</p>
+                      <p className="text-xl">
+                        {evaluation.resolution_score?.toFixed(2)}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-gray-600">Capacidad de resolución</p>
+                      <p className="text-xl">
+                        {evaluation.resolution_capacity?.toFixed(2)}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ),
+            )}
           </div>
         </div>
       </div>
-      
     </>
   );
 }
