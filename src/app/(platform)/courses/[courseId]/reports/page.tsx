@@ -279,14 +279,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
                   <div className={cn(["mt-2 grid grid-cols-2 gap-4"])}>
                     <div>
                       <p className="text-gray-600">Puntaje de resolución</p>
-                      <p
-                        className={cn([
-                          "text-xl",
-                          evaluation.resolution_score > 50
-                            ? "text-gray-500"
-                            : "text-red-500",
-                        ])}
-                      >
+                      <p className={cn(["text-xl text-gray-500"])}>
                         {evaluation.resolution_score?.toFixed(2)}
                       </p>
                     </div>
@@ -295,8 +288,10 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
                       <p
                         className={cn([
                           "text-xl",
-                          evaluation.resolution_capacity > 50
-                            ? "text-gray-500"
+                          evaluation.resolution_capacity >= 70
+                            ? "text-green-500"
+                            : evaluation.resolution_capacity >= 50
+                            ? "text-gray-600"
                             : "text-red-500",
                         ])}
                       >
