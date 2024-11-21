@@ -235,7 +235,16 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
           </div>
           <div className="rounded-lg bg-white p-4 shadow">
             <p className="text-gray-600">Capacidad de resolución del curso</p>
-            <p className="text-2xl font-bold">
+            <p
+              className={cn([
+                "text-2xl font-bold",
+                studentsEvaluation.course_resolve_capacity >= 70
+                  ? "text-green-500"
+                  : studentsEvaluation.course_resolve_capacity >= 50
+                  ? "text-gray-600"
+                  : "text-red-500",
+              ])}
+            >
               {studentsEvaluation.course_resolve_capacity?.toFixed(2)}
             </p>
           </div>
