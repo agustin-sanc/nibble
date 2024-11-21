@@ -241,7 +241,7 @@ async function CourseReportsPage({ params }: { params: { courseId: string } }) {
                 studentsEvaluation.course_resolve_capacity >= 70
                   ? "text-green-500"
                   : studentsEvaluation.course_resolve_capacity >= 50
-                  ? "text-gray-600"
+                  ? "text-black"
                   : "text-red-500",
               ])}
             >
