@@ -26,7 +26,7 @@ export const Solution: FC<SolutionProps> = ({ problemId, testCases }) => {
   const { theme } = useTheme();
   const params = useParams<{ courseId: string; practiceId: string }>();
   const [code, setCode] = useState("");
-  const [language, setLanguage] = useState<"c++" | "python">("c++");
+  const [language, setLanguage] = useState<"c++" | "python">("python");
   const [error, setError] = useState<
     {
       testNumber: number;
